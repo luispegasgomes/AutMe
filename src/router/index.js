@@ -69,7 +69,7 @@ const routes = [
     component: Profile,
     meta: {
       requiresAuth: false,
-      title: "Profile",
+      title: "O meu perfil",
     },
   },
 ];
