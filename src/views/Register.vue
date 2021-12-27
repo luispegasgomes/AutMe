@@ -155,7 +155,7 @@
           Vamos começar a criar a tua conta... <br />
         </h1>
 
-        <p>Quem és tu para nós?</p>
+        <p>Precisamos do teu contacto!</p>
 
         <div class="m-4">
           <label for="txtRegisterContact"
