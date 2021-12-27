@@ -9,8 +9,8 @@
           <img src="../assets/Menino_Landing.svg" width="20%" />
         </section>
 
-        <section class="col-4 d-flex flex-column align-items-center">
-          <div class="games">
+        <section class="col-4 d-flex flex-column align-items-center" >
+          <div class="gamebox">
             <p
               class="d-flex flex-column align-items-center colorDarkBlue fontAsap weightBold"
               style="font-size: 35px"
@@ -24,28 +24,28 @@
               </div>
               <div class="d-flex flex-column">
                 <h2 class="fontAsap" style="font-size: 35px">Adivinha-me!</h2>
-                <p class="fontNunito col-11 my-2" style="font-size: 18px">
+                <p class="fontNunito col-9 my-1" style="font-size: 18px">
                   Será que tu sabes todas as nossas emoções?
                 </p>
                 <button
-                  class="fontNunito bgOrange colorDarkBlue col-10 btnsPlay my-3"
+                  class="fontNunito bgOrange colorDarkBlue btnsPlay my-2"
                 >
                   Jogar!
                 </button>
               </div>
             </div>
 
-            <div class="d-flex align-items-center my-4">
+            <div class="d-flex align-items-center my-5">
               <div class="d-flex flex-column align-items-center mx-4">
                 <img src="../assets/imita.jpg" class="imgs" />
               </div>
               <div class="d-flex flex-column">
                 <h2 class="fontAsap" style="font-size: 35px">Imita-me!</h2>
-                <p class="fontNunito col-11 my-2" style="font-size: 18px">
-                  Vê se consegues repetir as emoções que te são dadas!
+                <p class="fontNunito col-9 my-1" style="font-size: 18px">
+                  Vê se consegues repetir as emoções!
                 </p>
                 <button
-                  class="fontNunito bgOrange colorDarkBlue col-10 btnsPlay my-3"
+                  class="fontNunito bgOrange colorDarkBlue col-10 btnsPlay my-2"
                 >
                   Jogar!
                 </button>
@@ -78,11 +78,12 @@ export default {
   height: 100vh;
 }
 
-.games {
+.gamebox {
   border: 6px solid var(--orange);
   border-radius: 10px;
   color: var(--darkBlue);
   box-shadow: 12px 12px 0px var(--orange);
+  width: 500px;
 }
 
 .imgs {
@@ -93,7 +94,7 @@ export default {
 .btnsPlay {
   border: none;
   border-radius: 8px;
-  width: 150px;
+  width: 200px;
   height: 40px;
   font-size: 20px;
   font-weight: bold;

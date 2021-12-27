@@ -8,6 +8,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import InfoAutism from "../views/InfoAutism.vue";
 import Landing from "../views/Landing.vue";
+import Profile from "../views/Profile.vue";
 
 function isAuthenticated() {
   return store.getters.getIsAuthenticated;
@@ -60,6 +61,15 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Landing",
+    },
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+    meta: {
+      requiresAuth: false,
+      title: "Profile",
     },
   },
 ];
