@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="content px-5 py-3 d-flex flex-column justify-content-between">
-      <img src="../assets/logo.svg" alt="AutMe logo" width="35%" />
+      <img src="../assets/logo.svg" alt="AutMe logo" width="25%" />
 
       <div class="d-flex flex-column align-items-end px-5">
         <p class="fontAsap colorDarkBlue weightBold py-5 w-75" id="title">
@@ -70,10 +70,10 @@ export default {
   letter-spacing: 0.05em;
 }
 
-#btns * {
+#btns button {
   width: 224px;
   height: 50px;
-  box-shadow: 6px 6px #fff;
+  box-shadow: 6px 6px var(--white);
   border: none;
   border-radius: 10px;
   outline: none;

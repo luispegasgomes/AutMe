@@ -9,8 +9,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900");
 
-
-
 :root {
   --white: #ffffff;
   --black: #000000;
@@ -88,7 +86,7 @@ body,
   background: var(--black);
 }
 
-.bgrGrey {
+.bgGrey {
   background: var(--grey);
 }
 
