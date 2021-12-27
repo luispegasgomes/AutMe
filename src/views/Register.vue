@@ -59,7 +59,7 @@
           ></label>
           <input type="text" id="txtRegisterSurname" placeholder="Apelido" />
         </div>
-        <div class="m-4">
+        <div class="mx-4">
           <label for="txtRegisterBirthdate"
             ><b-icon-calendar-date scale="2.2"></b-icon-calendar-date>
           </label>
@@ -261,25 +261,22 @@ form p {
 
 form select {
   height: 40px;
-  width: 270px;
   font-size: 20px;
   border: 3px solid var(--blue);
   border-radius: 11px;
   padding: 0 5px;
   margin-left: 20px;
-
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 form input {
   height: 40px;
-  width: 270px;
+  width: 15rem;
   font-size: 20px;
   border: 3px solid var(--blue);
   border-radius: 11px;
   padding: 0 5px;
   margin-left: 20px;
-  margin-top: 10px;
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 
