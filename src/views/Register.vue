@@ -174,7 +174,7 @@
           />
         </div>
         <!-- <button type="button " class="my-4 px-5 btn btn-primary"> -->
-        <router-link :to="{ name: 'Landing' }">
+        <router-link :to="{ name: 'Login' }">
           <button type="button " class="my-4 px-5 btn btn-primary">
             Criar Conta
           </button>
