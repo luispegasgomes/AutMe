@@ -1,9 +1,9 @@
 <template>
   <div class="login">
     <div class="content p-5 d-flex flex-column align-items-center">
-      <img src="../assets/logo.svg" alt="AutMe logo" width="25%'" />
+      <img src="../assets/logo.svg" alt="AutMe logo" width="20%" />
 
-      <form class="py-3 bgWhite">
+      <form class="bgWhite py-3 px-5 my-4" @submit.prevent="login">
         <h1 class="fontAsap weightBold">
           Ainda bem que voltaste! <br />Já estavamos com saudades tuas! <br />
           <img src="../assets/smile.png" alt="sorriso" width="70" />
@@ -13,14 +13,30 @@
           <label for="username"
             ><b-icon-person-fill scale="2.2"></b-icon-person-fill
           ></label>
-          <input type="text" id="username" placeholder="Nome de utilizador" />
+          <input
+            type="text"
+            id="username"
+            placeholder="Nome de utilizador"
+            v-model="username"
+            required
+          />
         </div>
         <div class="m-3">
           <label for="password"
             ><b-icon-lock-fill scale="2.2"></b-icon-lock-fill
           ></label>
-          <input type="password" id="password" placeholder="Palavra-passe" />
+          <input
+            type="password"
+            id="password"
+            placeholder="Palavra-passe"
+            v-model="password"
+            required
+          />
         </div>
+
+        <BAlert :show="error" variant="danger" class="mx-5"
+          >O nome de utilizador ou palavra-passe estão errados!</BAlert
+        >
 
         <button class="my-4 px-5 btn btn-primary">Submit</button>
 
@@ -35,12 +51,36 @@
 </template>
 
 <script>
-import { BIconPersonFill, BIconLockFill } from "bootstrap-vue";
+import { BIconPersonFill, BIconLockFill, BAlert } from "bootstrap-vue";
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   name: "Login",
   components: {
     BIconPersonFill,
     BIconLockFill,
+    BAlert,
+  },
+  data() {
+    return {
+      username: "",
+      password: "",
+      error: false,
+    };
+  },
+  methods: {
+    login() {
+      if (this.isUser(this.username, this.password)) {
+        this.SET_LOGGED_USER(this.username);
+        this.$router.push({ name: "Landing" });
+      } else {
+        this.error = true;
+      }
+    },
+    ...mapMutations(["SET_LOGGED_USER"]),
+  },
+  computed: {
+    ...mapGetters(["isUser"]),
   },
 };
 </script>
@@ -72,11 +112,9 @@ export default {
 }
 
 form {
-  height: 40rem;
   border: 4px solid var(--orange);
   border-radius: 11px;
   box-shadow: 8px 8px var(--orange);
-  width: 50rem;
   text-align: center;
 }
 

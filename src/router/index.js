@@ -42,7 +42,7 @@ const routes = [
     component: Register,
     meta: {
       requiresAuth: false,
-      title: "Entrar",
+      title: "Registar",
     },
   },
   {
