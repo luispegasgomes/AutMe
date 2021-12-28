@@ -1,17 +1,22 @@
 <template>
   <div class="landing bgGrey d-flex flex-column justify-content-between">
-    <Navbar/>
+    <Navbar />
     <main>
       <div class="d-flex align-items-center justify-content-center">
         <section class="d-flex flex-column mx-5">
-          <p style="position: relative; top:80px; left:17px; font-size:18px;">Altera aqui as tuas informações <br> pessoais!</p>
-          <img src="../assets/balao_mensagem.svg" width="300px"/>
-          <img src="../assets/gato_feliz.svg" width="220px"/>
+          <p style="position: relative; top: 80px; left: 17px; font-size: 18px">
+            Altera aqui as tuas informações <br />
+            pessoais!
+          </p>
+          <img src="../assets/balao_mensagem.svg" width="300px" />
+          <img src="../assets/gato_feliz.svg" width="220px" />
         </section>
 
         <div class="d-flex align-items-center">
           <!--PROFILE INFORMATIONS-->
-          <div class="profileBox2 d-flex flex-column align-items-center mx-5 mb-3">
+          <div
+            class="profileBox2 d-flex flex-column align-items-center mx-5 mb-3"
+          >
             <img
               src="../assets/temp_profile_img.png"
               height="100"
@@ -22,7 +27,7 @@
               <div class="d-flex flex-column align-items-center">
                 <h2 class="fontAsap" style="font-size: 35px">Pedro Silva</h2>
                 <p class="fontNunito my-1" style="font-size: 18px">
-                  pedrorique2002
+                  {{ getUsername }}
                 </p>
               </div>
               <div class="my-5">
@@ -138,12 +143,15 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-
+import { mapGetters } from "vuex";
 export default {
   name: "Landing",
   components: {
     Navbar,
     Footer,
+  },
+  computed: {
+    ...mapGetters(["getUsername"]),
   },
 };
 </script>

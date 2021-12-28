@@ -2,7 +2,7 @@
   <nav class="d-flex justify-content-between align-items-end px-3 py-2">
     <img src="../assets/logo.svg" alt="AutMe logo" height="50" />
 
-    <div class="d-flex align-items-end colorDarkBlue" style="font-size:20px;">
+    <div class="d-flex align-items-end colorDarkBlue" style="font-size: 20px">
       <ul class="navbar-nav fontBarlow weightLight d-flex flex-row">
         <li class="nav-item mx-2">
           <router-link :to="{ name: '' }" class="nav-link text-uppercase"
@@ -10,7 +10,7 @@
           >
         </li>
         <li class="nav-item mx-2" v-if="true">
-          <router-link :to="{ name: '' }" class="nav-link text-uppercase"
+          <router-link :to="{ name: 'Diary' }" class="nav-link text-uppercase"
             >Diário</router-link
           >
         </li>
@@ -41,8 +41,9 @@
         </li>
       </ul>
     </div>
-
-    <img src="../assets/temp_profile_img.png" height="50" />
+    <router-link :to="{ name: 'Profile' }"
+      ><img src="../assets/temp_profile_img.png" height="50"
+    /></router-link>
   </nav>
 </template>
 

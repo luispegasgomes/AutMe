@@ -3,13 +3,14 @@
     <Navbar />
 
     <main>
-      <div class="mt-5 d-flex">
-        <section class="col-7 d-flex flex-column align-items-center">
-          <img src="../assets/balao_mensagem.svg" width="30%" />
-          <img src="../assets/Menino_Landing.svg" width="20%" />
+      <div class="d-flex align-items-center justify-content-center">
+        <section class="col-4 d-flex flex-column align-items-center mb-4">
+          <p style="position: relative; top:75px; left:-50px; font-size:25px; font-weight: bold;" class="fontAsap">Olá {{ getUsername }}!</p>
+          <img src="../assets/balao_mensagem.svg" width="300px" />
+          <img src="../assets/Menino_Landing.svg" width="200px" />
         </section>
-
-        <section class="col-4 d-flex flex-column align-items-center" >
+        
+        <section class="col-5 d-flex flex-column align-items-center" >
           <div class="gamebox">
             <p
               class="d-flex flex-column align-items-center colorDarkBlue fontAsap weightBold"
@@ -63,12 +64,20 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-
+import { mapGetters } from "vuex";
 export default {
   name: "Landing",
   components: {
     Navbar,
     Footer,
+  },
+  data() {
+    return {
+      name: "Landing",
+    }
+  },
+  computed: {
+    ...mapGetters(["getUsername"]),
   },
 };
 </script>
@@ -100,4 +109,5 @@ export default {
   font-weight: bold;
   color: var(--darkBlue);
 }
+
 </style>
