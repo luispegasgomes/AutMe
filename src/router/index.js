@@ -9,6 +9,7 @@ import Register from "../views/Register.vue";
 import InfoAutism from "../views/InfoAutism.vue";
 import Landing from "../views/Landing.vue";
 import Profile from "../views/Profile.vue";
+import Diary from "../views/Diary.vue";
 
 function isAuthenticated() {
   return store.getters.getIsAuthenticated;
@@ -70,6 +71,15 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "O meu perfil",
+    },
+  },
+  {
+    path: "/diary",
+    name: "Diary",
+    component: Diary,
+    meta: {
+      requiresAuth: false,
+      title: "O meu diário",
     },
   },
 ];
