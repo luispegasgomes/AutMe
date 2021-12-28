@@ -32,7 +32,7 @@
               </div>
               <div class="my-5">
                 <p class="fontNunito my-1" style="font-size: 18px">
-                  pedrorique2002@gmail.com
+                  {{ getLoggedUserInformations.email }}
                 </p>
                 <p class="fontNunito my-1" style="font-size: 18px">
                   01/01/2002
@@ -66,23 +66,23 @@
                   </h2>
                 </div>
                 <div class="my-3">
-                  <form class="d-flex flex-column align-items-center">
+                  <form @submit.prevent="changePassword" class="d-flex flex-column align-items-center">
                     <input
                       class="my-2 col-9"
                       type="password"
-                      id="password"
+                      v-model="form.currentPassword"
                       placeholder="Atual"
                     />
                     <input
                       class="my-2 col-9"
+                      v-model="form.newPassword"
                       type="password"
-                      id="password"
                       placeholder="Nova"
                     />
                     <input
                       class="my-2 col-9"
+                      v-model="form.confirmPassword"
                       type="password"
-                      id="password"
                       placeholder="Confirmar"
                     />
                     <input
@@ -118,7 +118,6 @@
                     <input
                       class="my-2 col-9"
                       type="password"
-                      id="password"
                       placeholder="Código"
                     />
                     <input
@@ -143,15 +142,37 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "Landing",
+  data() {
+    return {
+      name: "Profile",
+      form: {
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      },
+    };
+  },
   components: {
     Navbar,
     Footer,
   },
+  methods: {
+    changePassword() {
+      if (this.getLoggedUserInformations.password == this.form.currentPassword) {
+        console.log('muito bem');
+        this.$store.commit('SET_NEW_PASSWORD', this.form.newPassword)
+      }
+      else {
+        alert('As passwords não coicidem!')
+      }
+    },
+    ...mapMutations(["SET_NEW_PASSWORD"])
+  },
   computed: {
-    ...mapGetters(["getUsername"]),
+    ...mapGetters(["getUsername", "getLoggedUserInformations"]),
   },
 };
 </script>

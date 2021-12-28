@@ -16,87 +16,81 @@ export default {
     isAuthenticated: false,
     loggedUserType: "",
     loggedUsername: "",
-    users: localStorage.users
-      ? JSON.parse(localStorage.users)
-      : [
-          {
-            username: "admin",
-            email: "admin@gmail.com",
-            password: "Esmad_2122",
-            type: "admin",
-          },
-          {
-            username: "crianca",
-            email: "crianca@gmail.com",
-            password: "Esmad_2122",
-            type: "child",
-          },
-          {
-            username: "tutor",
-            email: "tutor@gmail.com",
-            password: "Esmad_2122",
-            type: "tutor",
-          },
-          {
-            username: "psicologo",
-            email: "psicologo@gmail.com",
-            password: "Esmad_2122",
-            type: "psychologist",
-          },
-        ],
-    admins: localStorage.admins
-      ? JSON.parse(localStorage.admins)
-      : [
-          {
-            username: "admin",
-            name: "Nome Admin",
-            avatar: "",
-          },
-        ],
-    children: localStorage.children
-      ? JSON.parse(localStorage.children)
-      : [
-          {
-            username: "crianca",
-            name: "Nome Criança",
-            avatar: "",
-            gender: "M",
-            birth: "2002-01-01",
-            code: create_UUID(),
-          },
-        ],
-    tutors: localStorage.tutors
-      ? JSON.parse(localStorage.tutors)
-      : [
-          {
-            username: "tutor",
-            name: "Nome Tutor",
-            avatar: "",
-            gender: "M",
-            birth: "1960-01-01",
-            contact: "912345678",
-          },
-        ],
-    psychologists: localStorage.psychologists
-      ? JSON.parse(localStorage.psychologists)
-      : [
-          {
-            username: "psicologo",
-            name: "Nome Psicólogo",
-            avatar: "",
-            gender: "F",
-            birth: "1996-01-01",
-            contact: "932145678",
-            locationAdress: "rua",
-            postalCode: "4000-123",
-            city: "Maia",
-          },
-        ],
+    loggedUserInfo: [],
+
+    users: localStorage.users ?
+      JSON.parse(localStorage.users) :
+      [{
+          username: "admin",
+          email: "admin@gmail.com",
+          password: "Esmad_2122",
+          type: "admin",
+        },
+        {
+          username: "crianca",
+          email: "crianca@gmail.com",
+          password: "Esmad_2122",
+          type: "child",
+        },
+        {
+          username: "tutor",
+          email: "tutor@gmail.com",
+          password: "Esmad_2122",
+          type: "tutor",
+        },
+        {
+          username: "psicologo",
+          email: "psicologo@gmail.com",
+          password: "Esmad_2122",
+          type: "psychologist",
+        },
+      ],
+    admins: localStorage.admins ?
+      JSON.parse(localStorage.admins) :
+      [{
+        username: "admin",
+        name: "Nome Admin",
+        avatar: "",
+      }, ],
+    children: localStorage.children ?
+      JSON.parse(localStorage.children) :
+      [{
+        username: "crianca",
+        name: "Nome Criança",
+        avatar: "",
+        gender: "M",
+        birth: "2002-01-01",
+        code: create_UUID(),
+      }, ],
+    tutors: localStorage.tutors ?
+      JSON.parse(localStorage.tutors) :
+      [{
+        username: "tutor",
+        name: "Nome Tutor",
+        avatar: "",
+        gender: "M",
+        birth: "1960-01-01",
+        contact: "912345678",
+      }, ],
+    psychologists: localStorage.psychologists ?
+      JSON.parse(localStorage.psychologists) :
+      [{
+        username: "psicologo",
+        name: "Nome Psicólogo",
+        avatar: "",
+        gender: "F",
+        birth: "1996-01-01",
+        contact: "932145678",
+        locationAdress: "rua",
+        postalCode: "4000-123",
+        city: "Maia",
+      }, ],
   },
   getters: {
     getIsAuthenticated: (state) => state.isAuthenticated,
     getUserType: (state) => state.loggedUserType,
     getUsername: (state) => state.loggedUsername,
+    getLoggedUserInformations: (state) => state.loggedUserInfo,
     isUser: (state) => (username, password) =>
       state.users.some(
         (user) => user.username === username && user.password === password
@@ -112,11 +106,17 @@ export default {
       state.isAuthenticated = true;
       state.loggedUserType = user.type;
       state.loggedUsername = user.username;
+      state.loggedUserInfo = state.users.find((user) => user.username === payload);
+      localStorage.loggedUserInfo = JSON.stringify(state.loggedUserInfo);
     },
     SET_LOGOUT(state) {
       state.isAuthenticated = false;
       state.loggedUserType = "";
       state.loggedUsername = "";
+    },
+    SET_NEW_PASSWORD(state, payload) {
+      state.users = state.users.map(user => user.username === state.loggedUsername ? {...user, password: payload} : user )
+      console.log(state.users); 
     },
     CREATE_ACCOUNT(state, payload) {
       state.users.push({
