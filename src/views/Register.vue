@@ -355,13 +355,14 @@ export default {
         this.form.confirmPassword
       ) {
         this.whiteFieldsError = false;
-        if (this.isUnvailable(this.form.username, this.form.userEmail)) {
+        if (!this.isUnvailable(this.form.username, this.form.userEmail)) {
           this.existsAuthError = true;
         } else if (this.form.userPassword !== this.form.confirmPassword) {
           this.differentPasswordError = true;
         } else {
           if (this.form.userType == "child") {
             this.CREATE_ACCOUNT(this.form);
+            this.$router.push({ name: "Login" });
           } else {
             this.nextStep();
           }

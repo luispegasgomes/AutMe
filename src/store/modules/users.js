@@ -108,7 +108,6 @@ export default {
   },
   mutations: {
     SET_LOGGED_USER(state, payload) {
-      console.log(state);
       const user = state.users.find((user) => user.username === payload);
       state.isAuthenticated = true;
       state.loggedUserType = user.type;
@@ -119,7 +118,6 @@ export default {
       state.loggedUserType = "";
       state.loggedUsername = "";
     },
-
     CREATE_ACCOUNT(state, payload) {
       state.users.push({
         username: payload.username,
@@ -127,6 +125,7 @@ export default {
         password: payload.userPassword,
         type: payload.userType,
       });
+      localStorage.users = JSON.stringify(state.users);
       if (payload.userType === "admin") {
         state.admins.push({
           username: payload.username,
