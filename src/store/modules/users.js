@@ -19,8 +19,7 @@ export default {
     loggedUserInfo: [],
 
     users: localStorage.users ?
-      JSON.parse(localStorage.users) :
-      [{
+      JSON.parse(localStorage.users) : [{
           username: "admin",
           email: "admin@gmail.com",
           password: "Esmad_2122",
@@ -46,15 +45,13 @@ export default {
         },
       ],
     admins: localStorage.admins ?
-      JSON.parse(localStorage.admins) :
-      [{
+      JSON.parse(localStorage.admins) : [{
         username: "admin",
         name: "Nome Admin",
         avatar: "",
       }, ],
     children: localStorage.children ?
-      JSON.parse(localStorage.children) :
-      [{
+      JSON.parse(localStorage.children) : [{
         username: "crianca",
         name: "Nome Criança",
         avatar: "",
@@ -63,8 +60,7 @@ export default {
         code: create_UUID(),
       }, ],
     tutors: localStorage.tutors ?
-      JSON.parse(localStorage.tutors) :
-      [{
+      JSON.parse(localStorage.tutors) : [{
         username: "tutor",
         name: "Nome Tutor",
         avatar: "",
@@ -73,8 +69,7 @@ export default {
         contact: "912345678",
       }, ],
     psychologists: localStorage.psychologists ?
-      JSON.parse(localStorage.psychologists) :
-      [{
+      JSON.parse(localStorage.psychologists) : [{
         username: "psicologo",
         name: "Nome Psicólogo",
         avatar: "",
@@ -85,12 +80,29 @@ export default {
         postalCode: "4000-123",
         city: "Maia",
       }, ],
+
+    diary: localStorage.diary ?
+      JSON.parse(localStorage.diary) : [
+        {
+          username: "luisgomes",
+          title: "Estou feliz!",
+          description: "Foi um dia em cheio :D :D",
+          date: "23/02/2021",
+        },
+        {
+          username: "luisgomes",
+          title: "Estou muito triste:(",
+          description: "Foi um dia que não me senti bem na escola!",
+          date: "23/04/2021",
+        },
+      ],
   },
   getters: {
     getIsAuthenticated: (state) => state.isAuthenticated,
     getUserType: (state) => state.loggedUserType,
     getUsername: (state) => state.loggedUsername,
     getLoggedUserInformations: (state) => state.loggedUserInfo,
+    getUsernameDiary: (state) => state.diary.filter(d => d.username === JSON.parse(localStorage.loggedUserInfo).username),
     isUser: (state) => (username, password) =>
       state.users.some(
         (user) => user.username === username && user.password === password
@@ -115,8 +127,11 @@ export default {
       state.loggedUsername = "";
     },
     SET_NEW_PASSWORD(state, payload) {
-      state.users = state.users.map(user => user.username === state.loggedUsername ? {...user, password: payload} : user )
-      console.log(state.users); 
+      state.users = state.users.map(user => user.username === state.loggedUsername ? {
+        ...user,
+        password: payload
+      } : user)
+      console.log(state.users);
     },
     CREATE_ACCOUNT(state, payload) {
       state.users.push({
