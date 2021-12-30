@@ -10,6 +10,8 @@ import InfoAutism from "../views/InfoAutism.vue";
 import Landing from "../views/Landing.vue";
 import Profile from "../views/Profile.vue";
 import Diary from "../views/Diary.vue";
+import Children from "../views/Children.vue";
+
 
 function isAuthenticated() {
   return store.getters.getIsAuthenticated;
@@ -80,6 +82,15 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "O meu diário",
+    },
+  },
+  {
+    path: "/children",
+    name: "Children",
+    component: Children,
+    meta: {
+      requiresAuth: false,
+      title: "As minhas crianças",
     },
   },
 ];

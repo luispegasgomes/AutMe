@@ -15,7 +15,9 @@
           >
         </li>
         <li class="nav-item mx-2" v-if="true">
-          <router-link :to="{ name: '' }" class="nav-link text-uppercase"
+          <router-link
+            :to="{ name: 'Children' }"
+            class="nav-link text-uppercase"
             >Crianças</router-link
           >
         </li>
