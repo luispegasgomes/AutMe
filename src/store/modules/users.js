@@ -133,6 +133,15 @@ export default {
       } : user)
       console.log(state.users);
     },
+    SET_NEW_DIARY(state, payload) {
+      state.diary.push({
+        username: payload.username,
+        title: payload.title,
+        description: payload.description,
+        date: payload.date,
+      })
+      localStorage.diary = JSON.stringify(state.diary);
+    },
     CREATE_ACCOUNT(state, payload) {
       state.users.push({
         username: payload.username,

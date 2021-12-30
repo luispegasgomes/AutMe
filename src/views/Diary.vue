@@ -1,9 +1,9 @@
 <template>
-  <div class="landing bgGrey d-flex flex-column justify-content-between">
+  <div class="landing bgGrey d-flex flex-column" style="">
     <Navbar />
     <main>
-      <div class="d-flex flex-column align-items-center justify-content-center">
-        <div class="d-flex align-items-center">
+      <div class="d-flex flex-column align-items-center mb-5">
+        <div class="d-flex align-items-center mt-5">
           <img src="../assets/diary.png" height="70" />
           <p class="fontAsap mx-2 colorDarkBlue" style="font-size: 30px">
             O meu diário
@@ -45,47 +45,73 @@
             <div class="text mx-1">
               {{ info.description }}
             </div>
-            <p class="d-flex flex-column align-items-end mx-1">
+            <div class="d-flex flex-column align-items-end mx-1">
               {{ info.date }}
-            </p>
+            </div>
           </div>
           <!--DIARY INFORMATIONS-->
         </div>
       </div>
-          <div>
-      <b-modal id="modal-1" title="Conta-nos o teu dia!">
-        <form @sumbit.prevent="addDiary">
-          <input type="submit">
-        </form>
-      </b-modal>
-    </div>
+      <div>
+        <!--ADD NEW DIARY-->
+        <b-modal
+          id="modal-1"
+          title="Conta-nos o teu dia!"
+          ok-title="Confirmar"
+          @ok="addDiary"
+        >
+          <form class="d-flex flex-column align-items-center">
+            <input type="text" id="txtTitle" v-model="form.title" placeholder="Título" class="col-10"/>
+            <input
+              type="text"
+              id="txtDescription"
+              v-model="form.description"
+              class="my-3 col-10"
+              placeholder="Descrição do teu dia"
+              style="height:200px"
+            />
+            <input type="text" id="txtDate" v-model="form.date" placeholder="Data" class="col-10"/>
+          </form>
+        </b-modal>
+        <!--ADD NEW DIARY-->
+      </div>
     </main>
-    <Footer />
-    <!--ADD NEW DIARY-->
-
-    <!--ADD NEW DIARY-->
+    <div class="footer col-12">
+      <Footer />
+    </div>
   </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Landing",
+  data() {
+    return {
+      form: {
+        username: "",
+        title: "",
+        description: "",
+        date: "",
+      },
+    };
+  },
   components: {
     Navbar,
     Footer,
   },
   methods: {
     addDiary() {
-      console.log('da');
-      alert('ok')
+      this.form.username = this.getUsername
+      this.SET_NEW_DIARY(this.form);
     },
+    ...mapMutations(["SET_NEW_DIARY"]),
   },
   computed: {
-    ...mapGetters(["getLoggedUserInformations", "getUsernameDiary"]),
+    ...mapGetters(["getUsername", "getUsernameDiary"]),
   },
 };
 </script>
@@ -100,7 +126,7 @@ export default {
 }
 
 .landing {
-  height: 100vh;
+  width: 100%;
 }
 
 .profileBox2 {
@@ -142,5 +168,9 @@ input {
   display: -webkit-box;
   -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
+}
+.footer {
+  position: relative;
+  bottom: 0;
 }
 </style>
