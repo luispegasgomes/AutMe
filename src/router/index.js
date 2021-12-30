@@ -11,6 +11,7 @@ import Landing from "../views/Landing.vue";
 import Profile from "../views/Profile.vue";
 import Diary from "../views/Diary.vue";
 import Children from "../views/Children.vue";
+import PsychologistList from "../views/PsychologistList.vue";
 
 
 function isAuthenticated() {
@@ -91,6 +92,15 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "As minhas crianças",
+    },
+  },
+  {
+    path: "/PsychologistList",
+    name: "PsychologistList",
+    component: PsychologistList,
+    meta: {
+      requiresAuth: false,
+      title: "Os psicólogos",
     },
   },
 ];

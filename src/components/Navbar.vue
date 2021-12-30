@@ -32,7 +32,9 @@
           >
         </li>
         <li class="nav-item mx-2" v-if="true">
-          <router-link :to="{ name: '' }" class="nav-link text-uppercase"
+          <router-link
+            :to="{ name: 'PsychologistList' }"
+            class="nav-link text-uppercase"
             >Psicólogos</router-link
           >
         </li>
