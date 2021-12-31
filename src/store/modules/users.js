@@ -18,90 +18,109 @@ export default {
     loggedUsername: "",
     loggedUserInfo: "",
 
-    users: localStorage.users ?
-      JSON.parse(localStorage.users) : [{
-          username: "admin",
-          email: "admin@gmail.com",
-          password: "Esmad_2122",
-          type: "admin",
-        },
-        {
-          username: "crianca",
-          email: "crianca@gmail.com",
-          password: "Esmad_2122",
-          type: "child",
-        },
-        {
-          username: "tutor",
-          email: "tutor@gmail.com",
-          password: "Esmad_2122",
-          type: "tutor",
-        },
-        {
-          username: "psicologo",
-          email: "psicologo@gmail.com",
-          password: "Esmad_2122",
-          type: "psychologist",
-        },
-      ],
-    admins: localStorage.admins ?
-      JSON.parse(localStorage.admins) : [{
-        username: "admin",
-        name: "Nome Admin",
-        avatar: "",
-      }, ],
-    children: localStorage.children ?
-      JSON.parse(localStorage.children) : [{
-        username: "crianca",
-        name: "Nome Criança",
-        avatar: "",
-        gender: "M",
-        birth: "2002-01-01",
-        code: create_UUID(),
-      }, ],
-    tutors: localStorage.tutors ?
-      JSON.parse(localStorage.tutors) : [{
-        username: "tutor",
-        name: "Nome Tutor",
-        avatar: "",
-        gender: "M",
-        birth: "1960-01-01",
-        contact: "912345678",
-      }, ],
-    psychologists: localStorage.psychologists ?
-      JSON.parse(localStorage.psychologists) : [{
-        username: "psicologo",
-        name: "Nome Psicólogo",
-        avatar: "",
-        gender: "F",
-        birth: "1996-01-01",
-        contact: "932145678",
-        locationAdress: "rua",
-        postalCode: "4000-123",
-        city: "Maia",
-      }, ],
+    users: localStorage.users
+      ? JSON.parse(localStorage.users)
+      : [
+          {
+            username: "admin",
+            email: "admin@gmail.com",
+            password: "Esmad_2122",
+            type: "admin",
+          },
+          {
+            username: "crianca",
+            email: "crianca@gmail.com",
+            password: "Esmad_2122",
+            type: "child",
+          },
+          {
+            username: "tutor",
+            email: "tutor@gmail.com",
+            password: "Esmad_2122",
+            type: "tutor",
+          },
+          {
+            username: "psicologo",
+            email: "psicologo@gmail.com",
+            password: "Esmad_2122",
+            type: "psychologist",
+          },
+        ],
+    admins: localStorage.admins
+      ? JSON.parse(localStorage.admins)
+      : [
+          {
+            username: "admin",
+            name: "Nome Admin",
+            avatar: "",
+          },
+        ],
+    children: localStorage.children
+      ? JSON.parse(localStorage.children)
+      : [
+          {
+            username: "crianca",
+            name: "Nome Criança",
+            avatar: "",
+            gender: "M",
+            birth: "2002-01-01",
+            code: create_UUID(),
+          },
+        ],
+    tutors: localStorage.tutors
+      ? JSON.parse(localStorage.tutors)
+      : [
+          {
+            username: "tutor",
+            name: "Nome Tutor",
+            avatar: "",
+            gender: "M",
+            birth: "1960-01-01",
+            contact: "912345678",
+          },
+        ],
+    psychologists: localStorage.psychologists
+      ? JSON.parse(localStorage.psychologists)
+      : [
+          {
+            username: "psicologo",
+            name: "Nome Psicólogo",
+            avatar: "",
+            gender: "F",
+            birth: "1996-01-01",
+            contact: "932145678",
+            locationAdress: "rua",
+            postalCode: "4000-123",
+            city: "Maia",
+          },
+        ],
 
-    diary: localStorage.diary ?
-      JSON.parse(localStorage.diary) : [{
-          username: "luisgomes",
-          title: "Estou feliz!",
-          description: "Foi um dia em cheio :D :D",
-          date: "23/02/2021",
-        },
-        {
-          username: "luisgomes",
-          title: "Estou muito triste:(",
-          description: "Foi um dia que não me senti bem na escola!",
-          date: "23/04/2021",
-        },
-      ],
+    diary: localStorage.diary
+      ? JSON.parse(localStorage.diary)
+      : [
+          {
+            username: "luisgomes",
+            title: "Estou feliz!",
+            description: "Foi um dia em cheio :D :D",
+            date: "23/02/2021",
+          },
+          {
+            username: "luisgomes",
+            title: "Estou muito triste:(",
+            description: "Foi um dia que não me senti bem na escola!",
+            date: "23/04/2021",
+          },
+        ],
   },
   getters: {
     getIsAuthenticated: (state) => state.isAuthenticated,
     getUserType: (state) => state.loggedUserType,
     getUsername: (state) => state.loggedUsername,
     getLoggedUserInformations: (state) => state.loggedUserInfo,
-    getUsernameDiary: (state) => state.diary.filter(d => d.username === JSON.parse(localStorage.loggedUserInfo).username),
+    getUsernameDiary: (state) =>
+      state.diary.filter(
+        (d) => d.username === JSON.parse(localStorage.loggedUserInfo).username
+      ),
     isUser: (state) => (username, password) =>
       state.users.some(
         (user) => user.username === username && user.password === password
@@ -117,23 +136,31 @@ export default {
       state.isAuthenticated = true;
       state.loggedUserType = user.type;
       state.loggedUsername = user.username;
-      state.loggedUserInfo = state.users.find((user) => user.username === payload);
+      state.loggedUserInfo = state.users.find(
+        (user) => user.username === payload
+      );
 
       switch (state.loggedUserType) {
         case "child":
-          state.loggedUserInfo = state.children.find((user) => user.username === payload);
+          state.loggedUserInfo = state.children.find(
+            (user) => user.username === payload
+          );
           break;
 
         case "psychologists":
-          state.loggedUserInfo = state.psychologists.find((user) => user.username === payload);
+          state.loggedUserInfo = state.psychologists.find(
+            (user) => user.username === payload
+          );
           break;
 
         case "tutors":
-          state.loggedUserInfo = state.tutors.find((user) => user.username === payload);
+          state.loggedUserInfo = state.tutors.find(
+            (user) => user.username === payload
+          );
           break;
 
         default:
-          console.log('Vazio');
+          console.log("Vazio");
       }
       localStorage.loggedUserInfo = JSON.stringify(state.loggedUserInfo);
     },
@@ -143,13 +170,16 @@ export default {
       state.loggedUsername = "";
     },
     SET_NEW_PASSWORD(state, payload) {
-      state.users = state.users.map(user => user.username === state.loggedUsername ? {
-        ...user,
-        password: payload
-      } : user)
+      state.users = state.users.map((user) =>
+        user.username === state.loggedUsername
+          ? {
+              ...user,
+              password: payload,
+            }
+          : user
+      );
 
       localStorage.users = JSON.stringify(state.users);
-
     },
     SET_NEW_DIARY(state, payload) {
       state.diary.push({
@@ -157,7 +187,7 @@ export default {
         title: payload.title,
         description: payload.description,
         date: payload.date,
-      })
+      });
       localStorage.diary = JSON.stringify(state.diary);
     },
     CREATE_ACCOUNT(state, payload) {
@@ -209,6 +239,55 @@ export default {
         });
         localStorage.tutors = JSON.stringify(state.tutors);
       }
+    },
+    UPDATE_ACCOUNT(state, payload) {
+      const requestedUser = state.users.find(
+        (user) => user.username === payload
+      );
+
+      if (requestedUser.type === "child") {
+        const child = state.children.find(
+          (c) => c.username === requestedUser.username
+        );
+        state.admins.push({
+          username: child.username,
+          name: child.name,
+          avatar: child.avatar,
+        });
+        state.children = state.children.filter(
+          (c) => c.username !== requestedUser.username
+        );
+      } else if (requestedUser.type === "tutor") {
+        const tutor = state.tutors.find(
+          (t) => t.username === requestedUser.username
+        );
+        state.admins.push({
+          username: tutor.username,
+          name: tutor.name,
+          avatar: tutor.avatar,
+        });
+        state.tutors = state.tutors.filter(
+          (t) => t.username !== requestedUser.username
+        );
+      } else {
+        const psychologist = state.psychologists.find(
+          (p) => p.username === requestedUser.username
+        );
+        state.admins.push({
+          username: psychologist.username,
+          name: psychologist.name,
+          avatar: psychologist.avatar,
+        });
+        state.psychologists = state.psychologists.filter(
+          (p) => p.username !== requestedUser.username
+        );
+      }
+
+      localStorage.users = JSON.stringify(state.users);
+      localStorage.admins = JSON.stringify(state.admins);
+      localStorage.children = JSON.stringify(state.children);
+      localStorage.tutors = JSON.stringify(state.tutors);
+      localStorage.psychologists = JSON.stringify(state.psychologists);
     },
   },
   actions: {},

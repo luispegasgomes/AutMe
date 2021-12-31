@@ -12,7 +12,9 @@ import Profile from "../views/Profile.vue";
 import Diary from "../views/Diary.vue";
 import Children from "../views/Children.vue";
 import PsychologistList from "../views/PsychologistList.vue";
-
+import EmotionsList from "../views/EmotionsList.vue";
+import Manage from "../views/Manage.vue";
+import Error from "../views/Error.vue";
 
 function isAuthenticated() {
   return store.getters.getIsAuthenticated;
@@ -101,6 +103,33 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Os psicólogos",
+    },
+  },
+  {
+    path: "/emotions",
+    name: "EmotionsList",
+    component: EmotionsList,
+    meta: {
+      requiresAuth: false,
+      title: "Emoções",
+    },
+  },
+  {
+    path: "/manage",
+    name: "Manage",
+    component: Manage,
+    meta: {
+      requiresAuth: false,
+      title: "Gestão",
+    },
+  },
+  {
+    path: "*",
+    name: "Error",
+    component: Error,
+    meta: {
+      requiresAuth: false,
+      title: "Erro",
     },
   },
 ];
