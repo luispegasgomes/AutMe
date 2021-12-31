@@ -25,7 +25,7 @@
 
             <div class="d-flex flex-column align-items-center">
               <div class="d-flex flex-column align-items-center">
-                <h2 class="fontAsap" style="font-size: 35px">Pedro Silva</h2>
+                <h2 class="fontAsap" style="font-size: 35px">{{getLoggedUserInformations.name}}</h2>
                 <p class="fontNunito my-1" style="font-size: 18px">
                   {{ getUsername }}
                 </p>
@@ -35,11 +35,11 @@
                   {{ getLoggedUserInformations.email }}
                 </p>
                 <p class="fontNunito my-1" style="font-size: 18px">
-                  01/01/2002
+                  {{getLoggedUserInformations.birth}}
                 </p>
-                <p class="fontNunito my-1" style="font-size: 18px">912222656</p>
+                <p class="fontNunito my-1" style="font-size: 18px">{{getLoggedUserInformations.contact}}</p>
                 <p class="fontNunito my-1" style="font-size: 18px">
-                  Moreira da Maia, Porto
+                  {{getLoggedUserInformations.city}}
                 </p>
               </div>
             </div>
@@ -164,6 +164,7 @@ export default {
       if (this.getLoggedUserInformations.password == this.form.currentPassword) {
         console.log('muito bem');
         this.$store.commit('SET_NEW_PASSWORD', this.form.newPassword)
+        alert('Password alterada!')
       }
       else {
         alert('As passwords não coicidem!')

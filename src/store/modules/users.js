@@ -16,7 +16,7 @@ export default {
     isAuthenticated: false,
     loggedUserType: "",
     loggedUsername: "",
-    loggedUserInfo: [],
+    loggedUserInfo: "",
 
     users: localStorage.users ?
       JSON.parse(localStorage.users) : [{
@@ -82,8 +82,7 @@ export default {
       }, ],
 
     diary: localStorage.diary ?
-      JSON.parse(localStorage.diary) : [
-        {
+      JSON.parse(localStorage.diary) : [{
           username: "luisgomes",
           title: "Estou feliz!",
           description: "Foi um dia em cheio :D :D",
@@ -119,6 +118,23 @@ export default {
       state.loggedUserType = user.type;
       state.loggedUsername = user.username;
       state.loggedUserInfo = state.users.find((user) => user.username === payload);
+
+      switch (state.loggedUserType) {
+        case "child":
+          state.loggedUserInfo = state.children.find((user) => user.username === payload);
+          break;
+
+        case "psychologists":
+          state.loggedUserInfo = state.psychologists.find((user) => user.username === payload);
+          break;
+
+        case "tutors":
+          state.loggedUserInfo = state.tutors.find((user) => user.username === payload);
+          break;
+
+        default:
+          console.log('Vazio');
+      }
       localStorage.loggedUserInfo = JSON.stringify(state.loggedUserInfo);
     },
     SET_LOGOUT(state) {
@@ -131,7 +147,9 @@ export default {
         ...user,
         password: payload
       } : user)
-      console.log(state.users);
+
+      localStorage.users = JSON.stringify(state.users);
+
     },
     SET_NEW_DIARY(state, payload) {
       state.diary.push({
