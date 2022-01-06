@@ -1,5 +1,5 @@
 <template>
-  <div class="landing bgGrey d-flex flex-column" style="">
+  <div class="landing bgGrey d-flex flex-column">
     <Navbar activeTab="Diário" />
     <main>
       <div class="d-flex flex-column align-items-center mb-5">
@@ -14,7 +14,7 @@
           class="profileBox2 d-flex flex-column align-items-center justify-content-center mt-5"
         >
           <div class="d-flex">
-            <div class="mt-3" style="position: relative; top: -50px">
+            <div class="mt-1 mb-2">
               <img src="../assets/Menina_Diario.svg" height="150" />
               <button v-b-modal.modal-1 class="btnsPlay bgOrange mx-5">
                 Conta-nos o teu dia!
@@ -38,7 +38,7 @@
             <div class="text mx-1">
               {{ info.description }}
             </div>
-            <div class="d-flex flex-column align-items-end mx-1">
+            <div class="d-flex flex-column align-items-end  mx-1">
               {{ info.date }}
             </div>
           </div>
@@ -81,9 +81,7 @@
         <!--ADD NEW DIARY-->
       </div>
     </main>
-    <div class="footer col-12">
       <Footer />
-    </div>
   </div>
 </template>
 
@@ -130,10 +128,6 @@ export default {
   height: 170px;
 }
 
-.landing {
-  width: 100%;
-}
-
 .profileBox2 {
   border: 6px solid var(--orange);
   border-radius: 10px;
@@ -163,7 +157,6 @@ input {
   border: 3px solid var(--blue);
   border-radius: 11px;
   padding: 0 5px;
-  margin-left: 20px;
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 .text {
@@ -173,9 +166,5 @@ input {
   display: -webkit-box;
   -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
-}
-.footer {
-  position: relative;
-  bottom: 0;
 }
 </style>

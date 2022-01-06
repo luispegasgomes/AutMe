@@ -14,6 +14,7 @@ import Children from "../views/Children.vue";
 import PsychologistList from "../views/PsychologistList.vue";
 import EmotionsList from "../views/EmotionsList.vue";
 import Manage from "../views/Manage.vue";
+import GameImita from "../views/GameImita.vue";
 import Error from "../views/Error.vue";
 
 function isAuthenticated() {
@@ -121,6 +122,15 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Gestão",
+    },
+  },
+  {
+    path: "/gameimita",
+    name: "GameImita",
+    component: GameImita,
+    meta: {
+      requiresAuth: false,
+      title: "GameImita",
     },
   },
   {

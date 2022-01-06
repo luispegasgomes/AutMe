@@ -5,15 +5,33 @@
     <main>
       <div class="d-flex align-items-center justify-content-center">
         <section class="col-4 d-flex flex-column align-items-center mb-4">
-          <p style="position: relative; top:75px; left:-50px; font-size:25px; font-weight: bold;" class="fontAsap">Olá {{ getUsername }}!</p>
+          <p
+            style="
+              position: relative;
+              top: 75px;
+              left: -50px;
+              font-size: 25px;
+              font-weight: bold;
+            "
+            class="fontAsap"
+          >
+            Olá {{ getUsername }}!
+          </p>
           <img src="../assets/balao_mensagem.svg" width="300px" />
           <img src="../assets/Menino_Landing.svg" width="200px" />
         </section>
-        
-        <section class="col-5 d-flex flex-column align-items-center" >
+
+        <section class="col-5 d-flex flex-column align-items-center">
           <div class="gamebox">
             <p
-              class="d-flex flex-column align-items-center colorDarkBlue fontAsap weightBold"
+              class="
+                d-flex
+                flex-column
+                align-items-center
+                colorDarkBlue
+                fontAsap
+                weightBold
+              "
               style="font-size: 35px"
             >
               Jogos
@@ -28,9 +46,7 @@
                 <p class="fontNunito col-9 my-1" style="font-size: 18px">
                   Será que tu sabes todas as nossas emoções?
                 </p>
-                <button
-                  class="fontNunito bgOrange colorDarkBlue btnsPlay my-2"
-                >
+                <button class="fontNunito bgOrange colorDarkBlue btnsPlay my-2">
                   Jogar!
                 </button>
               </div>
@@ -45,11 +61,20 @@
                 <p class="fontNunito col-9 my-1" style="font-size: 18px">
                   Vê se consegues repetir as emoções!
                 </p>
-                <button
-                  class="fontNunito bgOrange colorDarkBlue col-10 btnsPlay my-2"
+                <router-link :to="{ name: 'GameImita' }">
+                  <button
+                    class="
+                      fontNunito
+                      bgOrange
+                      colorDarkBlue
+                      col-10
+                      btnsPlay
+                      my-2
+                    "
+                  >
+                    Jogar!
+                  </button></router-link
                 >
-                  Jogar!
-                </button>
               </div>
             </div>
           </div>
@@ -74,7 +99,7 @@ export default {
   data() {
     return {
       name: "Landing",
-    }
+    };
   },
   computed: {
     ...mapGetters(["getUsername"]),
@@ -109,5 +134,4 @@ export default {
   font-weight: bold;
   color: var(--darkBlue);
 }
-
 </style>

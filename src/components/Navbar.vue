@@ -1,6 +1,8 @@
 <template>
   <nav class="d-flex justify-content-between align-items-end px-3 py-2">
-    <img src="../assets/logo.svg" alt="AutMe logo" height="50" />
+    <router-link :to="{ name: 'Landing' }" class="nav-link text-uppercase"
+      ><img src="../assets/logo.svg" alt="AutMe logo" height="50"
+    /></router-link>
 
     <div class="d-flex align-items-end colorDarkBlue" style="font-size: 20px">
       <ul class="navbar-nav fontBarlow weightLight d-flex flex-row">
