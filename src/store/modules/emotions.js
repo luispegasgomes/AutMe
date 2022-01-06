@@ -2,19 +2,9 @@ export default {
   state: {
     emotions: [
       {
-        name: "Aceitação",
-        imgUrl:
-          "https://images.emojiterra.com/google/android-11/512px/1f917.png",
-      },
-      {
         name: "Admiração",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f929.png",
-      },
-      {
-        name: "Afeição",
-        imgUrl:
-          "https://images.emojiterra.com/google/android-11/512px/1f970.png",
       },
       {
         name: "Alegria",
@@ -22,27 +12,7 @@ export default {
           "https://images.emojiterra.com/google/android-11/512px/1f60a.png",
       },
       {
-        name: "Amor",
-        imgUrl:
-          "https://images.emojiterra.com/google/android-11/512px/1f970.png",
-      },
-      {
-        name: "Calma",
-        imgUrl:
-          "https://images.emojiterra.com/google/android-11/512px/1f60c.png",
-      },
-      {
-        name: "Diversão",
-        imgUrl:
-          "https://images.emojiterra.com/google/android-11/512px/1f92a.png",
-      },
-      {
-        name: "Aflição",
-        imgUrl:
-          "https://images.emojiterra.com/google/android-11/512px/1f623.png",
-      },
-      {
-        name: "Choque",
+        name: "Espantado",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f632.png",
       },
@@ -189,6 +159,52 @@ export default {
         imgUrl:
           "https://blog.meskle.com.br/wp-content/uploads/2020/09/As-principais-duvidas-sobre-celulite-homens.jpg",
       },
+      {
+        name: "Espantado",
+        imgUrl:
+          "https://exame.com/wp-content/uploads/2017/09/homem-surpreso.png?w=680&h=453&crop=1",
+      },
+      {
+        name: "Espantado",
+        imgUrl:
+          "https://media.istockphoto.com/photos/young-handsome-man-with-beard-wearing-casual-sweater-and-glasses-over-picture-id1212960962?k=20&m=1212960962&s=612x612&w=0&h=o2PGY4yhn51XSnYi60dMCQqvXQ0d-odkaKUVocbYYLk=",
+      },
+      {
+        name: "Espantado",
+        imgUrl:
+          "https://st3.depositphotos.com/1857171/16235/i/600/depositphotos_162353260-stock-photo-portrait-of-surprised-bearded-man.jpg",
+      },
+      {
+        name: "Alegria",
+        imgUrl:
+          "http://www.clubefelicidade.com.br/dashboard/uploads/a61183b4-c641-4b4d-b915-67d6697fa20d/diferenca-entre-felicidade-alegria.jpg",
+      },
+      {
+        name: "Alegria",
+        imgUrl:
+          "https://palavradodiacoutinho.com.br/wp-content/uploads/2019/05/alegria.jpg",
+      },
+      {
+        name: "Alegria",
+        imgUrl:
+          "https://jrmcoaching.com.br/wp-content/uploads/2020/08/alegria.jpg",
+      },
+      {
+        name: "Admiração",
+        imgUrl:
+          "https://akimneto.files.wordpress.com/2015/03/images-41.jpg",
+      },
+      {
+        name: "Admiração",
+        imgUrl:
+          "https://nutri-coaching.com/wp-content/uploads/2016/02/Admira%C3%A7%C3%A3o.jpg",
+      },
+      {
+        name: "Admiração",
+        imgUrl:
+          "https://mumslounge.com.au/wp-content/uploads/2016/10/baby.jpg",
+      },
+
     ],
   },
   getters: {
