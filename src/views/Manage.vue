@@ -1,7 +1,7 @@
 <!-- pedir ajuda com a parte das cores da tab -->
 <template>
   <div class="manage bgGrey d-flex flex-column justify-content-between">
-    <Navbar />
+    <Navbar activeTab="Gestão" />
     <main class="h-75 mx-5">
       <BTabs v-model="tabIndex">
         <BTab

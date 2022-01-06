@@ -1,6 +1,6 @@
 <template>
   <div class="emotions bgGrey d-flex flex-column justify-content-between">
-    <Navbar />
+    <Navbar activeTab="Emoções" />
     <main class="d-flex flex-column mx-5">
       <h1 class="fontAsap colorDarkBlue my-3 text-center">
         <BIconEmojiSmile /> Emoções <BIconEmojiFrown />

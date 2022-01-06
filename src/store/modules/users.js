@@ -15,7 +15,7 @@ export default {
   state: {
     isAuthenticated: false,
     loggedUserType: "",
-    loggedUsername: "",
+    loggedUsername: "tutor",
     loggedUserInfo: "",
 
     users: localStorage.users
@@ -52,7 +52,7 @@ export default {
           {
             username: "admin",
             name: "Nome Admin",
-            avatar: "",
+            avatar: "../assets/temp_profile_img.png",
           },
         ],
     children: localStorage.children
@@ -61,7 +61,7 @@ export default {
           {
             username: "crianca",
             name: "Nome Criança",
-            avatar: "",
+            avatar: "../assets/temp_profile_img.png",
             gender: "M",
             birth: "2002-01-01",
             code: create_UUID(),
@@ -73,7 +73,7 @@ export default {
           {
             username: "tutor",
             name: "Nome Tutor",
-            avatar: "",
+            avatar: "../assets/temp_profile_img.png",
             gender: "M",
             birth: "1960-01-01",
             contact: "912345678",
@@ -85,7 +85,7 @@ export default {
           {
             username: "psicologo",
             name: "Nome Psicólogo",
-            avatar: "",
+            avatar: "../assets/temp_profile_img.png",
             gender: "F",
             birth: "1996-01-01",
             contact: "932145678",
@@ -94,7 +94,13 @@ export default {
             city: "Maia",
           },
         ],
-
+    connections: [
+      {
+        childUser: "crianca",
+        tutorUser: "tutor",
+        psychologistUser: "psicologo",
+      },
+    ],
     diary: localStorage.diary
       ? JSON.parse(localStorage.diary)
       : [
@@ -129,6 +135,14 @@ export default {
       state.users.some(
         (user) => user.username === username || user.email === email
       ),
+    getConnections: (state) =>
+      state.connections.filter(
+        (connection) =>
+          connection.tutorUser === state.loggedUsername ||
+          connection.psychologistUser === state.loggedUsername
+      ),
+    getChildAvatar: (state) => (childUsername) =>
+      state.children.find((c) => c.username === childUsername),
   },
   mutations: {
     SET_LOGGED_USER(state, payload) {
@@ -202,14 +216,14 @@ export default {
         state.admins.push({
           username: payload.username,
           name: `${payload.userName} ${payload.userSurname}`,
-          avatar: "",
+          avatar: "../assets/temp_profile_img.png",
         });
         localStorage.admins = JSON.stringify(state.admins);
       } else if (payload.userType === "child") {
         state.children.push({
           username: payload.username,
           name: `${payload.userName} ${payload.userSurname}`,
-          avatar: "",
+          avatar: "../assets/temp_profile_img.png",
           gender: payload.userGender,
           birth: payload.userDate,
           code: create_UUID(),
@@ -219,7 +233,7 @@ export default {
         state.tutors.push({
           username: payload.username,
           name: `${payload.userName} ${payload.userSurname}`,
-          avatar: "",
+          avatar: "../assets/temp_profile_img.png",
           gender: payload.userGender,
           birth: payload.userDate,
           contact: payload.userPhone,
@@ -229,7 +243,7 @@ export default {
         state.psychologists.push({
           username: payload.username,
           name: `${payload.userName} ${payload.userSurname}`,
-          avatar: "",
+          avatar: "../assets/temp_profile_img.png",
           gender: payload.userGender,
           birth: payload.userDate,
           contact: payload.userPhone,

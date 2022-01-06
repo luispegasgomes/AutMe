@@ -2,7 +2,7 @@
   <div
     class="psychologistList bgGrey d-flex flex-column justify-content-between"
   >
-    <Navbar />
+    <Navbar activeTab="Psicólogos" />
 
     <main>
       <div class="window row">
@@ -64,8 +64,11 @@
           </button>
         </section>
 
-        <section class="description col-6 d-flex">
-          <div v-if="selected == 'Filipa Castro'">
+        <section
+          class="description col-6 d-flex"
+          v-if="selected == 'Filipa Castro'"
+        >
+          <div>
             <div class="d-flex flex-row justify-content-between">
               <img
                 class="card-img m-4"

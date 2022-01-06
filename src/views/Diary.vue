@@ -1,6 +1,6 @@
 <template>
   <div class="landing bgGrey d-flex flex-column" style="">
-    <Navbar />
+    <Navbar activeTab="Diário" />
     <main>
       <div class="d-flex flex-column align-items-center mb-5">
         <div class="d-flex align-items-center mt-5">
@@ -11,14 +11,7 @@
         </div>
 
         <div
-          class="
-            profileBox2
-            d-flex
-            flex-column
-            align-items-center
-            justify-content-center
-            mt-5
-          "
+          class="profileBox2 d-flex flex-column align-items-center justify-content-center mt-5"
         >
           <div class="d-flex">
             <div class="mt-3" style="position: relative; top: -50px">
@@ -61,16 +54,28 @@
           @ok="addDiary"
         >
           <form class="d-flex flex-column align-items-center">
-            <input type="text" id="txtTitle" v-model="form.title" placeholder="Título" class="col-10"/>
+            <input
+              type="text"
+              id="txtTitle"
+              v-model="form.title"
+              placeholder="Título"
+              class="col-10"
+            />
             <input
               type="text"
               id="txtDescription"
               v-model="form.description"
               class="my-3 col-10"
               placeholder="Descrição do teu dia"
-              style="height:200px"
+              style="height: 200px"
             />
-            <input type="text" id="txtDate" v-model="form.date" placeholder="Data" class="col-10"/>
+            <input
+              type="text"
+              id="txtDate"
+              v-model="form.date"
+              placeholder="Data"
+              class="col-10"
+            />
           </form>
         </b-modal>
         <!--ADD NEW DIARY-->
@@ -88,7 +93,7 @@ import Footer from "../components/Footer.vue";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: "Landing",
+  name: "Diary",
   data() {
     return {
       form: {
@@ -105,7 +110,7 @@ export default {
   },
   methods: {
     addDiary() {
-      this.form.username = this.getUsername
+      this.form.username = this.getUsername;
       this.SET_NEW_DIARY(this.form);
     },
     ...mapMutations(["SET_NEW_DIARY"]),

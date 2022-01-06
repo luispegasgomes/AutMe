@@ -1,68 +1,27 @@
 <template>
   <div class="children bgGrey d-flex flex-column justify-content-between">
-    <Navbar />
+    <Navbar activeTab="Crianças" />
 
-    <main>
-      <!-- <div class="d-flex align-items-center justify-content-center">
-        <h1 class="title fontAsap">As minhas crianças</h1>
-      </div> -->
-      <button type="button" class="mb-5 mx-5">Ordenar por nome</button>
+    <main class="h-75">
+      <button type="button" class="mb-5 mx-5 px-2">Ordenar por nome</button>
 
       <div class="d-flex justify-content-center">
         <section class="col-5 d-flex flex-column align-items-center">
-          <div class="listbox row row-cols-4 justify-content-center">
-            <div
-              class="card my-5 mx-4 col-4 d-flex flex-column align-items-center"
+          <div class="listbox row row-cols-4">
+            <article
+              class="card my-3 mx-4 col-4 d-flex flex-column align-items-center"
+              v-for="(connection, index) in getConnections"
+              :key="index"
             >
+              <!-- getChildAvatar(connection.childUser) -->
               <img
-                class="card-img pt-3"
-                src="../assets/facebook.png"
-                alt="Avatar"
+                class="card-img pt-4"
                 style="width: 50%"
+                src=""
+                :alt="connection.childUser"
               />
-              <div class="container pt-5" style="width: 100%">
-                <h4><b>John Doe</b></h4>
-              </div>
-            </div>
-            <div
-              class="card my-5 mx-4 col-4 d-flex flex-column align-items-center"
-            >
-              <img
-                class="card-img pt-3"
-                src="../assets/facebook.png"
-                alt="Avatar"
-                style="width: 50%"
-              />
-              <div class="container pt-5" style="width: 100%">
-                <h4><b>John Doe</b></h4>
-              </div>
-            </div>
-            <div
-              class="card my-5 mx-4 col-4 d-flex flex-column align-items-center"
-            >
-              <img
-                class="card-img pt-3"
-                src="../assets/facebook.png"
-                alt="Avatar"
-                style="width: 50%"
-              />
-              <div class="container pt-5" style="width: 100%">
-                <h4><b>John Doe</b></h4>
-              </div>
-            </div>
-            <div
-              class="card my-5 mx-4 col-4 d-flex flex-column align-items-center"
-            >
-              <img
-                class="card-img pt-3"
-                src="../assets/facebook.png"
-                alt="Avatar"
-                style="width: 50%"
-              />
-              <div class="container pt-5" style="width: 100%">
-                <h4><b>John Doe</b></h4>
-              </div>
-            </div>
+              <h4 class="pt-4">{{ connection.childUser }}</h4>
+            </article>
           </div>
         </section>
       </div>
@@ -76,21 +35,16 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
-/* import { mapGetters } from "vuex"; */
+import { mapGetters } from "vuex";
 export default {
   name: "Children",
   components: {
     Navbar,
     Footer,
   },
-  /* data() {
-    return {
-      name: "Landing",
-    };
-  },
   computed: {
-    ...mapGetters(["getUsername"]),
-  }, */
+    ...mapGetters(["getUsername", "getConnections", "getChildAvatar"]),
+  },
 };
 </script>
 
@@ -105,6 +59,8 @@ export default {
   color: var(--darkBlue);
   box-shadow: 12px 12px 0px var(--orange);
   width: 170%;
+  height: 30rem;
+  overflow-y: scroll;
 }
 
 .title {
@@ -112,19 +68,20 @@ export default {
 }
 
 .card {
-  width: 15%;
-  height: 70%;
+  width: 13rem;
+  height: 12rem;
   text-align: center;
   font-size: 50%;
 }
 
 button {
-  background: white;
+  background: var(--white);
   border-color: var(--blue);
   border-width: 3px;
   border-radius: 10px;
 }
 button:hover {
   background: var(--blue);
+  color: var(--white);
 }
 </style>
