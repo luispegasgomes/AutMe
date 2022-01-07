@@ -6,6 +6,25 @@
         <BIconEmojiSmile /> Emoções <BIconEmojiFrown />
       </h1>
 
+      <div
+        class="d-flex align-items-center"
+        v-if="getUserType === 'tutor' || getUserType === 'psychologist'"
+      >
+        <p class="fontAsap colorDarkBlue mr-3 my-2" style="font-size: 22px">
+          Filtro:
+        </p>
+        <select v-model="emotionsName" @change="showEmotions">
+          <option value="all">Todas as emoções</option>
+          <option
+            v-for="(connection, index) in getConnections"
+            :key="index"
+            :value="connection.childUser"
+          >
+            {{ connection.childUser }}
+          </option>
+        </select>
+      </div>
+
       <section class="mt-4 px-5 py-2 bgWhite d-flex flex-wrap">
         <article
           class="col-4 my-3 d-flex emotion"
@@ -17,12 +36,31 @@
             <p class="fontNunito weightBold">{{ emotion.name }}</p>
 
             <BProgress
-              :max="10"
+              :max="getImagesFromEmotion(emotion.name).length"
               class="mb-3 progBar"
-              v-if="getUserType === 'child'"
+              v-if="getUserType === 'child' || emotionsName !== 'all'"
             >
-              <BProgressBar :style="{ background: '#143642' }" :value="0" />
-              <BProgressBar :style="{ background: '#ec9a29' }" :value="10" />
+              <BProgressBar
+                :style="{ background: '#143642' }"
+                :value="
+                  getRecognizedImages(
+                    getUserType === 'child' ? getUsername : emotionsName,
+                    emotion.name
+                  ).length
+                "
+                :max="getImagesFromEmotion(emotion.name).length"
+                show-value
+              />
+              <BProgressBar
+                :style="{ background: '#ec9a29' }"
+                :value="
+                  getImagesFromEmotion(emotion.name).length -
+                  getRecognizedImages(
+                    getUserType === 'child' ? getUsername : emotionsName,
+                    emotion.name
+                  ).length
+                "
+              />
             </BProgress>
           </div>
         </article>
@@ -54,8 +92,23 @@ export default {
     BProgress,
     BProgressBar,
   },
+  data() {
+    return {
+      emotionsName: "all",
+    };
+  },
   computed: {
-    ...mapGetters(["getEmotions", "getUserType"]),
+    ...mapGetters([
+      "getEmotions",
+      "getUserType",
+      "getUsername",
+      "getConnections",
+      "getImagesFromEmotion",
+      "getRecognizedImages",
+    ]),
+    showEmotions() {
+      return this.emotionsName === "all" ? this.getEmotions : this.getEmotions;
+    },
   },
 };
 </script>
@@ -65,9 +118,9 @@ export default {
   height: 100vh;
 }
 
-input {
+select {
   height: 36px;
-  width: 15rem;
+  width: 20rem;
   font-size: 20px;
   border: 3px solid var(--blue);
   border-radius: 11px;

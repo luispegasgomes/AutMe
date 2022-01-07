@@ -15,7 +15,7 @@ export default {
   state: {
     isAuthenticated: false,
     loggedUserType: "",
-    loggedUsername: "tutor",
+    loggedUsername: "",
     loggedUserInfo: "",
 
     users: localStorage.users
@@ -174,7 +174,9 @@ export default {
           break;
 
         default:
-          console.log("Vazio");
+          state.loggedUserInfo = state.admins.find(
+            (user) => user.username === payload
+          );
       }
       localStorage.loggedUserInfo = JSON.stringify(state.loggedUserInfo);
     },
