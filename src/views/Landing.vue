@@ -24,14 +24,7 @@
         <section class="col-5 d-flex flex-column align-items-center">
           <div class="gamebox">
             <p
-              class="
-                d-flex
-                flex-column
-                align-items-center
-                colorDarkBlue
-                fontAsap
-                weightBold
-              "
+              class="d-flex flex-column align-items-center colorDarkBlue fontAsap weightBold"
               style="font-size: 35px"
             >
               Jogos
@@ -46,9 +39,13 @@
                 <p class="fontNunito col-9 my-1" style="font-size: 18px">
                   Será que tu sabes todas as nossas emoções?
                 </p>
-                <button class="fontNunito bgOrange colorDarkBlue btnsPlay my-2">
-                  Jogar!
-                </button>
+                <router-link :to="{ name: 'AdivinhaLevel' }">
+                  <button
+                    class="fontNunito bgOrange colorDarkBlue btnsPlay my-2"
+                  >
+                    Jogar!
+                  </button>
+                </router-link>
               </div>
             </div>
 
@@ -63,14 +60,7 @@
                 </p>
                 <router-link :to="{ name: 'GameImita' }">
                   <button
-                    class="
-                      fontNunito
-                      bgOrange
-                      colorDarkBlue
-                      col-10
-                      btnsPlay
-                      my-2
-                    "
+                    class="fontNunito bgOrange colorDarkBlue col-10 btnsPlay my-2"
                   >
                     Jogar!
                   </button></router-link

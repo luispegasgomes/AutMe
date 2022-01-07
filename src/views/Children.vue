@@ -17,7 +17,7 @@
               <img
                 class="card-img pt-4"
                 style="width: 50%"
-                src=""
+                :src="getChildAvatar(connection.childUser).avatar"
                 :alt="connection.childUser"
               />
               <h4 class="pt-4">{{ connection.childUser }}</h4>

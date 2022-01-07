@@ -14,8 +14,8 @@ function create_UUID() {
 export default {
   state: {
     isAuthenticated: false,
-    loggedUserType: "",
-    loggedUsername: "",
+    loggedUserType: "tutor",
+    loggedUsername: "tutor",
     loggedUserInfo: "",
 
     users: localStorage.users
@@ -52,7 +52,7 @@ export default {
           {
             username: "admin",
             name: "Nome Admin",
-            avatar: "../assets/temp_profile_img.png",
+            avatar: "/temp_profile_img.png",
           },
         ],
     children: localStorage.children
@@ -61,7 +61,7 @@ export default {
           {
             username: "crianca",
             name: "Nome Criança",
-            avatar: "../assets/temp_profile_img.png",
+            avatar: "/temp_profile_img.png",
             gender: "M",
             birth: "2002-01-01",
             code: create_UUID(),
@@ -73,7 +73,7 @@ export default {
           {
             username: "tutor",
             name: "Nome Tutor",
-            avatar: "../assets/temp_profile_img.png",
+            avatar: "/temp_profile_img.png",
             gender: "M",
             birth: "1960-01-01",
             contact: "912345678",
@@ -85,7 +85,7 @@ export default {
           {
             username: "psicologo",
             name: "Nome Psicólogo",
-            avatar: "../assets/temp_profile_img.png",
+            avatar: "/temp_profile_img.png",
             gender: "F",
             birth: "1996-01-01",
             contact: "932145678",

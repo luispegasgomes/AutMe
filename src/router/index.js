@@ -15,6 +15,8 @@ import PsychologistList from "../views/PsychologistList.vue";
 import EmotionsList from "../views/EmotionsList.vue";
 import Manage from "../views/Manage.vue";
 import GameImita from "../views/GameImita.vue";
+import AdivinhaLevel from "../views/AdivinhaLevel.vue";
+import Adivinha from "../views/Adivinha.vue";
 import Error from "../views/Error.vue";
 
 function isAuthenticated() {
@@ -131,6 +133,24 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "GameImita",
+    },
+  },
+  {
+    path: "/adivinhalevel",
+    name: "AdivinhaLevel",
+    component: AdivinhaLevel,
+    meta: {
+      requiresAuth: false,
+      title: "Adivinha - Escolhe o nível",
+    },
+  },
+  {
+    path: "/adivinha",
+    name: "Adivinha",
+    component: Adivinha,
+    meta: {
+      requiresAuth: false,
+      title: "Adivinha",
     },
   },
   {
