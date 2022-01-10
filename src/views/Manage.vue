@@ -195,9 +195,65 @@
         </form>
       </b-modal>
 
-      <b-modal id="modalSeeImg" title="Ver Imagens"> </b-modal>
-      <b-modal id="modalAddImg" title="Adicionar Imagem"> </b-modal>
-      <b-modal id="modalRemImg" title="Remover Imagem"> </b-modal>
+      <b-modal id="modalSeeImg" title="Ver Imagens">
+        <div class="row row-cols-3 d-flex align-items-center">
+          <article
+            v-for="(emotion, index) in getImagesFromEmotion(
+              this.emotionSelected
+            )"
+            :key="index"
+          >
+            <div class="m-3">
+              <img :src="emotion.imgUrl" :alt="emotion.name" width="100" />
+            </div>
+          </article>
+        </div>
+      </b-modal>
+      <b-modal
+        id="modalAddImg"
+        title="Adicionar Imagem"
+        ok-title="Adicionar"
+        @ok="addImage"
+      >
+        <form class="d-flex flex-column">
+          <p class="fontAsap weightBold" style="font-size: 1.5rem">Emoção:</p>
+          <input
+            type="text"
+            id="txtTitle"
+            v-model="addImageForm.name"
+            placeholder="Nome da emoção"
+          />
+          <hr />
+
+          <input
+            type="url"
+            id="txtDescription"
+            v-model="addImageForm.imgUrl"
+            class="my-3"
+            placeholder="Foto"
+          />
+        </form>
+      </b-modal>
+      <b-modal id="modalRemImg" title="Remover Imagem">
+        <div class="row row-cols-3 d-flex align-items-center">
+          <article
+            v-for="(emotion, index) in getImagesFromEmotion(
+              this.emotionSelected
+            )"
+            :key="index"
+          >
+            <div class="m-3">
+              <img
+                type="button"
+                :src="emotion.imgUrl"
+                :alt="emotion.name"
+                width="100"
+                @click="REMOVE_IMAGE(emotion.imgUrl)"
+              />
+            </div>
+          </article>
+        </div>
+      </b-modal>
     </main>
     <Footer />
   </div>
@@ -236,6 +292,10 @@ export default {
       addEmotionForm: {
         name: "",
         emotionUrl: "",
+        imgUrl: "",
+      },
+      addImageForm: {
+        name: "",
         imgUrl: "",
       },
       emotionSelected: "",
@@ -286,12 +346,23 @@ export default {
         });
       }
     },
+
+    addImage() {
+      if (this.addImageForm.name && this.addImageForm.imgUrl) {
+        this.ADD_IMAGE({
+          emotion: this.addImageForm.name,
+          imgUrl: this.addImageForm.imgUrl,
+        });
+      }
+    },
+
     ...mapMutations([
       "CREATE_ACCOUNT",
       "UPDATE_ACCOUNT",
       "ADD_EMOTION",
       "ADD_IMAGE",
       "REMOVE_EMOTION",
+      "REMOVE_IMAGE",
     ]),
   },
   computed: {
