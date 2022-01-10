@@ -224,21 +224,33 @@ export default {
         else if (a.name > b.name) return 1;
         return 0;
       }),
-    getImagesFromEmotion: (state) => (e) => {
-      return state.images.filter((image) => image.emotion === e);
-    },
-    getRecognizedImages: (state) => (c, e) => {
-      console.log(c, e);
-      console.log(
-        state.recognizedImages.filter(
-          (ri) => ri.childUsername === c && ri.emotion === e
-        )
-      );
-      return state.recognizedImages.filter(
+    getImagesFromEmotion: (state) => (e) =>
+      state.images.filter((image) => image.emotion === e),
+    isEmotionUnavailable: (state) => (emotionName) =>
+      !state.emotions.some(
+        (emotion) => emotion.name.toLowerCase() === emotionName.toLowerCase()
+      ),
+    getRecognizedImages: (state) => (c, e) =>
+      state.recognizedImages.filter(
         (ri) => ri.childUsername === c && ri.emotion === e
+      ),
+  },
+  mutations: {
+    ADD_EMOTION(state, payload) {
+      state.emotions.push(payload);
+    },
+    ADD_IMAGE(state, payload) {
+      state.images.push(payload);
+    },
+    REMOVE_EMOTION(state, payload) {
+      state.emotions = state.emotions.filter(
+        (emotion) => emotion.name !== payload
+      );
+      state.images = state.images.filter((image) => image.emotion !== payload);
+      state.recognizedImages = state.recognizedImages.filter(
+        (image) => image.emotion !== payload
       );
     },
   },
-  mutations: {},
   actions: {},
 };

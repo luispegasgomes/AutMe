@@ -14,8 +14,8 @@ function create_UUID() {
 export default {
   state: {
     isAuthenticated: false,
-    loggedUserType: "tutor",
-    loggedUsername: "tutor",
+    loggedUserType: "",
+    loggedUsername: "",
     loggedUserInfo: "",
 
     users: localStorage.users
@@ -135,6 +135,8 @@ export default {
       state.users.some(
         (user) => user.username === username || user.email === email
       ),
+    userExists: (state) => (username) =>
+      state.users.some((user) => user.username === username),
     getConnections: (state) =>
       state.connections.filter(
         (connection) =>
