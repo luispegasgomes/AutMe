@@ -120,6 +120,18 @@ export default {
 </script>
 
 <style scoped>
+
+.landing{
+  min-height: 100vh;
+  position: relative;
+}
+footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .diaryBox {
   border: 6px solid var(--orange);
   border-radius: 10px;
