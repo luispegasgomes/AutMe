@@ -83,13 +83,13 @@ export default {
       ? JSON.parse(localStorage.psychologists)
       : [
           {
-            username: "psicologo",
-            name: "Nome Psicólogo",
-            avatar: "/temp_profile_img.png",
+            username: "filipacastro2",
+            name: "Filipa Castro",
+            avatar: "/Filipa-Castro.png",
             gender: "F",
             birth: "1996-01-01",
             contact: "932145678",
-            locationAdress: "rua",
+            locationAdress: "Moreira, Maia",
             postalCode: "4000-123",
             city: "Maia",
           },
@@ -145,6 +145,9 @@ export default {
       ),
     getChildAvatar: (state) => (childUsername) =>
       state.children.find((c) => c.username === childUsername),
+    getPsychologists: (state) => state.psychologists,
+    getPsychologistsByUsername: (state) => (selected) =>
+    state.psychologists.find((psico) => psico.username === selected),
   },
   mutations: {
     SET_LOGGED_USER(state, payload) {

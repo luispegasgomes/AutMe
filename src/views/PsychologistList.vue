@@ -8,51 +8,10 @@
       <div class="window row">
         <section class="list col-2 p-5">
           <button
-            v-on:click="setSelected('Filipa Castro')"
-            :class="{
-              btn: true,
-              fontAsap: true,
-              'my-2': true,
-              selectedBtn: selected == 'Filipa Castro',
-            }"
-          >
-            Filipa Castro
-          </button>
-          <button
-            v-on:click="setSelected('Dário Pereira')"
-            :class="{
-              btn: true,
-              fontAsap: true,
-              'my-2': true,
-              selectedBtn: selected == 'Dário Pereira',
-            }"
-          >
-            Dário Pereira
-          </button>
-          <button
-            v-on:click="setSelected('José Maria')"
-            :class="{
-              btn: true,
-              fontAsap: true,
-              'my-2': true,
-              selectedBtn: selected == 'José Maria',
-            }"
-          >
-            José Maria
-          </button>
-          <button
-            v-on:click="setSelected('Raquel Silva')"
-            :class="{
-              btn: true,
-              fontAsap: true,
-              'my-2': true,
-              selectedBtn: selected == 'Raquel Silva',
-            }"
-          >
-            Raquel Silva
-          </button>
-          <button
-            v-on:click="setSelected('Daniel Medeiros')"
+            v-for="(psychologist, index) in getPsychologists"
+            :key="index"
+            :value="psychologist"
+            v-on:click="selected = getPsychologistsByUsername(psychologist.username)"
             :class="{
               btn: true,
               fontAsap: true,
@@ -60,21 +19,17 @@
               selectedBtn: selected == 'Daniel Medeiros',
             }"
           >
-            Daniel Medeiros
+            {{ psychologist.username }}
           </button>
         </section>
 
         <section
           class="description col-6 d-flex flex-column"
-          v-if="selected == 'Filipa Castro'"
+          v-if="selected"
         >
           <div class="d-flex align-items-center justify-content-between mb-3">
-            <img
-              src="../assets/temp_profile_img.png"
-              alt="Avatar"
-              style="width: 8%"
-            />
-            <h1>Filipa Castro</h1>
+            <img :src="selected.avatar" :alt="selected.avatar" style="width: 8%" />
+            <h1>{{selected.name}}</h1>
             <img
               src="../assets/fivestars.png"
               alt="Avatar"
@@ -84,16 +39,19 @@
           <!--PSYCOLOGIST INFORMATIONS-->
           <div class="d-flex flex-column align-items-center mt-5 mb-3">
             <h3>Email: filipa_manuela@hotmail.com</h3>
-            <h3>Contacto: 910000111</h3>
-            <h3>Localização da clínica: Moreira, Maia</h3>
-            <h3>Código Postal: 0000-000</h3>
+            <h3>Contacto: {{selected.contact}}</h3>
+            <h3>Localização da clínica: {{selected.locationAdress}}</h3>
+            <h3>Código Postal: {{selected.postalCode}}</h3>
           </div>
 
-          <div class="d-flex flex-column align-items-center mt-5">
+          <div class="d-flex flex-column align-items-center mt-5 mb-3">
             <button v-b-modal.modal-1 class="fontNunito bgOrange orangebtns">
               Marcar consulta
             </button>
           </div>
+        </section>
+        <section v-else class="description col-6 d-flex flex-column">
+          <div class="d-flex flex-column align-items-center">Selecione um psicólogo para marcar uma primeira consulta!</div>
         </section>
       </div>
     </main>
@@ -104,23 +62,37 @@
       id="modal-1"
       title="Marcar primeira consulta"
       ok-title="Confirmar"
-      @ok="addDiary"
       style="text-align: center"
     >
       <div class="d-flex flex-column align-items-center">
         <div class="fontBarlow" style="font-size: 30px">
           Marcar primeira consulta
         </div>
-        <div class="mt-4">Nome do psicólogo: Filipa Castro</div>
-        <div>Clínica: Moreira da Maia</div>
-        <input type="date" id="txtTitle" class="col-8 mt-5" />
+        <div class="mt-4">Nome do psicólogo: {{selected.name}}</div>
+        <div>Clínica:  {{selected.locationAdress}}</div>
+
         <div class="form-check d-flex align-items-center mt-5">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="flexCheckChecked"
-            style="width: 23px; height: 23px"
-          />
+          <form @submit.prevent="addAppointment">
+            <input
+              type="date"
+              v-model="form.date"
+              id="txtTitle"
+              class="col-8 mt-5"
+            />
+
+            <select v-model="form.hour">
+              <option value="">SELECIONAR</option>
+              <option value="09:00">09:00</option>
+              <option value="09:30">09:30</option>
+            </select>
+            <input
+              type="submit"
+              class="fontNunito bgOrange orangebtns mt-4 col-8"
+              style="width: 120px; height: 40px; font-size: 22px"
+              value="Confirmar"
+            />
+          </form>
+
           <label class="form-check-label mx-2" for="flexCheckChecked">
             Manhã
           </label>
@@ -131,6 +103,12 @@
             style="width: 23px; height: 23px"
           />
           <label class="form-check-label" for="flexCheckChecked"> Tarde </label>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="flexCheckChecked"
+            style="width: 23px; height: 23px"
+          />
         </div>
         <div class="mt-5 schedules">
           <div class="d-flex flex-column align-items-center">
@@ -149,12 +127,6 @@
             <div class="mx-3 hour">12:30</div>
           </div>
         </div>
-        <button
-          class="fontNunito bgOrange orangebtns mt-4 col-8"
-          style="width: 120px; height: 40px; font-size: 22px"
-        >
-          Confirmar
-        </button>
       </div>
     </b-modal>
     <!--ADD NEW DIARY-->
@@ -164,8 +136,7 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-
-/* import { mapGetters } from "vuex"; */
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "PsychologistList",
   components: {
@@ -175,11 +146,31 @@ export default {
   data() {
     return {
       selected: "",
+      form: {
+        username: "",
+        psychologist: "",
+        date: "",
+        hour: "",
+        locationAdress: "",
+      },
     };
   },
+
+  computed: {
+    ...mapGetters(["getUsername", "getPsychologists", "getPsychologistsByUsername"]),
+  },
   methods: {
+    ...mapMutations(["SET_NEW_APPOINTMENT"]),
+
     setSelected(text) {
       this.selected = text;
+    },
+    addAppointment() {
+      // Submit form data
+      this.form.username = this.getUsername;
+      this.form.psychologist = this.selected.username;
+      this.form.locationAdress = this.selected.locationAdress;
+      this.SET_NEW_APPOINTMENT(this.form);
     },
   },
 };
@@ -234,12 +225,12 @@ input {
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 
-.schedules{
+.schedules {
   font-size: 20px;
-  border: 3px solid #EC9A29;
+  border: 3px solid #ec9a29;
   border-radius: 11px;
 }
-.hour{
+.hour {
   border: 3px solid var(--blue);
   width: 80px;
   text-align: center;
