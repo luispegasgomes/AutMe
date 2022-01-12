@@ -220,8 +220,9 @@
           <input
             type="text"
             id="txtTitle"
-            v-model="addImageForm.name"
+            v-model="emotionSelected"
             placeholder="Nome da emoção"
+            readonly
           />
           <hr />
 
@@ -295,7 +296,6 @@ export default {
         imgUrl: "",
       },
       addImageForm: {
-        name: "",
         imgUrl: "",
       },
       emotionSelected: "",
@@ -348,9 +348,9 @@ export default {
     },
 
     addImage() {
-      if (this.addImageForm.name && this.addImageForm.imgUrl) {
+      if (this.addImageForm.imgUrl) {
         this.ADD_IMAGE({
-          emotion: this.addImageForm.name,
+          emotion: this.emotionSelected,
           imgUrl: this.addImageForm.imgUrl,
         });
       }

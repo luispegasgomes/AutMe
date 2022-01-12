@@ -1,32 +1,31 @@
 <template>
   <div class="children bgGrey d-flex flex-column justify-content-between">
     <Navbar activeTab="Crianças" />
-
-    <main class="h-75">
-      <button type="button" class="mb-5 mx-5 px-2">Ordenar por nome</button>
-
-      <div class="d-flex justify-content-center">
-        <section class="col-5 d-flex flex-column align-items-center">
-          <div class="listbox row row-cols-4">
-            <article
-              class="card my-3 mx-4 col-4 d-flex flex-column align-items-center"
-              v-for="(connection, index) in getConnections"
-              :key="index"
-            >
-              <!-- getChildAvatar(connection.childUser) -->
-              <img
-                class="card-img pt-4"
-                style="width: 50%"
-                :src="getChildAvatar(connection.childUser).avatar"
-                :alt="connection.childUser"
-              />
-              <h4 class="pt-4">{{ connection.childUser }}</h4>
-            </article>
-          </div>
-        </section>
+    <main class="my-3 d-flex flex-column align-items-center">
+      <div class="d-flex align-items-center">
+        <img src="../assets/children.png" height="70" />
+        <p class="fontAsap mx-2 my-1 colorDarkBlue" style="font-size: 32px">
+          As minhas crianças
+        </p>
       </div>
-    </main>
+      <button class="mx-5 w-25 py-1 align-self-start">Ordenar por nome</button>
 
+      <section class="d-flex flex-wrap bgWhite listbox mx-5 mt-4">
+        <article
+          class="card my-3 mx-4 col-4 d-flex flex-column align-items-center rounded"
+          v-for="(connection, index) in getConnections"
+          :key="index"
+        >
+          <img
+            class="card-img pt-4"
+            style="width: 50%"
+            :src="getChildAvatar(connection.childUser)"
+            :alt="connection.childUser"
+          />
+          <h4 class="mt-4">{{ connection.childUser }}</h4>
+        </article>
+      </section>
+    </main>
     <Footer />
   </div>
 </template>
@@ -53,18 +52,21 @@ export default {
   height: 100vh;
 }
 
+button {
+  background: var(--white);
+  border-color: var(--blue);
+  border-width: 3px;
+  border-radius: 10px;
+}
+
 .listbox {
   border: 6px solid var(--orange);
   border-radius: 10px;
   color: var(--darkBlue);
   box-shadow: 12px 12px 0px var(--orange);
-  width: 170%;
-  height: 30rem;
+  height: 25rem;
+  width: 75%;
   overflow-y: scroll;
-}
-
-.title {
-  font-size: 300%;
 }
 
 .card {
@@ -72,16 +74,5 @@ export default {
   height: 12rem;
   text-align: center;
   font-size: 50%;
-}
-
-button {
-  background: var(--white);
-  border-color: var(--blue);
-  border-width: 3px;
-  border-radius: 10px;
-}
-button:hover {
-  background: var(--blue);
-  color: var(--white);
 }
 </style>

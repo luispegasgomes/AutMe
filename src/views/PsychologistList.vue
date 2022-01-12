@@ -11,25 +11,29 @@
             v-for="(psychologist, index) in getPsychologists"
             :key="index"
             :value="psychologist"
-            v-on:click="selected = getPsychologistsByUsername(psychologist.username)"
+            v-on:click="
+              selected = getPsychologistsByUsername(psychologist.username)
+            "
             :class="{
               btn: true,
               fontAsap: true,
               'my-2': true,
-              selectedBtn: selected == 'Daniel Medeiros',
+              selectedBtn:
+                selected == getPsychologistsByUsername(psychologist.username),
             }"
           >
             {{ psychologist.username }}
           </button>
         </section>
 
-        <section
-          class="description col-6 d-flex flex-column"
-          v-if="selected"
-        >
+        <section class="description col-6 d-flex flex-column" v-if="selected">
           <div class="d-flex align-items-center justify-content-between mb-3">
-            <img :src="selected.avatar" :alt="selected.avatar" style="width: 8%" />
-            <h1>{{selected.name}}</h1>
+            <img
+              :src="selected.avatar"
+              :alt="selected.avatar"
+              style="width: 8%"
+            />
+            <h1>{{ selected.name }}</h1>
             <img
               src="../assets/fivestars.png"
               alt="Avatar"
@@ -39,9 +43,9 @@
           <!--PSYCOLOGIST INFORMATIONS-->
           <div class="d-flex flex-column align-items-center mt-5 mb-3">
             <h3>Email: filipa_manuela@hotmail.com</h3>
-            <h3>Contacto: {{selected.contact}}</h3>
-            <h3>Localização da clínica: {{selected.locationAdress}}</h3>
-            <h3>Código Postal: {{selected.postalCode}}</h3>
+            <h3>Contacto: {{ selected.contact }}</h3>
+            <h3>Localização da clínica: {{ selected.locationAdress }}</h3>
+            <h3>Código Postal: {{ selected.postalCode }}</h3>
           </div>
 
           <div class="d-flex flex-column align-items-center mt-5 mb-3">
@@ -51,7 +55,9 @@
           </div>
         </section>
         <section v-else class="description col-6 d-flex flex-column">
-          <div class="d-flex flex-column align-items-center">Selecione um psicólogo para marcar uma primeira consulta!</div>
+          <div class="d-flex flex-column align-items-center">
+            Selecione um psicólogo para marcar uma primeira consulta!
+          </div>
         </section>
       </div>
     </main>
@@ -68,8 +74,8 @@
         <div class="fontBarlow" style="font-size: 30px">
           Marcar primeira consulta
         </div>
-        <div class="mt-4">Nome do psicólogo: {{selected.name}}</div>
-        <div>Clínica:  {{selected.locationAdress}}</div>
+        <div class="mt-4">Nome do psicólogo: {{ selected.name }}</div>
+        <div>Clínica: {{ selected.locationAdress }}</div>
 
         <div class="form-check d-flex align-items-center mt-5">
           <form @submit.prevent="addAppointment">
@@ -157,7 +163,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getUsername", "getPsychologists", "getPsychologistsByUsername"]),
+    ...mapGetters([
+      "getUsername",
+      "getPsychologists",
+      "getPsychologistsByUsername",
+    ]),
   },
   methods: {
     ...mapMutations(["SET_NEW_APPOINTMENT"]),

@@ -56,7 +56,7 @@ export default {
       {
         emotion: "Vergonha",
         imgUrl:
-          'https://image.freepik.com/free-photo/smiling-man-facepalm-after-embarrassing-joke_176420-18019.jpg',
+          "https://image.freepik.com/free-photo/smiling-man-facepalm-after-embarrassing-joke_176420-18019.jpg",
       },
       {
         emotion: "Vergonha",
@@ -251,12 +251,12 @@ export default {
         (image) => image.emotion !== payload
       );
     },
-
     REMOVE_IMAGE(state, payload) {
-      state.images = state.images.filter(
-        (image) => image.imgUrl !== payload
-      )
-    }
+      state.images = state.images.filter((image) => image.imgUrl !== payload);
+      state.emotions = state.emotions.filter((emotion) =>
+        state.images.find((image) => image.emotion === emotion.name)
+      );
+    },
   },
   actions: {},
 };

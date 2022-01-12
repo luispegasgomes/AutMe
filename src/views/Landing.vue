@@ -1,15 +1,14 @@
 <template>
   <div class="landing bgGrey d-flex flex-column justify-content-between">
     <Navbar />
-
     <main>
       <div class="d-flex align-items-center justify-content-center">
         <section class="col-4 d-flex flex-column align-items-center mb-4">
           <p
             style="
               position: relative;
-              top: 75px;
-              left: -50px;
+              top: 70px;
+              left: -30px;
               font-size: 25px;
               font-weight: bold;
             "
@@ -17,12 +16,12 @@
           >
             Olá {{ getUsername }}!
           </p>
-          <img src="../assets/balao_mensagem.svg" width="300px" />
-          <img src="../assets/Menino_Landing.svg" width="200px" />
+          <img src="../assets/balao_mensagem.svg" width="260px" />
+          <img src="../assets/Menino_Landing.svg" width="180px" />
         </section>
 
         <section class="col-5 d-flex flex-column align-items-center">
-          <div class="gamebox">
+          <div class="gamebox pb-3">
             <p
               class="d-flex flex-column align-items-center colorDarkBlue fontAsap weightBold"
               style="font-size: 35px"
@@ -35,7 +34,9 @@
                 <img src="../assets/adivinha.jpg" class="imgs" />
               </div>
               <div class="d-flex flex-column">
-                <h2 class="fontAsap" style="font-size: 35px">Adivinha-me!</h2>
+                <h2 class="fontAsap" style="font-size: 35px">
+                  Adivinha<span class="colorOrange weightBold">Me</span>
+                </h2>
                 <p class="fontNunito col-9 my-1" style="font-size: 18px">
                   Será que tu sabes todas as nossas emoções?
                 </p>
@@ -49,12 +50,16 @@
               </div>
             </div>
 
-            <div class="d-flex align-items-center my-5">
+            <hr class="mx-3" />
+
+            <div class="d-flex align-items-center mt-2">
               <div class="d-flex flex-column align-items-center mx-4">
                 <img src="../assets/imita.jpg" class="imgs" />
               </div>
               <div class="d-flex flex-column">
-                <h2 class="fontAsap" style="font-size: 35px">Imita-me!</h2>
+                <h2 class="fontAsap" style="font-size: 35px">
+                  Imita<span class="colorOrange weightBold">Me</span>
+                </h2>
                 <p class="fontNunito col-9 my-1" style="font-size: 18px">
                   Vê se consegues repetir as emoções!
                 </p>
@@ -71,7 +76,6 @@
         </section>
       </div>
     </main>
-
     <Footer />
   </div>
 </template>
@@ -106,6 +110,7 @@ export default {
   border: 6px solid var(--orange);
   border-radius: 10px;
   color: var(--darkBlue);
+  background: var(--white);
   box-shadow: 12px 12px 0px var(--orange);
   width: 500px;
 }

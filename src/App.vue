@@ -24,6 +24,11 @@ body * {
   padding: 0;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body,
 #app {
   min-width: 100vw;

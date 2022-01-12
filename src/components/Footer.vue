@@ -26,9 +26,7 @@ export default {
 </script>
 
 <style scoped>
-p {
+footer p {
   margin: 0;
 }
-
-
 </style>

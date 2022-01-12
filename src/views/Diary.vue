@@ -1,5 +1,5 @@
 <template>
-  <div class="landing bgGrey d-flex flex-column">
+  <div class="diary bgGrey d-flex flex-column justify-content-between">
     <Navbar activeTab="Diário" />
     <main>
       <div class="d-flex flex-column align-items-center mb-5">
@@ -10,9 +10,7 @@
           </p>
         </div>
 
-        <div
-          class="profileBox2 d-flex flex-column align-items-center justify-content-center mt-5"
-        >
+        <div class="diaryBox d-flex flex-column align-items-center mt-5">
           <div class="d-flex">
             <div class="mt-1 mb-2">
               <img src="../assets/Menina_Diario.svg" height="150" />
@@ -25,7 +23,7 @@
 
           <!--DIARY INFORMATIONS-->
           <div
-            class="d-flex flex-column diaryBox col-11 mb-4"
+            class="d-flex flex-column adddiaryBox col-11 mb-4"
             v-for="(info, index) in getUsernameDiary"
             :key="index"
           >
@@ -38,7 +36,7 @@
             <div class="text mx-1">
               {{ info.description }}
             </div>
-            <div class="d-flex flex-column align-items-end  mx-1">
+            <div class="d-flex flex-column align-items-end mx-1">
               {{ info.date }}
             </div>
           </div>
@@ -81,7 +79,7 @@
         <!--ADD NEW DIARY-->
       </div>
     </main>
-      <Footer />
+    <Footer />
   </div>
 </template>
 
@@ -109,6 +107,7 @@ export default {
   methods: {
     addDiary() {
       this.form.username = this.getUsername;
+      console.log(this.getUsernameDiary);
       this.SET_NEW_DIARY(this.form);
     },
     ...mapMutations(["SET_NEW_DIARY"]),
@@ -120,19 +119,12 @@ export default {
 </script>
 
 <style scoped>
-
-.landing{
+.diary {
   min-height: 100vh;
   position: relative;
 }
-footer{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
 
-.diaryBox {
+.adddiaryBox {
   border: 6px solid var(--orange);
   border-radius: 10px;
   border: 3px solid var(--blue);
@@ -140,13 +132,14 @@ footer{
   height: 170px;
 }
 
-.profileBox2 {
+.diaryBox {
   border: 6px solid var(--orange);
   border-radius: 10px;
   color: var(--darkBlue);
   box-shadow: 6px 6px 0px var(--orange);
   background: white;
   width: 900px;
+  min-height: 24rem;
 }
 
 .imgs {
