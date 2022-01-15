@@ -17,6 +17,7 @@ export default {
     loggedUserType: "tutor",
     loggedUsername: "tutor",
     loggedUserInfo: "",
+    loggedEmail: "",
 
     users: localStorage.users
       ? JSON.parse(localStorage.users)
@@ -72,8 +73,8 @@ export default {
       : [
           {
             username: "tutor",
-            name: "Nome Tutor",
-            avatar: "/temp_profile_img.png",
+            name: "José António",
+            avatar: "/homem.jpg",
             gender: "M",
             birth: "1960-01-01",
             contact: "912345678",
@@ -85,7 +86,7 @@ export default {
           {
             username: "filipacastro2",
             name: "Filipa Castro",
-            avatar: "/temp_profile_img.png",
+            avatar: "/Filipa-Castro.png",
             gender: "F",
             birth: "1996-01-01",
             contact: "932145678",
@@ -122,6 +123,7 @@ export default {
     getIsAuthenticated: (state) => state.isAuthenticated,
     getUserType: (state) => state.loggedUserType,
     getUsername: (state) => state.loggedUsername,
+    getEmail: (state) => state.loggedEmail,
     getLoggedUserInformations: (state) => state.loggedUserInfo,
     getUsernameDiary: (state) =>
       state.diary.filter((d) => d.username === state.loggedUsername),
@@ -153,6 +155,8 @@ export default {
       state.isAuthenticated = true;
       state.loggedUserType = user.type;
       state.loggedUsername = user.username;
+      state.loggedEmail = user.email;
+
       state.loggedUserInfo = state.users.find(
         (user) => user.username === payload
       );
@@ -164,13 +168,13 @@ export default {
           );
           break;
 
-        case "psychologists":
+        case "psychologist":
           state.loggedUserInfo = state.psychologists.find(
             (user) => user.username === payload
           );
           break;
 
-        case "tutors":
+        case "tutor":
           state.loggedUserInfo = state.tutors.find(
             (user) => user.username === payload
           );

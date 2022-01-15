@@ -49,32 +49,54 @@
           id="modal-1"
           title="Conta-nos o teu dia!"
           ok-title="Confirmar"
-          @ok="addDiary"
+          hide-header
+          hide-footer
         >
-          <form class="d-flex flex-column align-items-center">
-            <input
-              type="text"
-              id="txtTitle"
-              v-model="form.title"
-              placeholder="Título"
-              class="col-10"
-            />
-            <input
-              type="text"
-              id="txtDescription"
-              v-model="form.description"
-              class="my-3 col-10"
-              placeholder="Descrição do teu dia"
-              style="height: 200px"
-            />
-            <input
-              type="text"
-              id="txtDate"
-              v-model="form.date"
-              placeholder="Data"
-              class="col-10"
-            />
-          </form>
+          <div class="d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="fontBarlow" style="font-size: 30px">
+                Conta-nos o teu dia!
+              </div>
+              <button v-on:click="closeModal()" class="fontNunito closebtn mt-2"><img src="../assets/btn_close.png" width="40" /></button>
+            </div>
+
+            <form
+              @submit.prevent="addDiary"
+              class="d-flex flex-column align-items-center"
+            >
+              <input
+                type="date"
+                id="txtDate"
+                v-model="form.date"
+                placeholder="Data"
+                class="mx-2 mt-5"
+                style="width: 220px"
+              />
+              <input
+                type="text"
+                id="txtTitle"
+                v-model="form.title"
+                placeholder="Título"
+                style="width: 280px"
+                class="mt-4"
+              />
+
+              <input
+                type="text"
+                id="txtDescription"
+                v-model="form.description"
+                class="my-3 mt-4"
+                placeholder="Descrição do teu dia"
+                style="height: 200px; width: 440px"
+              />
+              <input
+                type="submit"
+                class="fontNunito bgOrange orangebtns mt-2 col-8"
+                style="width: 120px; height: 40px; font-size: 22px"
+                value="Confirmar"
+              />
+            </form>
+          </div>
         </b-modal>
         <!--ADD NEW DIARY-->
       </div>
@@ -110,6 +132,9 @@ export default {
       console.log(this.getUsernameDiary);
       this.SET_NEW_DIARY(this.form);
     },
+    closeModal() {
+      this.$bvModal.hide("modal-1")
+    },
     ...mapMutations(["SET_NEW_DIARY"]),
   },
   computed: {
@@ -119,6 +144,24 @@ export default {
 </script>
 
 <style scoped>
+.orangebtns {
+  border: none;
+  border-radius: 8px;
+  font-size: 25px;
+  color: white;
+  text-align: center;
+  height: 50px;
+  width: 200px;
+}
+.closebtn {
+  border: none;
+  border-radius: 8px;
+  font-size: 25px;
+  color: white;
+  text-align: center;
+  height: 50px;
+  width: 50px;
+}
 .diary {
   min-height: 100vh;
   position: relative;

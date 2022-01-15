@@ -14,7 +14,7 @@
             "
             class="fontAsap"
           >
-            Olá {{ getUsername }}!
+            Olá <span class="colorOrange">{{ getUsername }}</span> ! 
           </p>
           <img src="../assets/balao_mensagem.svg" width="260px" />
           <img src="../assets/Menino_Landing.svg" width="180px" />
@@ -23,14 +23,21 @@
         <section class="col-5 d-flex flex-column align-items-center">
           <div class="gamebox pb-3">
             <p
-              class="d-flex flex-column align-items-center colorDarkBlue fontAsap weightBold"
+              class="
+                d-flex
+                flex-column
+                align-items-center
+                colorDarkBlue
+                fontAsap
+                weightBold
+              "
               style="font-size: 35px"
             >
               Jogos
             </p>
 
             <div class="d-flex align-items-center">
-              <div class="d-flex flex-column align-items-center mx-4">
+              <div class="d-flex flex-column align-items-center mx-4 mt-4">
                 <img src="../assets/adivinha.jpg" class="imgs" />
               </div>
               <div class="d-flex flex-column">
@@ -50,11 +57,11 @@
               </div>
             </div>
 
-            <hr class="mx-3" />
+            <hr class="mx-3 mt-5" />
 
-            <div class="d-flex align-items-center mt-2">
+            <div class="d-flex align-items-center mt-5">
               <div class="d-flex flex-column align-items-center mx-4">
-                <img src="../assets/imita.jpg" class="imgs" />
+                <img src="../assets/imita-me.png" class="imgs" />
               </div>
               <div class="d-flex flex-column">
                 <h2 class="fontAsap" style="font-size: 35px">
@@ -65,7 +72,14 @@
                 </p>
                 <router-link :to="{ name: 'GameImita' }">
                   <button
-                    class="fontNunito bgOrange colorDarkBlue col-10 btnsPlay my-2"
+                    class="
+                      fontNunito
+                      bgOrange
+                      colorDarkBlue
+                      col-10
+                      btnsPlay
+                      my-2
+                    "
                   >
                     Jogar!
                   </button></router-link
@@ -74,6 +88,31 @@
             </div>
           </div>
         </section>
+        <div v-if="getUserType === 'child'" class="mx-5 col-3 d-flex flex-column align-items-center">
+          <div class="d-flex flex-column align-items-center">
+            <img src="../assets/Menina_Diario.svg" height="150" />
+            <router-link
+              :to="{ name: 'Diary' }"
+              class="nav-link text-uppercase"
+            >
+              <button class="fontNunito bgOrange colorDarkBlue btnsPlay">
+                <img src="../assets/diary.png" width="30" />
+                Ir para o diário!
+              </button>
+            </router-link>
+          </div>
+          <div class="mt-5 d-flex flex-column align-items-center">
+            <img src="../assets/espantado2.png" height="120" />
+            <router-link
+              :to="{ name: 'EmotionsList' }"
+              class="nav-link text-uppercase"
+            >
+              <button class="fontNunito bgOrange colorDarkBlue btnsPlay my-2">
+                Ver as emoções!
+              </button>
+            </router-link>
+          </div>
+        </div>
       </div>
     </main>
     <Footer />
@@ -96,7 +135,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getUsername"]),
+    ...mapGetters(["getUsername", "getUserType"]),
   },
 };
 </script>
@@ -113,6 +152,7 @@ export default {
   background: var(--white);
   box-shadow: 12px 12px 0px var(--orange);
   width: 500px;
+  height: 600px;
 }
 
 .imgs {

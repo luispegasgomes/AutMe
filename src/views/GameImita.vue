@@ -3,7 +3,7 @@
     <Navbar />
     <main class="">
       <div class="d-flex align-items-center mt-2 mx-4">
-        <img src="../assets/imita.jpg" width="100" class="imgs" />
+        <img src="../assets/imita-me.png" width="100" class="imgs" />
         <div class="mx-3 fontAsap" style="font-size: 30px; font-weight: bold">
           Imita-me!
         </div>
@@ -24,15 +24,8 @@
           "
         >
           <div class="d-flex mt-2 mx-3 justify-content-between">
-            <img
-              src="../assets/Dica.png"
-              class="bgGrey"
-              width="65"
-              height="65"
-              style="border-radius: 30px"
-            />
             <div
-              class="mt-2 d-flex flex-column align-items-center colorBlue"
+              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
               style="font-size: 40px"
             >
               Espantado

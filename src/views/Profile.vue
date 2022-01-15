@@ -14,33 +14,58 @@
 
         <div class="d-flex align-items-center">
           <!--PROFILE INFORMATIONS-->
-          <div
-            class="profileBox2 d-flex flex-column align-items-center mx-5 mb-3"
-          >
-            <img
-              src="../assets/temp_profile_img.png"
-              height="100"
-              class="my-3"
-            />
-
+          <div class="profileBox2 d-flex flex-column mx-5 mb-3">
             <div class="d-flex flex-column align-items-center">
-              <div class="d-flex flex-column align-items-center">
-                <h2 class="fontAsap" style="font-size: 35px">{{getLoggedUserInformations.name}}</h2>
-                <p class="fontNunito my-1" style="font-size: 18px">
-                  {{ getUsername }}
-                </p>
+              <img
+                :src="getLoggedUserInformations.avatar"
+                :alt="getLoggedUserInformations.avatar"
+                height="100"
+                class="my-3"
+                style="border-radius: 50%"
+              />
+              <h2 class="fontAsap" style="font-size: 35px">
+                {{ getLoggedUserInformations.name }}
+              </h2>
+            </div>
+
+            <div
+              class="d-flex flex-column mx-3 mt-3 mb-3 fontNunito"
+              style="font-size: 20px"
+            >
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="colorBlue">Nome de utilizador:</div>
+                <div>{{ getLoggedUserInformations.username }}</div>
               </div>
-              <div class="my-5">
-                <p class="fontNunito my-1" style="font-size: 18px">
-                  {{ getLoggedUserInformations.email }}
-                </p>
-                <p class="fontNunito my-1" style="font-size: 18px">
-                  {{getLoggedUserInformations.birth}}
-                </p>
-                <p class="fontNunito my-1" style="font-size: 18px">{{getLoggedUserInformations.contact}}</p>
-                <p class="fontNunito my-1" style="font-size: 18px">
-                  {{getLoggedUserInformations.city}}
-                </p>
+              <div
+                class="d-flex align-items-center justify-content-between mt-3"
+              >
+                <div class="colorBlue">E-mail:</div>
+                <div>{{ getEmail }}</div>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-between mt-3"
+              >
+                <div class="colorBlue">Tipo de utilizador:</div>
+                <div>{{ userType }}</div>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-between mt-3"
+              >
+                <div class="colorBlue">Género:</div>
+                <div>{{ userGender }}</div>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-between mt-3"
+              >
+                <div class="colorBlue">Data de nacimento:</div>
+                <div>{{ getLoggedUserInformations.birth }}</div>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-between mt-3"
+                v-if="getUserType != 'child'"
+              >
+                <div class="colorBlue">Contacto:</div>
+                <div>{{ getLoggedUserInformations.contact }}</div>
               </div>
             </div>
 
@@ -48,7 +73,11 @@
               <button class="fontNunito bgOrange btnsPlay my-2">
                 Atualizar foto de perfil
               </button>
-              <button class="fontNunito bgOrange btnsPlay my-2">
+              <button
+                v-if="getUserType != 'child'"
+                class="fontNunito bgBlue btnsPlay my-2"
+                v-on:click="changeContact()"
+              >
                 Alterar contacto
               </button>
             </div>
@@ -66,7 +95,10 @@
                   </h2>
                 </div>
                 <div class="my-3">
-                  <form @submit.prevent="changePassword" class="d-flex flex-column align-items-center">
+                  <form
+                    @submit.prevent="changePassword"
+                    class="d-flex flex-column align-items-center"
+                  >
                     <input
                       class="my-2 col-9"
                       type="password"
@@ -134,7 +166,36 @@
         </div>
       </div>
     </main>
+    <b-modal
+      id="modal-1"
+      title="Conta-nos o teu dia!"
+      ok-title="Confirmar"
+      hide-header
+      hide-footer
+    >
+      <div class="d-flex flex-column">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="fontBarlow" style="font-size: 30px">
+            Ateração de password
+          </div>
+          <button v-on:click="closeModal()" class="fontNunito closebtn mt-2">
+            <img src="../assets/btn_close.png" width="40" />
+          </button>
+        </div>
+        <div class="d-flex flex-column align-items-center mt-3">
+          <img src="../assets/like.svg" width="100" />
+          <div class="fonNunito mt-3" style="font-size: 20px">
+            A tua password foi alterada com sucesso!
+          </div>
 
+          <router-link :to="{ name: 'Landing' }"
+            ><button class="btnsPlay mt-4 bgBlue">
+              Voltar à página inicial
+            </button></router-link
+          >
+        </div>
+      </div>
+    </b-modal>
     <Footer />
   </div>
 </template>
@@ -148,6 +209,9 @@ export default {
   data() {
     return {
       name: "Profile",
+      userGender: "",
+      userType: "",
+      contact: "",
       form: {
         currentPassword: "",
         newPassword: "",
@@ -161,19 +225,53 @@ export default {
   },
   methods: {
     changePassword() {
-      if (this.getLoggedUserInformations.password == this.form.currentPassword) {
-        console.log('muito bem');
-        this.$store.commit('SET_NEW_PASSWORD', this.form.newPassword)
-        alert('Password alterada!')
-      }
-      else {
-        alert('As passwords não coicidem!')
-      }
+      this.$store.commit("SET_NEW_PASSWORD", this.form.newPassword);
+      this.$bvModal.show("modal-1");
+      /*if (
+        this.getLoggedUserInformations.password == this.form.currentPassword
+      ) {
+        console.log("muito bem");
+        this.$store.commit("SET_NEW_PASSWORD", this.form.newPassword);
+        alert("Password alterada!");
+        this.$bvModal.show("modal-1")
+      } else {
+        alert("As passwords não coicidem!");
+      }*/
     },
-    ...mapMutations(["SET_NEW_PASSWORD"])
+    closeModal() {
+      this.$bvModal.hide("modal-1");
+    },
+
+    changeContact () {
+      this.contact = prompt('Insira novo contacto')
+      //this.$store.commit("SET_NEW_CONTACT", this.contact);
+    },
+
+    ...mapMutations(["SET_NEW_PASSWORD"]),
+  },
+  created() {
+    if (this.getLoggedUserInformations.gender == 'M') {
+      this.userGender = 'Masculino'
+    } else {
+      this.userGender = 'Feminino'
+    }
+
+    if (this.getUserType == "child") {
+      this.userType = "Criança"
+    } else if (this.getUserType == "tutor") {
+      this.userType = "Tutor"
+    } else if (this.getUserType == "psychologist") {
+      this.userType = "Psicólogo"
+    }
+    
   },
   computed: {
-    ...mapGetters(["getUsername", "getLoggedUserInformations"]),
+    ...mapGetters([
+      "getUsername",
+      "getLoggedUserInformations",
+      "getUserType",
+      "getEmail",
+    ]),
   },
 };
 </script>
@@ -181,6 +279,16 @@ export default {
 <style scoped>
 .landing {
   height: 100vh;
+}
+
+.closebtn {
+  border: none;
+  border-radius: 8px;
+  font-size: 25px;
+  color: white;
+  text-align: center;
+  height: 50px;
+  width: 50px;
 }
 
 .profileBox {

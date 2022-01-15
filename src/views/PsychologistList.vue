@@ -69,6 +69,8 @@
       title="Marcar primeira consulta"
       ok-title="Confirmar"
       style="text-align: center"
+      hide-header
+      hide-footer
     >
       <div class="d-flex flex-column align-items-center">
         <div class="fontBarlow" style="font-size: 30px">
@@ -91,6 +93,42 @@
               <option value="09:00">09:00</option>
               <option value="09:30">09:30</option>
             </select>
+
+            <label class="form-check-label mx-2" for="flexCheckChecked">
+              Manhã
+            </label>
+            <input
+              class="form-check-input mx-2"
+              type="checkbox"
+              id="flexCheckChecked"
+              style="width: 23px; height: 23px"
+            />
+            <label class="form-check-label" for="flexCheckChecked">
+              Tarde
+            </label>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="flexCheckChecked"
+              style="width: 23px; height: 23px"
+            />
+            <div class="mt-5 schedules">
+              <div class="d-flex flex-column align-items-center">
+                Horários disponíveis
+              </div>
+              <div class="d-flex mt-3">
+                <div class="mx-3 hour">09:00</div>
+                <div class="mx-3 hour">09:30</div>
+                <div class="mx-3 hour">10:00</div>
+                <div class="mx-3 hour">10:30</div>
+              </div>
+              <div class="d-flex mt-3 mb-3">
+                <div class="mx-3 hour">11:00</div>
+                <div class="mx-3 hour">11:30</div>
+                <div class="mx-3 hour">12:00</div>
+                <div class="mx-3 hour">12:30</div>
+              </div>
+            </div>
             <input
               type="submit"
               class="fontNunito bgOrange orangebtns mt-4 col-8"
@@ -98,40 +136,6 @@
               value="Confirmar"
             />
           </form>
-
-          <label class="form-check-label mx-2" for="flexCheckChecked">
-            Manhã
-          </label>
-          <input
-            class="form-check-input mx-2"
-            type="checkbox"
-            id="flexCheckChecked"
-            style="width: 23px; height: 23px"
-          />
-          <label class="form-check-label" for="flexCheckChecked"> Tarde </label>
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="flexCheckChecked"
-            style="width: 23px; height: 23px"
-          />
-        </div>
-        <div class="mt-5 schedules">
-          <div class="d-flex flex-column align-items-center">
-            Horários disponíveis
-          </div>
-          <div class="d-flex mt-3">
-            <div class="mx-3 hour">09:00</div>
-            <div class="mx-3 hour">09:30</div>
-            <div class="mx-3 hour">10:00</div>
-            <div class="mx-3 hour">10:30</div>
-          </div>
-          <div class="d-flex mt-3 mb-3">
-            <div class="mx-3 hour">11:00</div>
-            <div class="mx-3 hour">11:30</div>
-            <div class="mx-3 hour">12:00</div>
-            <div class="mx-3 hour">12:30</div>
-          </div>
         </div>
       </div>
     </b-modal>

@@ -38,7 +38,7 @@
           >O nome de utilizador ou palavra-passe estão errados!</BAlert
         >
 
-        <button class="my-4 px-5 btn btn-primary">Submit</button>
+        <button class="my-4 px-5 btn btn-primary">Entrar</button>
 
         <p>
           <router-link :to="{ name: 'Register' }" class="fontNunito my-4">

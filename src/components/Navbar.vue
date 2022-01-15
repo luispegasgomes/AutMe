@@ -7,20 +7,19 @@
     <div class="d-flex align-items-end colorDarkBlue" style="font-size: 20px">
       <ul class="navbar-nav fontBarlow weightLight d-flex flex-row">
         <li
+          v-if="getUserType!= 'child'"
           :class="{
             'nav-item': true,
             'mx-2': true,
             selected: activeTab == 'Emoções',
           }"
         >
-          <router-link
-            :to="{ name: 'EmotionsList' }"
-            class="nav-link text-uppercase"
-            >Emoções</router-link
+          <router-link :to="{ name: 'EmotionsList' }" class="nav-link text-uppercase"
+            >EMOÇÕES</router-link
           >
         </li>
         <li
-          v-if="true"
+          v-if="getUserType != 'child'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -32,7 +31,7 @@
           >
         </li>
         <li
-          v-if="true"
+          v-if="getUserType != 'child'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -46,7 +45,7 @@
           >
         </li>
         <li
-          v-if="true"
+          v-if="getUserType === 'psychologist'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -58,7 +57,7 @@
           >
         </li>
         <li
-          v-if="true"
+          v-if="getUserType === 'psychologist'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -70,7 +69,7 @@
           >
         </li>
         <li
-          v-if="true"
+          v-if="getUserType === 'tutor'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -84,7 +83,7 @@
           >
         </li>
         <li
-          v-if="true"
+          v-if="getUserType === 'admin'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -97,17 +96,22 @@
         </li>
       </ul>
     </div>
-    <router-link :to="{ name: 'Profile' }"
-      ><img src="../assets/temp_profile_img.png" height="50"
-    /></router-link>
+    <router-link :to="{ name: 'Profile' }">
+      <img src="../assets/temp_profile_img.png" height="50" />
+    </router-link>
   </nav>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Navbar",
   props: {
     activeTab: String,
+  },
+
+  computed: {
+    ...mapGetters(["getUserType", "getChildAvatar"]),
   },
 };
 </script>
