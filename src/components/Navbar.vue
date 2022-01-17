@@ -13,6 +13,7 @@
             'mx-2': true,
             selected: activeTab == 'Emoções',
           }"
+          class="col-4 d-flex flex-column align-items-center"
         >
           <router-link :to="{ name: 'EmotionsList' }" class="nav-link text-uppercase"
             >EMOÇÕES</router-link
@@ -25,6 +26,7 @@
             'mx-2': true,
             selected: activeTab == 'Diário',
           }"
+          class="col-4 d-flex flex-column align-items-center"
         >
           <router-link :to="{ name: 'Diary' }" class="nav-link text-uppercase"
             >Diário</router-link
@@ -37,6 +39,7 @@
             'mx-2': true,
             selected: activeTab == 'Crianças',
           }"
+          class="col-4 d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'Children' }"
@@ -63,6 +66,7 @@
             'mx-2': true,
             selected: activeTab == 'Agenda',
           }"
+          class="col-4 d-flex flex-column align-items-center"
         >
           <router-link :to="{ name: '' }" class="nav-link text-uppercase"
             >Agenda</router-link
@@ -75,6 +79,7 @@
             'mx-2': true,
             selected: activeTab == 'Psicólogos',
           }"
+          class="col-4 d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'PsychologistList' }"
@@ -96,7 +101,7 @@
         </li>
       </ul>
     </div>
-    <router-link :to="{ name: 'Profile' }">
+    <router-link :to="{ name: 'Profile' }" class="col-2 d-flex flex-column align-items-end">
       <img src="../assets/temp_profile_img.png" height="50" />
     </router-link>
   </nav>

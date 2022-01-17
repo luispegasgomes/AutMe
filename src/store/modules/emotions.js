@@ -5,51 +5,61 @@ export default {
         name: "Admiração",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f929.png",
+        hint: 'Finge que estás admirado!',
       },
       {
         name: "Alegria",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f60a.png",
+        hint: "Fica feliz!",
       },
       {
         name: "Espantado",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f632.png",
+        hint: "Abre a boca!",
       },
       {
         name: "Dúvida",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f914.png",
+        hint: "Qual será está emoção?",
       },
       {
         name: "Indiferença",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f610.png",
+        hint: 'Faz uma cara de desinteresse!',
       },
       {
         name: "Nervosismo",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f62c.png",
+        hint: 'Mostra lá os teus dentinhos!',
       },
       {
         name: "Nojo",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f92e.png",
+        hint: 'Não é assim tão difícil vá!',
       },
       {
         name: "Raiva",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f621.png",
+        hint: 'Tens de manter uma cara fechada!',
       },
       {
         name: "Tristeza",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f61e.png",
+          hint: "Pensa em algo triste!"
       },
       {
         name: "Vergonha",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f633.png",
+        hint: "Finge que aconteceu algo constrangedor!"
       },
     ],
     images: [
@@ -218,6 +228,9 @@ export default {
     ],
   },
   getters: {
+    /* Get 5 random emotions for the game ImitaMe */
+    getEmotionsForImita: (state) => state.emotions,
+
     getEmotions: (state) =>
       state.emotions.sort((a, b) => {
         if (a.name < b.name) return -1;

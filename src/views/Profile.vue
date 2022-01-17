@@ -176,7 +176,7 @@
       <div class="d-flex flex-column">
         <div class="d-flex align-items-center justify-content-between">
           <div class="fontBarlow" style="font-size: 30px">
-            Ateração de password
+            Alteração de password
           </div>
           <button v-on:click="closeModal()" class="fontNunito closebtn mt-2">
             <img src="../assets/btn_close.png" width="40" />
@@ -184,7 +184,7 @@
         </div>
         <div class="d-flex flex-column align-items-center mt-3">
           <img src="../assets/like.svg" width="100" />
-          <div class="fonNunito mt-3" style="font-size: 20px">
+          <div class="fontNunito mt-3" style="font-size: 20px">
             A tua password foi alterada com sucesso!
           </div>
 

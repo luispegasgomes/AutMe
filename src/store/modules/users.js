@@ -41,7 +41,7 @@ export default {
             type: "tutor",
           },
           {
-            username: "psicologo",
+            username: "filipacastro2",
             email: "psicologo@gmail.com",
             password: "Esmad_2122",
             type: "psychologist",
