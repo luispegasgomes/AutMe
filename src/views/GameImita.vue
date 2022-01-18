@@ -44,15 +44,7 @@
 
         <div
           v-if="startGame === false"
-          class="
-            profileBox2
-            d-flex
-            flex-column
-            justify-content-between
-            align-items-center
-            mx-5
-            mb-3
-          "
+          class="profileBox2 d-flex flex-column justify-content-between align-items-center mx-5 mb-3"
         >
           <p
             class="mt-3 mx-3 fontNunito colorBlue"
@@ -75,14 +67,7 @@
         <!--GAME-->
         <div
           v-if="startGame === true"
-          class="
-            profileBox2
-            d-flex
-            flex-column
-            justify-content-between
-            mx-5
-            mb-3
-          "
+          class="profileBox2 d-flex flex-column justify-content-between mx-5 mb-3"
         >
           <!--FIRST EMOTION-->
           <div
@@ -90,14 +75,7 @@
             v-if="step === 0"
           >
             <div
-              class="
-                mt-2
-                d-flex
-                flex-column
-                align-items-center
-                colorBlue
-                weightBold
-              "
+              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
               style="font-size: 40px"
             >
               {{ getEmotionsForImita[0].name }}
@@ -127,14 +105,7 @@
             v-if="step === 1"
           >
             <div
-              class="
-                mt-2
-                d-flex
-                flex-column
-                align-items-center
-                colorBlue
-                weightBold
-              "
+              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
               style="font-size: 40px"
             >
               {{ getEmotionsForImita[1].name }}
@@ -166,14 +137,7 @@
             v-if="step === 2"
           >
             <div
-              class="
-                mt-2
-                d-flex
-                flex-column
-                align-items-center
-                colorBlue
-                weightBold
-              "
+              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
               style="font-size: 40px"
             >
               {{ getEmotionsForImita[2].name }}
@@ -205,14 +169,7 @@
             v-if="step === 3"
           >
             <div
-              class="
-                mt-2
-                d-flex
-                flex-column
-                align-items-center
-                colorBlue
-                weightBold
-              "
+              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
               style="font-size: 40px"
             >
               {{ getEmotionsForImita[3].name }}
@@ -244,14 +201,7 @@
             v-if="step === 4"
           >
             <div
-              class="
-                mt-2
-                d-flex
-                flex-column
-                align-items-center
-                colorBlue
-                weightBold
-              "
+              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
               style="font-size: 40px"
             >
               {{ getEmotionsForImita[4].name }}
@@ -283,7 +233,7 @@
               style="height: 50px"
               v-if="step != 4"
             >
-              <img src="../assets/Veriificar.png" width="30" />
+              <img src="../assets/verificar.png" width="30" />
               Registar emoção
             </button>
             <button
@@ -316,17 +266,23 @@
     >
       <div class="d-flex flex-column">
         <div class="d-flex align-items-center justify-content-between">
-          <div class="fontBarlow" style="font-size: 30px">
-            Terminou o jogo!
-          </div>
-          <button v-on:click="closeModal()" class="fontNunito mt-2" style="border: none; border-radius:20px">
+          <div class="fontBarlow" style="font-size: 30px">Terminou o jogo!</div>
+          <button
+            v-on:click="closeModal()"
+            class="fontNunito mt-2"
+            style="border: none; border-radius: 20px"
+          >
             <img src="../assets/btn_close.png" width="40" />
           </button>
         </div>
         <div class="d-flex flex-column align-items-center mt-3">
           <img src="../assets/like.svg" width="100" />
-          <div class="fontNunito mt-3 align-items-center" style="font-size: 20px; text-align: center;">
-           Parabéns! <br> Acertaste 3 das emoções apresentadas. 
+          <div
+            class="fontNunito mt-3 align-items-center"
+            style="font-size: 20px; text-align: center"
+          >
+            Parabéns! <br />
+            Acertaste 3 das emoções apresentadas.
           </div>
 
           <router-link :to="{ name: 'Landing' }"
@@ -379,11 +335,12 @@ export default {
     },
     startGameMethod() {
       this.startGame = true;
-      this.getEmotionsForImita = this.getEmotionsForImita.sort(() => Math.random() - 0.5);
+      this.getEmotionsForImita = this.getEmotionsForImita.sort(
+        () => Math.random() - 0.5
+      );
     },
     showDoubt() {
       this.doubt = true;
-      
     },
     closeModal() {
       this.$bvModal.hide("modal-1");

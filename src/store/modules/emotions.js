@@ -5,7 +5,7 @@ export default {
         name: "Admiração",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f929.png",
-        hint: 'Finge que estás admirado!',
+        hint: "Finge que estás admirado!",
       },
       {
         name: "Alegria",
@@ -29,37 +29,37 @@ export default {
         name: "Indiferença",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f610.png",
-        hint: 'Faz uma cara de desinteresse!',
+        hint: "Faz uma cara de desinteresse!",
       },
       {
         name: "Nervosismo",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f62c.png",
-        hint: 'Mostra lá os teus dentinhos!',
+        hint: "Mostra lá os teus dentinhos!",
       },
       {
         name: "Nojo",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f92e.png",
-        hint: 'Não é assim tão difícil vá!',
+        hint: "Não é assim tão difícil vá!",
       },
       {
         name: "Raiva",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f621.png",
-        hint: 'Tens de manter uma cara fechada!',
+        hint: "Tens de manter uma cara fechada!",
       },
       {
         name: "Tristeza",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f61e.png",
-          hint: "Pensa em algo triste!"
+        hint: "Pensa em algo triste!",
       },
       {
         name: "Vergonha",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f633.png",
-        hint: "Finge que aconteceu algo constrangedor!"
+        hint: "Finge que aconteceu algo constrangedor!",
       },
     ],
     images: [
@@ -94,7 +94,7 @@ export default {
           "https://images.freejpg.com.ar/400/2606/man-sad-portrait-hood-person-depression-emotion-F100028602.jpg",
       },
       {
-        name: "Raiva",
+        emotion: "Raiva",
         imgUrl:
           "https://gooutside.com.br/wp-content/uploads/sites/3/2019/03/raiva-exercicio.jpg",
       },
@@ -230,7 +230,21 @@ export default {
   getters: {
     /* Get 5 random emotions for the game ImitaMe */
     getEmotionsForImita: (state) => state.emotions,
-
+    getEmotionsForAdivinha: (state) => (difficulty) => {
+      let list = state.images
+        .sort(() => Math.random() - 0.5)
+        .filter(
+          (imgItem) =>
+            !state.recognizedImages.find(
+              (riItem) => imgItem.imgUrl === riItem.imgUrl
+            )
+        )
+        .splice(0, difficulty === "easy" ? 4 : difficulty === "medium" ? 6 : 8);
+      return list;
+    },
+    getEmotionsNames: (state) => state.emotions.map((emotion) => emotion.name),
+    getEmotionNameFromImage: (state) => (img) =>
+      state.images.find((image) => image.imgUrl === img).emotion,
     getEmotions: (state) =>
       state.emotions.sort((a, b) => {
         if (a.name < b.name) return -1;
@@ -269,6 +283,9 @@ export default {
       state.emotions = state.emotions.filter((emotion) =>
         state.images.find((image) => image.emotion === emotion.name)
       );
+    },
+    ADD_RECOGNIZED(state, payload) {
+      state.recognizedImages.push(...payload);
     },
   },
   actions: {},

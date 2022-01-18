@@ -1,6 +1,6 @@
 export default {
   state: {
-    difficultyLevel: "",
+    difficultyLevel: "hard",
   },
   getters: {
     getDifficultyLevel: (state) => state.difficultyLevel,
