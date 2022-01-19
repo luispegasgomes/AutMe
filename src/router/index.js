@@ -23,10 +23,6 @@ function isAuthenticated() {
   return store.getters.getIsAuthenticated;
 }
 
-function canViewPage(types) {
-  return types.includes(store.getters.getUserType);
-}
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -187,11 +183,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !isAuthenticated()) {
     next({ name: "Login" });
   } else {
-    if (canViewPage(to.meta.types)) {
-      next();
-    } else {
-      next({ name: "Landing" });
-    }
+    next();
   }
 });
 
