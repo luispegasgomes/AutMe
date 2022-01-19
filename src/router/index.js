@@ -23,6 +23,10 @@ function isAuthenticated() {
   return store.getters.getIsAuthenticated;
 }
 
+function canViewPage(types) {
+  return types.includes(store.getters.getUserType);
+}
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -79,6 +83,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "O meu perfil",
+      types: ["child", "tutor", "psychologist", "admin"],
     },
   },
   {
@@ -88,6 +93,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "O meu diário",
+      types: ["child"],
     },
   },
   {
@@ -97,6 +103,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "As minhas crianças",
+      types: ["tutor", "psychologist"],
     },
   },
   {
@@ -106,6 +113,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Os psicólogos",
+      types: ["tutor"],
     },
   },
   {
@@ -115,6 +123,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Emoções",
+      types: ["child", "tutor", "psychologist", "admin"],
     },
   },
   {
@@ -124,6 +133,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Gestão",
+      types: ["admin"],
     },
   },
   {
@@ -133,6 +143,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "GameImita",
+      types: ["child", "tutor", "psychologist", "admin"],
     },
   },
   {
@@ -142,6 +153,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Adivinha - Escolhe o nível",
+      types: ["child", "tutor", "psychologist", "admin"],
     },
   },
   {
@@ -151,6 +163,7 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Adivinha",
+      types: ["child", "tutor", "psychologist", "admin"],
     },
   },
   {
@@ -174,7 +187,11 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !isAuthenticated()) {
     next({ name: "Login" });
   } else {
-    next();
+    if (canViewPage(to.meta.types)) {
+      next();
+    } else {
+      next({ name: "Landing" });
+    }
   }
 });
 

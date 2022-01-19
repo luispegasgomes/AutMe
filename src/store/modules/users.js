@@ -14,8 +14,8 @@ function create_UUID() {
 export default {
   state: {
     isAuthenticated: false,
-    loggedUserType: "child",
-    loggedUsername: "crianca",
+    loggedUserType: "",
+    loggedUsername: "",
     loggedUserInfo: "",
     loggedEmail: "",
 

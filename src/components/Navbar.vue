@@ -1,5 +1,5 @@
 <template>
-  <nav class="d-flex justify-content-between align-items-end px-3 py-2">
+  <nav class="d-flex justify-content-between align-items-end pl-3 py-2">
     <router-link :to="{ name: 'Landing' }" class="nav-link text-uppercase"
       ><img src="../assets/logo.svg" alt="AutMe logo" height="50"
     /></router-link>
@@ -7,7 +7,7 @@
     <div class="d-flex align-items-end colorDarkBlue" style="font-size: 20px">
       <ul class="navbar-nav fontBarlow weightLight d-flex flex-row">
         <li
-          v-if="getUserType!= 'child'"
+          v-if="getUserType != 'child'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -15,25 +15,14 @@
           }"
           class="col-4 d-flex flex-column align-items-center"
         >
-          <router-link :to="{ name: 'EmotionsList' }" class="nav-link text-uppercase"
+          <router-link
+            :to="{ name: 'EmotionsList' }"
+            class="nav-link text-uppercase"
             >EMOÇÕES</router-link
           >
         </li>
         <li
-          v-if="getUserType != 'child'"
-          :class="{
-            'nav-item': true,
-            'mx-2': true,
-            selected: activeTab == 'Diário',
-          }"
-          class="col-4 d-flex flex-column align-items-center"
-        >
-          <router-link :to="{ name: 'Diary' }" class="nav-link text-uppercase"
-            >Diário</router-link
-          >
-        </li>
-        <li
-          v-if="getUserType != 'child'"
+          v-if="getUserType != 'child' && getUserType != 'admin'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -101,20 +90,35 @@
         </li>
       </ul>
     </div>
-    <router-link :to="{ name: 'Profile' }" class="col-2 d-flex flex-column align-items-end">
-      <img src="../assets/temp_profile_img.png" height="50" />
-    </router-link>
+    <div class="d-flex">
+      <router-link
+        :to="{ name: 'Profile' }"
+        class="col-2 d-flex flex-column align-items-end"
+      >
+        <img src="../assets/temp_profile_img.png" height="50" />
+      </router-link>
+      <button class="btn" @click="logout">
+        <img src="../assets/logout.png" height="30" />
+      </button>
+    </div>
   </nav>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import router from "../router";
 export default {
   name: "Navbar",
   props: {
     activeTab: String,
   },
-
+  methods: {
+    logout() {
+      this.SET_LOGOUT();
+      router.push({ name: "Home" });
+    },
+    ...mapMutations(["SET_LOGOUT"]),
+  },
   computed: {
     ...mapGetters(["getUserType", "getChildAvatar"]),
   },
