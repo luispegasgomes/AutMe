@@ -3,9 +3,9 @@
     <Navbar />
     <main class="">
       <div class="d-flex align-items-center mt-2 mx-4">
-        <img src="../assets/imita-me.png" width="100" class="imgs" />
+        <img src="../assets/completa.png" width="100" class="imgs" />
         <div class="mx-3 fontAsap" style="font-size: 30px; font-weight: bold">
-          Imita-me!
+          Completa<span class="colorOrange weightBold">Me</span>
         </div>
       </div>
 
@@ -44,7 +44,15 @@
 
         <div
           v-if="startGame === false"
-          class="profileBox2 d-flex flex-column justify-content-between align-items-center mx-5 mb-3"
+          class="
+            profileBox2
+            d-flex
+            flex-column
+            justify-content-between
+            align-items-center
+            mx-5
+            mb-3
+          "
         >
           <p
             class="mt-3 mx-3 fontNunito colorBlue"
@@ -59,41 +67,64 @@
               Como funciona o jogo?
             </button>
           </div>
-
+          
           <button v-on:click="startGameMethod()" class="btnsPlay bgOrange mb-3">
             Vamos começar!
           </button>
         </div>
+
         <!--GAME-->
         <div
           v-if="startGame === true"
-          class="profileBox2 d-flex flex-column justify-content-between mx-5 mb-3"
+          class="
+            profileBox2
+            d-flex
+            flex-column
+            justify-content-between
+            mx-5
+            mb-3
+          "
         >
           <!--FIRST EMOTION-->
           <div
             class="d-flex mt-2 mx-3 justify-content-between"
             v-if="step === 0"
           >
-            <div
-              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
-              style="font-size: 40px"
-            >
-              {{ getEmotionsForImita[0].name }}
-            </div>
+          <div class="d-flex flex-column">
+              <p class="mt-2 mx-1 colorBlue fontAsap" style="font-size:20px">Emoção 1/5</p>
+                <div
+                  class="d-flex align-items-center colorBlue weightBold"
+                  style="font-size: 40px"
+                >
+                  <div v-for="index in lifes" :key="index" class="d-flex mx-1">
+                    <img src="../assets/heart.png" width="30" />
+                    
+                  </div>
+                  
+                </div>
+          </div>
+
+            
             <button v-on:click="showHint()" class="hintbtn">
               <img src="../assets/Dica.png" class="" width="65" height="65" />
             </button>
           </div>
 
           <div v-if="step === 0">
-            <div class="d-flex align-items-center justify-content-between p-3">
-              <button class="arrow">&lt;</button>
+            <div
+              class="
+                d-flex
+                flex-column
+                align-items-center
+                justify-content-between
+                p-3
+              "
+            >
               <img
                 :src="getEmotionsForImita[0].imgUrl"
                 :alt="getEmotionsForImita[0].imgUrl"
                 width="200"
               />
-              <button class="arrow" v-on:click.prevent="nextStep">></button>
             </div>
           </div>
 
@@ -104,28 +135,39 @@
             class="d-flex mt-2 mx-3 justify-content-between"
             v-if="step === 1"
           >
-            <div
-              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
-              style="font-size: 40px"
-            >
-              {{ getEmotionsForImita[1].name }}
-            </div>
+          <div class="d-flex flex-column">
+              <p class="mt-2 mx-1 colorBlue fontAsap" style="font-size:20px">Emoção 2/5</p>
+                <div
+                  class="d-flex align-items-center colorBlue weightBold"
+                  style="font-size: 40px"
+                >
+                  <div v-for="index in lifes" :key="index" class="d-flex mx-1">
+                    <img src="../assets/heart.png" width="30" />
+                    
+                  </div>
+                  
+                </div>
+          </div>
             <button v-on:click="showHint()" class="hintbtn">
               <img src="../assets/Dica.png" class="" width="65" height="65" />
             </button>
           </div>
 
           <div v-if="step === 1">
-            <div class="d-flex align-items-center justify-content-between p-3">
-              <button class="arrow" v-on:click.prevent="previousStep">
-                &lt;
-              </button>
+            <div
+              class="
+                d-flex
+                flex-column
+                align-items-center
+                justify-content-between
+                p-3
+              "
+            >
               <img
                 :src="getEmotionsForImita[1].imgUrl"
                 :alt="getEmotionsForImita[1].imgUrl"
                 width="200"
               />
-              <button class="arrow" v-on:click.prevent="nextStep">></button>
             </div>
           </div>
 
@@ -136,28 +178,39 @@
             class="d-flex mt-2 mx-3 justify-content-between"
             v-if="step === 2"
           >
-            <div
-              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
-              style="font-size: 40px"
-            >
-              {{ getEmotionsForImita[2].name }}
-            </div>
+          <div class="d-flex flex-column">
+              <p class="mt-2 mx-1 colorBlue fontAsap" style="font-size:20px">Emoção 3/5</p>
+                <div
+                  class="d-flex align-items-center colorBlue weightBold"
+                  style="font-size: 40px"
+                >
+                  <div v-for="index in lifes" :key="index" class="d-flex mx-1">
+                    <img src="../assets/heart.png" width="30" />
+                    
+                  </div>
+                  
+                </div>
+          </div>
             <button v-on:click="showHint()" class="hintbtn">
               <img src="../assets/Dica.png" class="" width="65" height="65" />
             </button>
           </div>
 
           <div v-if="step === 2">
-            <div class="d-flex align-items-center justify-content-between p-3">
-              <button class="arrow" v-on:click.prevent="previousStep">
-                &lt;
-              </button>
+            <div
+              class="
+                d-flex
+                flex-column
+                align-items-center
+                justify-content-between
+                p-3
+              "
+            >
               <img
                 :src="getEmotionsForImita[2].imgUrl"
                 :alt="getEmotionsForImita[2].imgUrl"
                 width="200"
               />
-              <button class="arrow" v-on:click.prevent="nextStep">></button>
             </div>
           </div>
 
@@ -168,28 +221,39 @@
             class="d-flex mt-2 mx-3 justify-content-between"
             v-if="step === 3"
           >
-            <div
-              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
-              style="font-size: 40px"
-            >
-              {{ getEmotionsForImita[3].name }}
-            </div>
+          <div class="d-flex flex-column">
+              <p class="mt-2 mx-1 colorBlue fontAsap" style="font-size:20px">Emoção 4/5</p>
+                <div
+                  class="d-flex align-items-center colorBlue weightBold"
+                  style="font-size: 40px"
+                >
+                  <div v-for="index in lifes" :key="index" class="d-flex mx-1">
+                    <img src="../assets/heart.png" width="30" />
+                    
+                  </div>
+                  
+                </div>
+          </div>
             <button v-on:click="showHint()" class="hintbtn">
               <img src="../assets/Dica.png" class="" width="65" height="65" />
             </button>
           </div>
 
           <div v-if="step === 3">
-            <div class="d-flex align-items-center justify-content-between p-3">
-              <button class="arrow" v-on:click.prevent="previousStep">
-                &lt;
-              </button>
+            <div
+              class="
+                d-flex
+                flex-column
+                align-items-center
+                justify-content-between
+                p-3
+              "
+            >
               <img
                 :src="getEmotionsForImita[3].imgUrl"
                 :alt="getEmotionsForImita[3].imgUrl"
                 width="200"
               />
-              <button class="arrow" v-on:click.prevent="nextStep">></button>
             </div>
           </div>
 
@@ -200,51 +264,111 @@
             class="d-flex mt-2 mx-3 justify-content-between"
             v-if="step === 4"
           >
-            <div
-              class="mt-2 d-flex flex-column align-items-center colorBlue weightBold"
-              style="font-size: 40px"
-            >
-              {{ getEmotionsForImita[4].name }}
-            </div>
+          <div class="d-flex flex-column">
+              <p class="mt-2 mx-1 colorBlue fontAsap" style="font-size:20px">Emoção 5/5</p>
+                <div
+                  class="d-flex align-items-center colorBlue weightBold"
+                  style="font-size: 40px"
+                >
+                  <div v-for="index in lifes" :key="index" class="d-flex mx-1">
+                    <img src="../assets/heart.png" width="30" />
+                    
+                  </div>
+                  
+                </div>
+          </div>
             <button v-on:click="showHint()" class="hintbtn">
               <img src="../assets/Dica.png" class="" width="65" height="65" />
             </button>
           </div>
 
           <div v-if="step === 4">
-            <div class="d-flex align-items-center justify-content-between p-3">
-              <button class="arrow" v-on:click.prevent="previousStep">
-                &lt;
-              </button>
+            <div
+              class="
+                d-flex
+                flex-column
+                align-items-center
+                justify-content-between
+                p-3
+              "
+            >
               <img
                 :src="getEmotionsForImita[4].imgUrl"
                 :alt="getEmotionsForImita[4].imgUrl"
                 width="200"
               />
-              <button class="arrow">></button>
             </div>
           </div>
 
           <!--FIFTH EMOTION-->
 
+          <!--END GAME-->
+          <div
+            class="d-flex mt-2 mx-3 justify-content-between"
+            v-if="step === 5"
+          >
+          <div class="d-flex flex-column align-items-center">
+              <p class="mt-2 mx-1 colorBlue fontAsap" style="font-size:24px">Chegaste ao fim do jogo, agora vamos lá ver como te saíste... Clica em "Terminar Jogo" para saberes o resultado!
+              </p>
+              <img src="../assets/finish-line.png" width="200px" class="mt-5">
+          </div>
+
+          
+          </div>
+
+          <!--END GAME-->
+
+
+          <div class="word" v-if="step != 5">
+            <div class="word-letters">
+              <div
+                class="colorOrange word-letter"
+                style="font-size: 30px; font-weight: bold"
+                v-for="(letter, key) in word"
+                :key="key"
+              >
+                {{ checkLetter(letter) ? letter : "" }}
+              </div>
+            </div>
+          </div>
+          <!--KEYBOARD-->
+          <div class="d-flex flex-column align-items-center" v-if="step != 5">
+            <div class="d-flex keyboard">
+              <button
+                class="keyboard-btn col-1 bgBlue"
+                v-for="(letter, index) in 'ABCÇDEFGHIJLMNOPRSTUVXZ'"
+                :key="index"
+                v-on:click="play(letter)"
+                :disabled="checkLetter(letter)"
+              >
+                {{ letter }}
+              </button>
+            </div>
+          </div>
+
           <div class="d-flex flex-column align-items-center my-4">
+            <div class="d-flex" >
             <button
               class="fontNunito bgOrange btnsPlay"
               style="height: 50px"
-              v-if="step != 4"
+              v-if="step != 5"
+
+              v-on:click="nextStep()"
             >
               <img src="../assets/verificar.png" width="30" />
               Registar emoção
             </button>
             <button
               v-on:click="finishGame()"
-              class="fontNunito bgBlue btnsPlay"
+              class="fontNunito bgBlue btnsPlay mx-2"
               style="height: 50px"
-              v-if="step === 4"
+              v-if="step === 5"
             >
               <img src="../assets/finish.png" width="30" class="mx-2" />
               Terminar Jogo
             </button>
+            </div>
+
           </div>
         </div>
         <!--GAME-->
@@ -276,13 +400,13 @@
           </button>
         </div>
         <div class="d-flex flex-column align-items-center mt-3">
-          <img src="../assets/like.svg" width="100" />
+          <img :src="messageImg" :alt="messageImg" width="100" />
           <div
             class="fontNunito mt-3 align-items-center"
             style="font-size: 20px; text-align: center"
           >
-            Parabéns! <br />
-            Acertaste 3 das emoções apresentadas.
+            {{ message }} <br />
+            Acertaste {{ countCorrectWords }} das emoções apresentadas.
           </div>
 
           <router-link :to="{ name: 'Landing' }"
@@ -314,19 +438,37 @@ export default {
       newTip: "",
       startGame: false,
       doubt: false,
+      lifes: 5,
+      word: "",
+      letters: [],
+      counter: 0,
+      countCorrectWords: 0,
+      message: "Que pena, vais ter de estar mais atento...",
+      messageImg: "../sad.png"
     };
+  },
+  computed: {
+    ...mapGetters(["getEmotionsForImita"]),
   },
   methods: {
     finishGame() {
+      if (this.countCorrectWords >= 3) {
+        this.message = "Muitos parabéns. Continua no bom caminho!"
+        this.messageImg = "../like.svg"
+      }
       this.$bvModal.show("modal-1");
     },
-    previousStep() {
-      this.step -= 1;
-      this.activeTip = false;
-    },
     nextStep() {
+      this.countHits()
+      
       this.step += 1;
       this.activeTip = false;
+      this.letters = [];
+      this.counter += 1;
+      this.lifes = 5;
+      this.word = this.getEmotionsForImita[+this.counter].name;
+      
+      
     },
 
     showHint() {
@@ -335,9 +477,7 @@ export default {
     },
     startGameMethod() {
       this.startGame = true;
-      this.getEmotionsForImita = this.getEmotionsForImita.sort(
-        () => Math.random() - 0.5
-      );
+      this.word = this.getEmotionsForImita[0].name;
     },
     showDoubt() {
       this.doubt = true;
@@ -345,14 +485,90 @@ export default {
     closeModal() {
       this.$bvModal.hide("modal-1");
     },
-  },
-  computed: {
-    ...mapGetters(["getEmotionsForImita"]),
+
+    // CHECK LETTER 
+    checkLetter(letter) {
+      return this.letters.find(
+        (pos) => pos.toLowerCase() === letter.toLowerCase()
+      );
+    },
+
+    play(letter) {
+      if (this.word.toLowerCase().indexOf(letter.toLowerCase()) >= 0) {
+       this.letters.push(letter);
+      } else {
+        this.lifes -= 1;
+      }
+
+      if (this.lifes == 0) {
+        if (this.step != 4) {
+          this.step += 1;
+          this.lifes = 5;
+        }
+      }
+
+      if (this.lifes == 0 && this.step == 4) {
+        alert("Acabou o jogo!");
+      }
+    },
+    countHits() {
+      let letrasunicas = [... new Set(this.word.split(''))]
+      console.log(letrasunicas);
+      console.log(this.letters);
+      if (letrasunicas.length === (this.letters.length)) {
+        alert('certa')
+        this.countCorrectWords += 1
+        console.log(this.countCorrectWords);
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
+
+button:disabled{
+  background-color: var(--orange);
+  opacity: 0.5;
+}
+
+.word {
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.word-letters {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.word-letter {
+  height: 30px;
+  width: 30px;
+  margin: 0px 5px;
+  border-bottom: 1px solid #0f8b8d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+}
+
+.keyboard-btn {
+  color: white;
+  border: none;
+  border-radius: 7px;
+  margin: 5px;
+}
+
 .landing {
   height: 100vh;
 }
@@ -387,7 +603,7 @@ export default {
 }
 
 .imgs {
-  border-radius: 30px;
+  border-radius: 20px;
 }
 
 .btnsPlay {

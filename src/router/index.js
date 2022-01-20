@@ -17,6 +17,7 @@ import Manage from "../views/Manage.vue";
 import GameImita from "../views/GameImita.vue";
 import AdivinhaLevel from "../views/AdivinhaLevel.vue";
 import Adivinha from "../views/Adivinha.vue";
+import FichaTecnica from "../views/FichaTecnica.vue";
 import Error from "../views/Error.vue";
 
 function isAuthenticated() {
@@ -160,6 +161,16 @@ const routes = [
       requiresAuth: false,
       title: "Adivinha",
       types: ["child", "tutor", "psychologist", "admin"],
+    },
+  },
+  {
+    path: "/FichaTecnica",
+    name: "FichaTecnica",
+    component: FichaTecnica,
+    meta: {
+      requiresAuth: false,
+      title: "FichaTecnica",
+      types: ["tutor", "psychologist", "admin"],
     },
   },
   {

@@ -10,7 +10,7 @@
           v-if="getUserType != 'child'"
           :class="{
             'nav-item': true,
-            'mx-2': true,
+            'mx-5': true,
             selected: activeTab == 'Emoções',
           }"
           class="col-4 d-flex flex-column align-items-center"

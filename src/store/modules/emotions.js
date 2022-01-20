@@ -2,64 +2,64 @@ export default {
   state: {
     emotions: [
       {
-        name: "Admiração",
+        name: "admiraçao",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f929.png",
-        hint: "Finge que estás admirado!",
+        hint: "Acaba em O e tem um 'D'",
       },
       {
-        name: "Alegria",
+        name: "alegria",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f60a.png",
-        hint: "Fica feliz!",
+        hint: "Está muito contente ou...",
       },
       {
-        name: "Espantado",
+        name: "espantado",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f632.png",
-        hint: "Abre a boca!",
+        hint: "Está surpreso!",
       },
       {
-        name: "Dúvida",
+        name: "duvida",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f914.png",
         hint: "Qual será está emoção?",
       },
       {
-        name: "Indiferença",
+        name: "indiferença",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f610.png",
-        hint: "Faz uma cara de desinteresse!",
+        hint: "Não quero mesmo saber.",
       },
       {
-        name: "Nervosismo",
+        name: "nervosismo",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f62c.png",
-        hint: "Mostra lá os teus dentinhos!",
+        hint: "Vou ter teste de PW1",
       },
       {
-        name: "Nojo",
+        name: "nojo",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f92e.png",
-        hint: "Não é assim tão difícil vá!",
+        hint: "Aiii que ...!",
       },
       {
-        name: "Raiva",
+        name: "raiva",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f621.png",
-        hint: "Tens de manter uma cara fechada!",
+        hint: "Estou mesmo em brasa!!!",
       },
       {
-        name: "Tristeza",
+        name: "tristeza",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f61e.png",
-        hint: "Pensa em algo triste!",
+        hint: "Hoje não estou bem.",
       },
       {
-        name: "Vergonha",
+        name: "vergonha",
         imgUrl:
           "https://images.emojiterra.com/google/android-11/512px/1f633.png",
-        hint: "Finge que aconteceu algo constrangedor!",
+        hint: "A palavra começa com V",
       },
     ],
     images: [
@@ -229,7 +229,7 @@ export default {
   },
   getters: {
     /* Get 5 random emotions for the game ImitaMe */
-    getEmotionsForImita: (state) => state.emotions,
+    getEmotionsForImita: (state) => state.emotions.sort(() => Math.random() - 0.5),
     getEmotionsForAdivinha: (state) => (difficulty) => {
       let list = state.images
         .sort(() => Math.random() - 0.5)

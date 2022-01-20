@@ -61,14 +61,14 @@
 
             <div class="d-flex align-items-center mt-5">
               <div class="d-flex flex-column align-items-center mx-4">
-                <img src="../assets/imita-me.png" class="imgs" />
+                <img src="../assets/completa.png" class="imgs" />
               </div>
               <div class="d-flex flex-column">
                 <h2 class="fontAsap" style="font-size: 35px">
-                  Imita<span class="colorOrange weightBold">Me</span>
+                  Completa<span class="colorOrange weightBold">Me</span>
                 </h2>
                 <p class="fontNunito col-9 my-1" style="font-size: 18px">
-                  Vê se consegues repetir as emoções!
+                  Vê se consegues completar as emoções!
                 </p>
                 <router-link :to="{ name: 'GameImita' }">
                   <button
@@ -157,7 +157,7 @@ export default {
 
 .imgs {
   width: 180px;
-  border-radius: 30px;
+  border-radius: 20px;
 }
 
 .btnsPlay {
