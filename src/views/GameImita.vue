@@ -13,7 +13,7 @@
         <img src="../assets/balao_mensagem.svg" width="260px" />
         <p
           class="col-12 colorBlue fontAsap"
-          style="font-size: 18px; position: absolute; top: 10px; left: 12px"
+          style="font-size: 18px; position: absolute; top: 10px; left: 12px; font-weight:bold"
         >
           {{ newTip }}
         </p>
@@ -27,7 +27,7 @@
         <img src="../assets/balao_mensagem.svg" width="320px" />
         <p
           class="col-11 mx-2 colorOrange fontAsap"
-          style="font-size: 18px; position: absolute; top: 10px; left: 12px"
+          style="font-size: 18px; position: absolute; top: 10px; left: 12px; font-weight:bold"
         >
           Neste jogo vais ter de imitar os "Emoji's" que te são apresentados!
         </p>
@@ -56,7 +56,7 @@
         >
           <p
             class="mt-3 mx-3 fontNunito colorBlue"
-            style="font-size: 22px; text-align: center"
+            style="font-size: 22px; text-align: center; font-weight:bold"
           >
             Olá meu amigo! Espero que estejas mesmo bem, clica em "Vamos
             começar" para dar início ao jogo!
@@ -308,7 +308,7 @@
             v-if="step === 5"
           >
           <div class="d-flex flex-column align-items-center">
-              <p class="mt-2 mx-1 colorBlue fontAsap" style="font-size:24px">Chegaste ao fim do jogo, agora vamos lá ver como te saíste... Clica em "Terminar Jogo" para saberes o resultado!
+              <p class="mt-2 mx-1 colorBlue fontAsap" style="font-size:24px; text-align:center; font-weight:bold">Chegaste ao fim do jogo, agora vamos lá ver como te saíste... Clica em "Terminar Jogo" para saberes o resultado!
               </p>
               <img src="../assets/finish-line.png" width="200px" class="mt-5">
           </div>
@@ -451,6 +451,11 @@ export default {
     ...mapGetters(["getEmotionsForImita"]),
   },
   methods: {
+
+    mounted() {
+
+    },
+
     finishGame() {
       if (this.countCorrectWords >= 3) {
         this.message = "Muitos parabéns. Continua no bom caminho!"
@@ -503,7 +508,11 @@ export default {
       if (this.lifes == 0) {
         if (this.step != 4) {
           this.step += 1;
+          this.letters = []
           this.lifes = 5;
+          this.counter += 1;
+          this.word = this.getEmotionsForImita[+this.counter].name;
+          
         }
       }
 
