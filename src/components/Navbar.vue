@@ -5,7 +5,7 @@
     /></router-link>
 
     <div class="d-flex align-items-end colorDarkBlue" style="font-size: 20px">
-      <ul class="navbar-nav fontBarlow weightLight d-flex flex-row">
+      <ul class="navbar-nav fontBarlow weightLight d-flex flex-row col-6">
         <li
           v-if="getUserType != 'child'"
           :class="{
@@ -13,7 +13,7 @@
             'mx-5': true,
             selected: activeTab == 'Emoções',
           }"
-          class="col-4 d-flex flex-column align-items-center"
+          class="col-6 d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'EmotionsList' }"
@@ -28,7 +28,7 @@
             'mx-2': true,
             selected: activeTab == 'Crianças',
           }"
-          class="col-4 d-flex flex-column align-items-center"
+          class="col-6 d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'Children' }"
@@ -55,7 +55,7 @@
             'mx-2': true,
             selected: activeTab == 'Agenda',
           }"
-          class="col-4 d-flex flex-column align-items-center"
+          class="col-6 d-flex flex-column align-items-center"
         >
           <router-link :to="{ name: '' }" class="nav-link text-uppercase"
             >Agenda</router-link
@@ -65,10 +65,10 @@
           v-if="getUserType === 'tutor'"
           :class="{
             'nav-item': true,
-            'mx-2': true,
+            'mx-5': true,
             selected: activeTab == 'Psicólogos',
           }"
-          class="col-4 d-flex flex-column align-items-center"
+          class="col-6 d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'PsychologistList' }"
@@ -90,15 +90,15 @@
         </li>
       </ul>
     </div>
-    <div class="d-flex">
+    <div class="d-flex mx-3">
       <router-link
         :to="{ name: 'Profile' }"
-        class="col-2 d-flex flex-column align-items-end"
+        class="mx-1 d-flex flex-column align-items-end"
       >
         <img src="../assets/temp_profile_img.png" height="50" />
       </router-link>
       <button class="btn" @click="logout">
-        <img src="../assets/logout.png" height="30" />
+        <img src="../assets/shutdown.png" height="30" />
       </button>
     </div>
   </nav>

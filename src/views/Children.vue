@@ -1,14 +1,14 @@
 <template>
-  <div class="children bgGrey d-flex flex-column justify-content-between">
+  <div class="children bgGrey d-flex flex-column">
     <Navbar activeTab="Crianças" />
     <main class="my-3 d-flex flex-column align-items-center">
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center mt-3">
         <img src="../assets/children.png" height="70" />
         <p class="fontAsap mx-2 my-1 colorDarkBlue" style="font-size: 32px">
           As minhas crianças
         </p>
       </div>
-      <button class="mx-5 w-25 py-1 align-self-start">Ordenar por nome</button>
+      <button class="mx-5 w-25 py-1 align-self-start button1">Ordenar por nome</button>
 
       <section class="d-flex flex-wrap bgWhite listbox mx-5 mt-4">
         <article
@@ -21,12 +21,17 @@
             style="width: 50%"
             :src="getChildAvatar(connection.childUser)"
             :alt="connection.childUser"
+            v-on:click="selectedChild = connection.childUser"
           />
           <h4 class="mt-4">{{ connection.childUser }}</h4>
+          <button class="button2" v-on:click="selectedChild = connection.childUser">Ver mais</button>
+          <button v-on:click="clickChild()">testar</button>
         </article>
       </section>
     </main>
-    <Footer />
+        <div class="fixed-bottom">
+      <Footer />
+    </div>
   </div>
 </template>
 
@@ -34,15 +39,27 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "Children",
   components: {
     Navbar,
     Footer,
   },
+  data() {
+    return {
+      selectedChild: "",
+    }
+  },
+  methods: {
+    ...mapMutations(["SET_CLICKED_CHILD"]),
+    clickChild() {
+      this.SET_CLICKED_CHILD(this.selectedChild)
+      this.$router.push({ name: "FichaTecnica" });
+    }
+  },
   computed: {
-    ...mapGetters(["getUsername", "getConnections", "getChildAvatar"]),
+    ...mapGetters(["getUsername", "getConnections", "getChildAvatar", "getUserClick"]),
   },
 };
 </script>
@@ -52,11 +69,19 @@ export default {
   height: 100vh;
 }
 
-button {
+.button1 {
   background: var(--white);
   border-color: var(--blue);
   border-width: 3px;
-  border-radius: 10px;
+  border-radius: 6px;
+}
+.button2 {
+  background: var(--white);
+  border-color: var(--blue);
+  border-radius: 6px;
+  width: 130px;
+  font-size: 15px;
+  color: var(--blue);
 }
 
 .listbox {
@@ -64,15 +89,17 @@ button {
   border-radius: 10px;
   color: var(--darkBlue);
   box-shadow: 12px 12px 0px var(--orange);
-  height: 25rem;
-  width: 75%;
+  height: 35rem;
+  width: 60%;
   overflow-y: scroll;
 }
 
 .card {
   width: 13rem;
-  height: 12rem;
+  height: 14rem;
   text-align: center;
   font-size: 50%;
+  border-color: var(--blue);
+  border-width: 3px;
 }
 </style>

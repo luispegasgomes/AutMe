@@ -18,106 +18,90 @@ export default {
     loggedUsername: "",
     loggedUserInfo: "",
     loggedEmail: "",
+    userclick: "",
 
-    users: localStorage.users
-      ? JSON.parse(localStorage.users)
-      : [
-          {
-            username: "admin",
-            email: "admin@gmail.com",
-            password: "Esmad_2122",
-            type: "admin",
-          },
-          {
-            username: "crianca",
-            email: "crianca@gmail.com",
-            password: "Esmad_2122",
-            type: "child",
-          },
-          {
-            username: "tutor",
-            email: "tutor@gmail.com",
-            password: "Esmad_2122",
-            type: "tutor",
-          },
-          {
-            username: "filipacastro2",
-            email: "psicologo@gmail.com",
-            password: "Esmad_2122",
-            type: "psychologist",
-          },
-        ],
-    admins: localStorage.admins
-      ? JSON.parse(localStorage.admins)
-      : [
-          {
-            username: "admin",
-            name: "Nome Admin",
-            avatar: "/temp_profile_img.png",
-          },
-        ],
-    children: localStorage.children
-      ? JSON.parse(localStorage.children)
-      : [
-          {
-            username: "crianca",
-            name: "Nome Criança",
-            avatar: "/temp_profile_img.png",
-            gender: "M",
-            birth: "2002-01-01",
-            code: create_UUID(),
-          },
-        ],
-    tutors: localStorage.tutors
-      ? JSON.parse(localStorage.tutors)
-      : [
-          {
-            username: "tutor",
-            name: "José António",
-            avatar: "/homem.jpg",
-            gender: "M",
-            birth: "1960-01-01",
-            contact: "912345678",
-          },
-        ],
-    psychologists: localStorage.psychologists
-      ? JSON.parse(localStorage.psychologists)
-      : [
-          {
-            username: "filipacastro2",
-            name: "Filipa Castro",
-            avatar: "/Filipa-Castro.png",
-            gender: "F",
-            birth: "1996-01-01",
-            contact: "932145678",
-            locationAdress: "Moreira, Maia",
-            postalCode: "4000-123",
-            city: "Maia",
-          },
-        ],
-    connections: [
-      {
-        childUser: "crianca",
-        tutorUser: "tutor",
-        psychologistUser: "psicologo",
-      },
-    ],
-    diary: localStorage.diary
-      ? JSON.parse(localStorage.diary)
-      : [
-          {
-            username: "crianca",
-            title: "Estou feliz!",
-            description: "Foi um dia em cheio :D :D",
-            date: "2021-04-22",
-          },
-          {
-            username: "crianca",
-            title: "Estou muito triste:(",
-            description: "Foi um dia que não me senti bem na escola!",
-            date: "2021-04-23",
-          },
-        ],
+    users: localStorage.users ?
+      JSON.parse(localStorage.users) : [{
+          username: "admin",
+          email: "admin@gmail.com",
+          password: "Esmad_2122",
+          type: "admin",
+        },
+        {
+          username: "crianca",
+          email: "crianca@gmail.com",
+          password: "Esmad_2122",
+          type: "child",
+        },
+        {
+          username: "tutor",
+          email: "tutor@gmail.com",
+          password: "Esmad_2122",
+          type: "tutor",
+        },
+        {
+          username: "filipacastro2",
+          email: "psicologo@gmail.com",
+          password: "Esmad_2122",
+          type: "psychologist",
+        },
+      ],
+    admins: localStorage.admins ?
+      JSON.parse(localStorage.admins) : [{
+        username: "admin",
+        name: "Nome Admin",
+        avatar: "/temp_profile_img.png",
+      }, ],
+    children: localStorage.children ?
+      JSON.parse(localStorage.children) : [{
+        username: "crianca",
+        name: "Nome Criança",
+        avatar: "/temp_profile_img.png",
+        gender: "M",
+        birth: "2002-01-01",
+        code: create_UUID(),
+      }, ],
+    tutors: localStorage.tutors ?
+      JSON.parse(localStorage.tutors) : [{
+        username: "tutor",
+        name: "José António",
+        avatar: "/homem.jpg",
+        gender: "M",
+        birth: "1960-01-01",
+        contact: "912345678",
+      }, ],
+    psychologists: localStorage.psychologists ?
+      JSON.parse(localStorage.psychologists) : [{
+        username: "filipacastro2",
+        name: "Filipa Castro",
+        avatar: "/Filipa-Castro.png",
+        gender: "F",
+        birth: "1996-01-01",
+        contact: "932145678",
+        locationAdress: "Moreira, Maia",
+        postalCode: "4000-123",
+        city: "Maia",
+      }, ],
+    connections: [{
+      childUser: "crianca",
+      tutorUser: "tutor",
+      psychologistUser: "psicologo",
+    }, ],
+    diary: localStorage.diary ?
+      JSON.parse(localStorage.diary) : [{
+          username: "crianca",
+          title: "Estou feliz!",
+          description: "Foi um dia em cheio :D :D",
+          date: "2021-04-22",
+        },
+        {
+          username: "crianca",
+          title: "Estou muito triste:(",
+          description: "Foi um dia que não me senti bem na escola!",
+          date: "2021-04-23",
+        },
+      ],
+
   },
   getters: {
     getIsAuthenticated: (state) => state.isAuthenticated,
@@ -140,14 +124,16 @@ export default {
     getConnections: (state) =>
       state.connections.filter(
         (connection) =>
-          connection.tutorUser === state.loggedUsername ||
-          connection.psychologistUser === state.loggedUsername
+        connection.tutorUser === state.loggedUsername ||
+        connection.psychologistUser === state.loggedUsername
       ),
     getChildAvatar: (state) => (childUsername) =>
       state.children.find((c) => c.username === childUsername).avatar,
     getPsychologists: (state) => state.psychologists,
     getPsychologistsByUsername: (state) => (selected) =>
       state.psychologists.find((psico) => psico.username === selected),
+    getSelectedChildInformations: (state) =>
+      state.children.filter((d) => d.username === state.userclick),
   },
   mutations: {
     SET_LOGGED_USER(state, payload) {
@@ -194,12 +180,11 @@ export default {
     },
     SET_NEW_PASSWORD(state, payload) {
       state.users = state.users.map((user) =>
-        user.username === state.loggedUsername
-          ? {
-              ...user,
-              password: payload,
-            }
-          : user
+        user.username === state.loggedUsername ? {
+          ...user,
+          password: payload,
+        } :
+        user
       );
 
       localStorage.users = JSON.stringify(state.users);
@@ -312,6 +297,10 @@ export default {
       localStorage.tutors = JSON.stringify(state.tutors);
       localStorage.psychologists = JSON.stringify(state.psychologists);
     },
+    SET_CLICKED_CHILD(state, payload) {
+      state.userclick = payload
+    },
+
   },
   actions: {},
 };

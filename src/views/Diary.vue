@@ -1,5 +1,5 @@
 <template>
-  <div class="diary bgGrey d-flex flex-column justify-content-between">
+  <div class="diary bgGrey d-flex flex-column">
     <Navbar activeTab="Diário" />
     <main>
       <div class="d-flex flex-column align-items-center mb-5">
@@ -23,7 +23,14 @@
 
           <!--DIARY INFORMATIONS-->
           <div
-            class="d-flex flex-column adddiaryBox col-11 mb-4"
+            class="
+              d-flex
+              flex-column
+              justify-content-between
+              adddiaryBox
+              col-11
+              mb-4
+            "
             v-for="(info, index) in getUsernameDiary"
             :key="index"
           >
@@ -36,7 +43,7 @@
             <div class="text mx-1">
               {{ info.description }}
             </div>
-            <div class="d-flex flex-column align-items-end mx-1">
+            <div class="d-flex flex-column align-items-end mx-2 mb-1">
               {{ info.date }}
             </div>
           </div>
@@ -55,9 +62,14 @@
           <div class="d-flex flex-column">
             <div class="d-flex align-items-center justify-content-between">
               <div class="fontBarlow" style="font-size: 30px">
-                Conta-nos o teu dia!
+                Adicionar nova nota
               </div>
-              <button v-on:click="closeModal()" class="fontNunito closebtn mt-2"><img src="../assets/btn_close.png" width="40" /></button>
+              <button
+                v-on:click="closeModal()"
+                class="fontNunito closebtn mt-2"
+              >
+                <img src="../assets/btn_close.png" width="40" />
+              </button>
             </div>
 
             <form
@@ -92,7 +104,7 @@
               <input
                 type="submit"
                 class="fontNunito bgOrange orangebtns mt-2 col-8"
-                style="width: 120px; height: 40px; font-size: 22px"
+                style="width: 120px; height: 40px; font-size: 22px;"
                 value="Confirmar"
               />
             </form>
@@ -101,7 +113,12 @@
         <!--ADD NEW DIARY-->
       </div>
     </main>
-    <Footer />
+    
+        <router-link :to="{ name: 'FichaTecnica' }" class="nav-link text-uppercase"
+      ><button>ir para ft</button></router-link>
+    <div class="fixed-bottom">
+      <Footer />
+    </div>
   </div>
 </template>
 
@@ -133,7 +150,7 @@ export default {
       this.SET_NEW_DIARY(this.form);
     },
     closeModal() {
-      this.$bvModal.hide("modal-1")
+      this.$bvModal.hide("modal-1");
     },
     ...mapMutations(["SET_NEW_DIARY"]),
   },

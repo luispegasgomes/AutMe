@@ -1,11 +1,9 @@
 <template>
-  <div
-    class="psychologistList bgGrey d-flex flex-column justify-content-between"
-  >
+  <div class="psychologistList bgGrey d-flex flex-column">
     <Navbar activeTab="Psicólogos" />
 
-    <main>
-      <div class="window row">
+    <main class="mt-5">
+      <div class="window row mt-5">
         <section class="list col-2 p-5">
           <button
             v-for="(psychologist, index) in getPsychologists"
@@ -33,110 +31,122 @@
               :alt="selected.avatar"
               style="width: 8%"
             />
-            <h1>{{ selected.name }}</h1>
+            <h1 class="text-center">{{ selected.name }}</h1>
             <img
               src="../assets/fivestars.png"
               alt="Avatar"
-              style="width: 20%"
+              style="width: 15%"
             />
           </div>
           <!--PSYCOLOGIST INFORMATIONS-->
-          <div class="d-flex flex-column align-items-center mt-5 mb-3">
-            <h3>Email: filipa_manuela@hotmail.com</h3>
-            <h3>Contacto: {{ selected.contact }}</h3>
-            <h3>Localização da clínica: {{ selected.locationAdress }}</h3>
-            <h3>Código Postal: {{ selected.postalCode }}</h3>
+          <div
+            class="d-flex flex-column align-items-center mt-5 mb-3 fontNunito"
+          >
+            <h3>Email: <span class="colorOrange" style="font-weight:bold"> filipa-manuela@gmail.com </span></h3>
+            <h3>
+              Contacto: <span class="colorBlue"> {{ selected.contact }}</span>
+            </h3>
+            <h3 class="mt-3">
+              Localização da clínica: <span class="colorOrange" style="font-weight:bold"> {{ selected.locationAdress }} </span>
+            </h3>
+            <h3>
+              Código Postal:
+              <span class="colorBlue" > {{ selected.postalCode }}</span>
+            </h3>
           </div>
 
-          <div class="d-flex flex-column align-items-center mt-5 mb-3">
+          <div class="d-flex flex-column align-items-center mt-5">
             <button v-b-modal.modal-1 class="fontNunito bgOrange orangebtns">
               Marcar consulta
             </button>
           </div>
         </section>
-        <section v-else class="description col-6 d-flex flex-column">
-          <div class="d-flex flex-column align-items-center">
-            Selecione um psicólogo para marcar uma primeira consulta!
+        <section
+          v-else
+          class="description col-6 d-flex flex-column align-items-center"
+        >
+          <div
+            class="text-center fontNunito mt-3"
+            style="font-size: 30px; text-align: center"
+          >
+            Olá! Do lado esquerdo da página dispõe de uma lista nos nossos
+            psicólogos que poderão ajudar a sua criança a ultrapassar todas as
+            dificuldades. Selecione um dos psicólogos para marcar uma consulta!
           </div>
+          <img
+            src="../assets/psychologist_ico.png"
+            width="160px"
+            class="mt-5"
+          />
         </section>
       </div>
     </main>
 
-    <Footer />
+    <div class="fixed-bottom">
+      <Footer />
+    </div>
     <!--ADD NEW DIARY-->
     <b-modal
       id="modal-1"
       title="Marcar primeira consulta"
-      ok-title="Confirmar"
-      style="text-align: center"
       hide-header
       hide-footer
     >
-      <div class="d-flex flex-column align-items-center">
-        <div class="fontBarlow" style="font-size: 30px">
-          Marcar primeira consulta
+      <div class="d-flex flex-column">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="fontBarlow" style="font-size: 30px">
+            Marcar uma consulta
+          </div>
+          <button v-on:click="closeModal()" class="fontNunito closebtn mt-2">
+            <img src="../assets/btn_close.png" width="40" />
+          </button>
         </div>
-        <div class="mt-4">Nome do psicólogo: {{ selected.name }}</div>
-        <div>Clínica: {{ selected.locationAdress }}</div>
 
-        <div class="form-check d-flex align-items-center mt-5">
-          <form @submit.prevent="addAppointment">
-            <input
-              type="date"
-              v-model="form.date"
-              id="txtTitle"
-              class="col-8 mt-5"
-            />
-
-            <select v-model="form.hour">
-              <option value="">SELECIONAR</option>
-              <option value="09:00">09:00</option>
-              <option value="09:30">09:30</option>
-            </select>
-
-            <label class="form-check-label mx-2" for="flexCheckChecked">
-              Manhã
-            </label>
-            <input
-              class="form-check-input mx-2"
-              type="checkbox"
-              id="flexCheckChecked"
-              style="width: 23px; height: 23px"
-            />
-            <label class="form-check-label" for="flexCheckChecked">
-              Tarde
-            </label>
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="flexCheckChecked"
-              style="width: 23px; height: 23px"
-            />
-            <div class="mt-5 schedules">
-              <div class="d-flex flex-column align-items-center">
-                Horários disponíveis
-              </div>
-              <div class="d-flex mt-3">
-                <div class="mx-3 hour">09:00</div>
-                <div class="mx-3 hour">09:30</div>
-                <div class="mx-3 hour">10:00</div>
-                <div class="mx-3 hour">10:30</div>
-              </div>
-              <div class="d-flex mt-3 mb-3">
-                <div class="mx-3 hour">11:00</div>
-                <div class="mx-3 hour">11:30</div>
-                <div class="mx-3 hour">12:00</div>
-                <div class="mx-3 hour">12:30</div>
-              </div>
-            </div>
-            <input
-              type="submit"
-              class="fontNunito bgOrange orangebtns mt-4 col-8"
-              style="width: 120px; height: 40px; font-size: 22px"
-              value="Confirmar"
-            />
-          </form>
+        <div class="d-flex flex-column align-items-center">
+          <div class="mt-4" style="font-size: 20px">
+            Nome do psicólogo: {{ selected.name }}
+          </div>
+          <div style="font-size: 20px">
+            Clínica: {{ selected.locationAdress }}
+          </div>
         </div>
+
+
+        <form
+          @submit.prevent="addAppointment"
+          class="d-flex flex-column align-items-center mt-3"
+        >
+          <select id="txtTitle" v-model="form.childUsername" class="col-4">
+            <option value="luisgomes">Luís Gomes</option>
+            <option value="pedrorique2002">Pedro Silva</option>
+          </select>
+          <input type="date" v-model="form.date" id="txtTitle" class="mt-3" required/>
+
+          <div
+            class="mt-5 fontNunito colorOrange"
+            style="font-size: 25px; font-weight: bold"
+          >
+            Horários disponíveis
+          </div>
+          <div class="schedules mt-4">
+            <button
+              class="mx-2 hour"
+              v-for="(schedule, index) in schedules"
+              :key="index"
+              v-on:click="setNewSchedule(schedule)"
+              :disabled="checkSchedule(schedule)"
+              style="text-align: center; width: 60px"
+            >
+              {{ schedule }}
+            </button>
+          </div>
+          <input
+            type="submit"
+            class="fontNunito bgOrange orangebtns mt-4 col-8"
+            style="width: 120px; height: 40px; font-size: 22px"
+            value="Confirmar"
+          />
+        </form>
       </div>
     </b-modal>
     <!--ADD NEW DIARY-->
@@ -158,11 +168,22 @@ export default {
       selected: "",
       form: {
         username: "",
-        psychologist: "",
         date: "",
         hour: "",
         locationAdress: "",
+        childUsername: "",
+        avatar: "",
       },
+      schedules: [
+        "09:00",
+        "10:00",
+        "11:00",
+        "12:00",
+        "14:00",
+        "15:00",
+        "16:00",
+        "17:00",
+      ],
     };
   },
 
@@ -179,18 +200,43 @@ export default {
     setSelected(text) {
       this.selected = text;
     },
+    closeModal() {
+      this.$bvModal.hide("modal-1");
+    },
+    setNewSchedule(schedule) {
+      this.form.hour = schedule;
+    },
     addAppointment() {
       // Submit form data
-      this.form.username = this.getUsername;
-      this.form.psychologist = this.selected.username;
-      this.form.locationAdress = this.selected.locationAdress;
+      this.form.username = this.selected.username;
+      this.form.avatar = this.selected.avatar;
       this.SET_NEW_APPOINTMENT(this.form);
+      this.$bvModal.hide("modal-1");
     },
+    checkSchedule(schedule){
+      if (this.form.hour === schedule) {
+        return true
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
+
+button:disabled{
+  background-color: var(--orange);
+  color: black;
+}
+.closebtn {
+  border: none;
+  border-radius: 8px;
+  font-size: 25px;
+  color: white;
+  text-align: center;
+  height: 50px;
+  width: 50px;
+}
 .orangebtns {
   border: none;
   border-radius: 8px;
@@ -229,6 +275,7 @@ section .selectedBtn {
   color: var(--darkBlue);
   box-shadow: 12px 12px 0px var(--orange);
   margin-left: 200px;
+  height: 500px;
 }
 input {
   height: 40px;
@@ -243,10 +290,16 @@ input {
   font-size: 20px;
   border: 3px solid #ec9a29;
   border-radius: 11px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 70%;
 }
 .hour {
   border: 3px solid var(--blue);
-  width: 80px;
   text-align: center;
+  background: white;
+  margin-top: 12px;
+  margin-bottom: 10px;
 }
 </style>
