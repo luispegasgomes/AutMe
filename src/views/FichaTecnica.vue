@@ -3,9 +3,14 @@
     <Navbar />
     <main>
       <div class="d-flex align-items-center mx-5 mt-3">
-        <img :src="getSelectedChildInformations[0].avatar" :alt="getSelectedChildInformations[0].name" width="100px" class="mx-4" />
+        <img
+          :src="getSelectedChildInformations[0].avatar"
+          :alt="getSelectedChildInformations[0].name"
+          width="100px"
+          class="mx-4"
+        />
         <p class="mt-3 fontAsap colorDarkBlue" style="font-size: 38px">
-          {{getSelectedChildInformations[0].name}}
+          {{ getSelectedChildInformations[0].name }}
         </p>
       </div>
       <div class="d-flex flex-column align-items-center mt-3">
@@ -136,10 +141,19 @@
           </p>
           <p class="mx-3 fontAsap colorDarkBlue" style="font-size: 30px">
             {{ info.username }}
-            <img :src="info.avatar" :alt="info.avatar" height="40px" width="40px" style="border-radius:100%" />
+            <img
+              :src="info.avatar"
+              :alt="info.avatar"
+              height="40px"
+              width="40px"
+              style="border-radius: 100%"
+            />
           </p>
         </div>
-        <div class="d-flex flex-column align-items-center mt-4" v-if="getUserType == 'tutor'">
+        <div
+          class="d-flex flex-column align-items-center mt-4"
+          v-if="getUserType == 'psychologist'"
+        >
           <button
             class="bgBlue"
             style="
@@ -157,19 +171,15 @@
       </div>
       <!--CONSULTAS-->
       <!--PROGRESSO-->
-      <div v-if="selected === 'Progresso'">
-        <div class="d-flex align-items-center justify-content-between mt-3">
-          <table>
-            <tr>
-              <td>Data</td>
-              <td>Total</td>
-              <td>I</td>
-              <td>II</td>
-              <td>III</td>
-              <td>IV</td>
-            </tr>
-          </table>
-        </div>
+      <div
+        v-if="selected === 'Progresso'"
+        class="d-flex flex-column align-items-center mt-3"
+      >
+          <img src="../assets/excavator.png" width="250" />
+          <p class="mx-5 fontAsap colorBlue col-6 mt-4" style="font-size: 35px; text-align:center">
+            Esta página esta em desenvolvimento! Terás de aguardar por novas
+            versões para estar disponível.
+          </p>
       </div>
       <!--PROGRESSO-->
 

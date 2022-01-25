@@ -117,8 +117,14 @@
           class="d-flex flex-column align-items-center mt-3"
         >
           <select id="txtTitle" v-model="form.childUsername" class="col-4">
-            <option value="luisgomes">Luís Gomes</option>
-            <option value="pedrorique2002">Pedro Silva</option>
+            <option value="" disabled>Selecionar criança</option>
+            <option
+              v-for="(name, index) in getConnections"
+              :key="index"
+              :value="name.childUser"
+            >
+              {{ name.childUser }}
+            </option>
           </select>
           <input type="date" v-model="form.date" id="txtTitle" class="mt-3" required/>
 
@@ -196,6 +202,7 @@ export default {
       "getPsychologists",
       "getPsychologistsByUsername",
       "getLoggedPsychologistEmail",
+      "getConnections",
     ]),
   },
   methods: {

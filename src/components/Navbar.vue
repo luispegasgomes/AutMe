@@ -13,7 +13,7 @@
             'mx-5': true,
             selected: activeTab == 'Emoções',
           }"
-          class="col-6 d-flex flex-column align-items-center"
+          class="d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'EmotionsList' }"
@@ -28,7 +28,7 @@
             'mx-5': true,
             selected: activeTab == 'Crianças',
           }"
-          class="col-6 d-flex flex-column align-items-center"
+          class="d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'Children' }"
@@ -44,7 +44,7 @@
             selected: activeTab == 'Pedidos',
           }"
         >
-          <router-link :to="{ name: '' }" class="nav-link text-uppercase"
+          <router-link :to="{ name: 'Pedidos' }" class="nav-link text-uppercase"
             >Pedidos</router-link
           >
         </li>
@@ -55,9 +55,9 @@
             'mx-5': true,
             selected: activeTab == 'Agenda',
           }"
-          class="col-6 d-flex flex-column align-items-center"
+          class="d-flex flex-column align-items-center"
         >
-          <router-link :to="{ name: '' }" class="nav-link text-uppercase"
+          <router-link :to="{ name: 'Agenda' }" class="nav-link text-uppercase"
             >Agenda</router-link
           >
         </li>
@@ -68,7 +68,7 @@
             'mx-5': true,
             selected: activeTab == 'Psicólogos',
           }"
-          class="col-6 d-flex flex-column align-items-center"
+          class=" d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'PsychologistList' }"

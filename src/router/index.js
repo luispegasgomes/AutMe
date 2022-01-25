@@ -18,6 +18,8 @@ import GameImita from "../views/GameImita.vue";
 import AdivinhaLevel from "../views/AdivinhaLevel.vue";
 import Adivinha from "../views/Adivinha.vue";
 import FichaTecnica from "../views/FichaTecnica.vue";
+import Agenda from "../views/Agenda.vue";
+import Pedidos from "../views/Pedidos.vue";
 import Error from "../views/Error.vue";
 
 function isAuthenticated() {
@@ -164,12 +166,32 @@ const routes = [
     },
   },
   {
+    path: "/pedidos",
+    name: "Pedidos",
+    component: Pedidos,
+    meta: {
+      requiresAuth: false,
+      title: "Pedidos",
+      types: ["tutor", "psychologist", "admin"],
+    },
+  },
+  {
     path: "/FichaTecnica",
     name: "FichaTecnica",
     component: FichaTecnica,
     meta: {
       requiresAuth: false,
       title: "FichaTecnica",
+      types: ["tutor", "psychologist", "admin"],
+    },
+  },
+  {
+    path: "/agenda",
+    name: "Agenda",
+    component: Agenda,
+    meta: {
+      requiresAuth: false,
+      title: "Agenda",
       types: ["tutor", "psychologist", "admin"],
     },
   },
