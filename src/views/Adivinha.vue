@@ -2,7 +2,10 @@
   <div class="game bgGrey d-flex flex-column">
     <Navbar />
     <main class="my-4 d-flex flex-column align-items-center">
-      <p class="fontNunito colorBlue" style="font-size: 30px; font-weight:bold">
+      <p
+        class="fontNunito colorBlue"
+        style="font-size: 30px; font-weight: bold"
+      >
         Adivinha as emoções de cada imagem!
       </p>
       <div class="gameBox p-4 d-flex flex-wrap justify-content-between col-8">
@@ -33,10 +36,10 @@
       <button
         class="bgOrange colorWhite px-2 py-2 my-3 border-0 d-flex align-items-center mt-4"
         @click="verify"
-        style="border-radius:8px"
+        style="border-radius: 8px"
       >
         <img src="../assets/verificar.png" width="40" />
-        <span class="fontNunito px-1" style="font-size: 28px; "
+        <span class="fontNunito px-1" style="font-size: 28px"
           >Vamos verificar!</span
         >
       </button>
@@ -73,7 +76,7 @@
         </div>
       </div>
     </b-modal>
-        <div class="fixed-bottom">
+    <div class="fixed-bottom">
       <Footer />
     </div>
   </div>
@@ -94,12 +97,27 @@ export default {
     return {
       emotions: "",
       answers: ["", "", "", "", "", "", "", ""],
-      nameEmotions: ["Admiração", "Alegria", "Espantado", "Dúvida", "Indiferença", "Nervosismo", "Nojo", "Raiva", "Tristeza", "Vergonha",],
+      nameEmotions: [
+        "Admiração",
+        "Alegria",
+        "Espantado",
+        "Dúvida",
+        "Indiferença",
+        "Nervosismo",
+        "Nojo",
+        "Raiva",
+        "Tristeza",
+        "Vergonha",
+      ],
       counter: 0,
     };
   },
   mounted() {
     this.emotions = this.getEmotionsForAdivinha(this.getDifficultyLevel);
+    const imgs = document.querySelectorAll("article img");
+    for (let index = 0; index < imgs.length; index++) {
+      console.log(this.getEmotionNameFromImage(imgs[index].src));
+    }
   },
   methods: {
     verify() {

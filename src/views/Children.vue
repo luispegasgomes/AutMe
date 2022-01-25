@@ -9,10 +9,7 @@
             As minhas crianças
           </p>
         </div>
-
-        <button class="button1 fontAsap mt-4">Ordenar por nome</button>
       </div>
-      
 
       <section class="d-flex flex-wrap bgWhite listbox mx-5 mt-4">
         <article
@@ -28,11 +25,16 @@
             v-on:click="selectedChild = connection.childUser"
           />
           <h4 class="mt-4">{{ connection.childUser }}</h4>
-          <button class="button2" v-on:click="clickChild(selectedChild = connection.childUser)">Ver mais</button>
+          <button
+            class="button2"
+            v-on:click="clickChild((selectedChild = connection.childUser))"
+          >
+            Ver mais
+          </button>
         </article>
       </section>
     </main>
-        <div class="fixed-bottom">
+    <div class="fixed-bottom">
       <Footer />
     </div>
   </div>
@@ -52,17 +54,22 @@ export default {
   data() {
     return {
       selectedChild: "",
-    }
+    };
   },
   methods: {
     ...mapMutations(["SET_CLICKED_CHILD"]),
     clickChild() {
-      this.SET_CLICKED_CHILD(this.selectedChild)
+      this.SET_CLICKED_CHILD(this.selectedChild);
       this.$router.push({ name: "FichaTecnica" });
-    }
+    },
   },
   computed: {
-    ...mapGetters(["getUsername", "getConnections", "getChildAvatar", "getUserClick"]),
+    ...mapGetters([
+      "getUsername",
+      "getConnections",
+      "getChildAvatar",
+      "getUserClick",
+    ]),
   },
 };
 </script>
@@ -93,7 +100,7 @@ export default {
   border-radius: 10px;
   color: var(--darkBlue);
   box-shadow: 12px 12px 0px var(--orange);
-  height: 35rem;
+  height: 25rem;
   width: 60%;
   overflow-y: scroll;
 }

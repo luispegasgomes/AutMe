@@ -65,47 +65,40 @@ export default {
     images: [
       {
         emotion: "Vergonha",
-        imgUrl: "https://img.freepik.com/fotos-gratis/retrato-da-ruiva-fofa-emocional-da-menina-dando-palmas-nas-maos-isolado-em-um-branco_157927-17603.jpg?size=626&ext=jpg&ga=GA1.2.1905393522.1641340800",
+        imgUrl:
+          "https://img.freepik.com/fotos-gratis/retrato-da-ruiva-fofa-emocional-da-menina-dando-palmas-nas-maos-isolado-em-um-branco_157927-17603.jpg?size=626&ext=jpg&ga=GA1.2.1905393522.1641340800",
       },
       {
         emotion: "Vergonha",
-        imgUrl:
-          "../raposa/Fofinho.svg",
+        imgUrl: "http://localhost:8080/raposa/Fofinho.svg",
       },
       {
         emotion: "Vergonha",
-        imgUrl:
-          "../cat/irritado.jpg",
+        imgUrl: "http://localhost:8080/cat/irritado.jpg",
       },
       {
         emotion: "Tristeza",
-        imgUrl:
-          "../raposa/Triste.svg",
+        imgUrl: "http://localhost:8080/raposa/Triste.svg",
       },
       {
         emotion: "Tristeza",
-        imgUrl:
-          "../person/person_sad-01.svg",
+        imgUrl: "http://localhost:8080/person/person_sad-01.svg",
       },
       {
         emotion: "Tristeza",
-        imgUrl:
-          "../cat/triste.jpg",
+        imgUrl: "http://localhost:8080/cat/triste.jpg",
       },
       {
         emotion: "Raiva",
-        imgUrl:
-          "../person/test.svg",
+        imgUrl: "http://localhost:8080/person/test.svg",
       },
       {
         emotion: "Raiva",
-        imgUrl:
-          "../raposa/Chateado.svg",
+        imgUrl: "http://localhost:8080/raposa/Chateado.svg",
       },
       {
         emotion: "Raiva",
-        imgUrl:
-          "../cat/raiva.jpg",
+        imgUrl: "http://localhost:8080/cat/raiva.jpg",
       },
       {
         emotion: "Nojo",
@@ -114,28 +107,23 @@ export default {
       },
       {
         emotion: "Nervosismo",
-        imgUrl:
-          "../raposa/Fugitivo.svg",
+        imgUrl: "http://localhost:8080/raposa/Fugitivo.svg",
       },
       {
         emotion: "Nervosismo",
-        imgUrl:
-          "https://image.cachorrogato.com.br/textimages/cao-bravo.jpg",
+        imgUrl: "https://image.cachorrogato.com.br/textimages/cao-bravo.jpg",
       },
       {
         emotion: "Indiferença",
-        imgUrl:
-          "../person/person_really-01.svg",
+        imgUrl: "http://localhost:8080/person/person_really-01.svg",
       },
       {
         emotion: "Indiferença",
-        imgUrl:
-          "../cat/indiferença.jpg",
+        imgUrl: "http://localhost:8080/cat/indiferença.jpg",
       },
       {
         emotion: "Dúvida",
-        imgUrl:
-          "../person/person_confused.svg",
+        imgUrl: "http://localhost:8080/person/person_confused.svg",
       },
       {
         emotion: "Alegria",
@@ -144,22 +132,19 @@ export default {
       },
       {
         emotion: "Alegria",
-        imgUrl:
-          "../person/person_happy-01.svg",
+        imgUrl: "http://localhost:8080/person/person_happy-01.svg",
       },
       {
         emotion: "Alegria",
-        imgUrl:
-          "../raposa/gato_feliz.svg",
+        imgUrl: "http://localhost:8080/raposa/gato_feliz.svg",
       },
       {
         emotion: "Admiração",
-        imgUrl: "../cat/espantado.jpg",
+        imgUrl: "http://localhost:8080/cat/espantado.jpg",
       },
       {
         emotion: "Admiração",
-        imgUrl:
-          "../raposa/Assustado.svg",
+        imgUrl: "http://localhost:8080/raposa/Assustado.svg",
       },
       {
         emotion: "Admiração",
@@ -183,7 +168,8 @@ export default {
   },
   getters: {
     /* Get 5 random emotions for the game ImitaMe */
-    getEmotionsForImita: (state) => state.emotions.sort(() => Math.random() - 0.5),
+    getEmotionsForImita: (state) =>
+      state.emotions.sort(() => Math.random() - 0.5),
     getEmotionsForAdivinha: (state) => (difficulty) => {
       let list = state.images
         .sort(() => Math.random() - 0.5)
