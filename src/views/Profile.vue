@@ -132,38 +132,48 @@
 
             <!--LINK ACCOUNT-->
             <div
-              class="
-                profileBox
-                d-flex
-                col-7
-                flex-column
-                align-items-center
-                my-3
-                mt-5
-              "
+              class="profileBox d-flex col-7 flex-column align-items-center my-3 mt-5 px-2"
+              v-if="getUserType === 'child'"
             >
-              <div class="d-flex flex-column align-items-center">
-                <div class="d-flex flex-column align-items-center">
-                  <h2 class="fontAsap mt-2" style="font-size: 30px">
-                    Vincular Conta
-                  </h2>
-                </div>
-                <div class="my-3">
-                  <form class="d-flex flex-column align-items-center">
-                    <input
-                      class="my-2 col-9"
-                      type="password"
-                      placeholder="Código"
-                    />
-                    <input
-                      type="submit"
-                      class="fontNunito bgOrange btnsPlay mt-4 mb-2"
-                      value="Vincular"
-                    />
-                  </form>
-                </div>
-              </div>
+              <h2 class="fontAsap mt-2" style="font-size: 30px">
+                O teu código
+              </h2>
+              <p class="fontNunito">
+                Guarda como se fosse um segredo que só deves partilhar com os
+                teus pais...
+              </p>
+
+              <p class="fontNunito">
+                {{ getLoggedChildCode }}
+              </p>
             </div>
+
+            <div
+              class="profileBox d-flex col-7 flex-column align-items-center my-3 mt-5"
+              v-if="getUserType === 'tutor'"
+            >
+              <h2 class="fontAsap mt-2" style="font-size: 30px">
+                Vincular Conta
+              </h2>
+
+              <form
+                class="d-flex flex-column align-items-center"
+                @submit.prevent="vincular"
+              >
+                <input
+                  class="my-2 col-9"
+                  type="text"
+                  placeholder="Código"
+                  v-model="vincularForm.childCode"
+                />
+                <input
+                  type="submit"
+                  class="fontNunito bgOrange btnsPlay mt-4 mb-2"
+                  value="Vincular"
+                />
+              </form>
+            </div>
+
             <!--LINK ACCOUNT-->
           </section>
         </div>
@@ -225,6 +235,9 @@ export default {
         userType: "",
         newImg: "",
       },
+      vincularForm: {
+        childCode: "",
+      },
     };
   },
   components: {
@@ -232,13 +245,13 @@ export default {
     Footer,
   },
   mounted() {
-      if (this.getUserType == "psychologist") {
-        this.profileImage = this.getLoggedPsychologist[0].avatar;
-      } else if (this.getUserType == "child") {
-        this.profileImage = this.getLoggedChild[0].avatar;
-      } else if (this.getUserType == "tutor") {
-        this.profileImage = this.getLoggedTutor[0].avatar;
-      }
+    if (this.getUserType == "psychologist") {
+      this.profileImage = this.getLoggedPsychologist[0].avatar;
+    } else if (this.getUserType == "child") {
+      this.profileImage = this.getLoggedChild[0].avatar;
+    } else if (this.getUserType == "tutor") {
+      this.profileImage = this.getLoggedTutor[0].avatar;
+    }
   },
   methods: {
     changePassword() {
@@ -267,10 +280,22 @@ export default {
       this.$store.commit("SET_NEW_CONTACT", this.contact);
     },
 
+    vincular() {
+      let childUsername = this.getUsernameFromCode(this.vincularForm.childCode);
+      if (confirm(`Quer vincular a conta com a criança ${childUsername}?`)) {
+        if (this.checkSameConnection(childUsername)) {
+          alert("A sua conta já está vinculada à criança desejada.");
+        } else {
+          this.SET_NEW_CONNECTION(childUsername);
+        }
+      }
+    },
+
     ...mapMutations([
       "SET_NEW_PASSWORD",
       "SET_NEW_PASSWORD",
       "SET_NEW_PROFILE_IMG",
+      "SET_NEW_CONNECTION",
     ]),
   },
   created() {
@@ -297,6 +322,9 @@ export default {
       "getLoggedPsychologist",
       "getLoggedChild",
       "getLoggedTutor",
+      "getLoggedChildCode",
+      "getUsernameFromCode",
+      "checkSameConnection",
     ]),
   },
 };

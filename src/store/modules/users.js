@@ -1,13 +1,10 @@
 function create_UUID() {
   let dt = new Date().getTime();
-  let uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-    /[xy]/g,
-    function (c) {
-      let r = (dt + Math.random() * 16) % 16 | 0;
-      dt = Math.floor(dt / 16);
-      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-    }
-  );
+  let uuid = "xxxxxxxx-xxxx-4xxx-yxxx".replace(/[xy]/g, function (c) {
+    let r = (dt + Math.random() * 16) % 16 | 0;
+    dt = Math.floor(dt / 16);
+    return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+  });
   return uuid;
 }
 
@@ -15,7 +12,7 @@ export default {
   state: {
     isAuthenticated: false,
     loggedUserType: "",
-    loggedUsername: "crianca",
+    loggedUsername: "",
     loggedUserInfo: "",
     loggedEmail: "",
     userclick: "",
@@ -158,6 +155,15 @@ export default {
       state.psychologists.find((psico) => psico.username === selected),
     getSelectedChildInformations: (state) =>
       state.children.filter((d) => d.username === state.userclick),
+    getLoggedChildCode: (state) =>
+      state.children.find((c) => c.username === state.loggedUsername).code,
+    getUsernameFromCode: (state) => (code) =>
+      state.children.find((c) => c.code === code).username,
+    checkSameConnection: (state) => (childUsername) =>
+      state.connections.some(
+        (c) =>
+          c.childUser === childUsername && c.tutorUser === state.loggedUsername
+      ),
   },
   mutations: {
     SET_LOGGED_USER(state, payload) {
@@ -368,6 +374,13 @@ export default {
     },
     SET_CLICKED_CHILD(state, payload) {
       state.userclick = payload;
+    },
+    SET_NEW_CONNECTION(state, payload) {
+      state.connections.push({
+        childUser: payload,
+        tutorUser: state.loggedUsername,
+        psychologistUser: "",
+      });
     },
   },
   actions: {},
