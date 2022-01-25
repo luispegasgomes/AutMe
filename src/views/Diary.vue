@@ -113,9 +113,6 @@
         <!--ADD NEW DIARY-->
       </div>
     </main>
-    
-        <router-link :to="{ name: 'FichaTecnica' }" class="nav-link text-uppercase"
-      ><button>ir para ft</button></router-link>
     <div class="fixed-bottom">
       <Footer />
     </div>

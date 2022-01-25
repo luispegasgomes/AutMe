@@ -42,7 +42,7 @@
           <div
             class="d-flex flex-column align-items-center mt-5 mb-3 fontNunito"
           >
-            <h3>Email: <span class="colorOrange" style="font-weight:bold"> filipa-manuela@gmail.com </span></h3>
+            <h3>Email: <span class="colorOrange" style="font-weight:bold"> {{mail}} </span></h3>
             <h3>
               Contacto: <span class="colorBlue"> {{ selected.contact }}</span>
             </h3>
@@ -166,6 +166,7 @@ export default {
   data() {
     return {
       selected: "",
+      mail:"",
       form: {
         username: "",
         date: "",
@@ -186,12 +187,15 @@ export default {
       ],
     };
   },
-
+  updated () {
+    this.mail = this.getLoggedPsychologistEmail.filter((d) => d.username === this.selected.username)[0].email
+  },
   computed: {
     ...mapGetters([
       "getUsername",
       "getPsychologists",
       "getPsychologistsByUsername",
+      "getLoggedPsychologistEmail",
     ]),
   },
   methods: {
@@ -199,9 +203,13 @@ export default {
 
     setSelected(text) {
       this.selected = text;
+      alert(text)
+      
+
     },
     closeModal() {
       this.$bvModal.hide("modal-1");
+      console.log(this.selected.username);
     },
     setNewSchedule(schedule) {
       this.form.hour = schedule;

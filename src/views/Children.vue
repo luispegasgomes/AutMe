@@ -2,13 +2,17 @@
   <div class="children bgGrey d-flex flex-column">
     <Navbar activeTab="Crianças" />
     <main class="my-3 d-flex flex-column align-items-center">
-      <div class="d-flex align-items-center mt-3">
-        <img src="../assets/children.png" height="70" />
-        <p class="fontAsap mx-2 my-1 colorDarkBlue" style="font-size: 32px">
-          As minhas crianças
-        </p>
+      <div class="d-flex flex-column align-items-center mt-3">
+        <div class="d-flex align-items-center">
+          <img src="../assets/children.png" height="70" />
+          <p class="fontAsap mx-2 my-1 colorDarkBlue" style="font-size: 32px">
+            As minhas crianças
+          </p>
+        </div>
+
+        <button class="button1 fontAsap mt-4">Ordenar por nome</button>
       </div>
-      <button class="mx-5 w-25 py-1 align-self-start button1">Ordenar por nome</button>
+      
 
       <section class="d-flex flex-wrap bgWhite listbox mx-5 mt-4">
         <article
@@ -24,8 +28,7 @@
             v-on:click="selectedChild = connection.childUser"
           />
           <h4 class="mt-4">{{ connection.childUser }}</h4>
-          <button class="button2" v-on:click="selectedChild = connection.childUser">Ver mais</button>
-          <button v-on:click="clickChild()">testar</button>
+          <button class="button2" v-on:click="clickChild(selectedChild = connection.childUser)">Ver mais</button>
         </article>
       </section>
     </main>
@@ -74,6 +77,7 @@ export default {
   border-color: var(--blue);
   border-width: 3px;
   border-radius: 6px;
+  width: 200px;
 }
 .button2 {
   background: var(--white);

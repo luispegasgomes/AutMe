@@ -65,151 +65,105 @@ export default {
     images: [
       {
         emotion: "Vergonha",
-        imgUrl:
-          "https://image.freepik.com/free-photo/smiling-man-facepalm-after-embarrassing-joke_176420-18019.jpg",
+        imgUrl: "https://img.freepik.com/fotos-gratis/retrato-da-ruiva-fofa-emocional-da-menina-dando-palmas-nas-maos-isolado-em-um-branco_157927-17603.jpg?size=626&ext=jpg&ga=GA1.2.1905393522.1641340800",
       },
       {
         emotion: "Vergonha",
         imgUrl:
-          "https://image.freepik.com/free-photo/embarrassed-man-facepalm-smiling_176420-19598.jpg",
+          "../raposa/Fofinho.svg",
       },
       {
         emotion: "Vergonha",
         imgUrl:
-          "https://image.freepik.com/fotos-gratis/cara-atraente-em-t-shirt-elegante-fazendo-gesto-de-palma-do-rosto-rindo-sentindo-se-envergonhado-jovem-emocional-cobrindo-os-olhos-por-causa-da-dor-vergonha-tristeza-perda-vergonha-ou-estresse_343059-1526.jpg",
+          "../cat/irritado.jpg",
       },
       {
         emotion: "Tristeza",
         imgUrl:
-          "https://services.meteored.com/img/article/por-que-algumas-pessoas-sao-mais-tristes-no-inverno-348391-1_768.jpg",
+          "../raposa/Triste.svg",
       },
       {
         emotion: "Tristeza",
         imgUrl:
-          "https://conteudo.imguol.com.br/c/entretenimento/6b/2018/01/13/pessoa-triste-homem-triste-homem-refletindo-1515870196828_v2_450x337.jpg",
+          "../person/person_sad-01.svg",
       },
       {
         emotion: "Tristeza",
         imgUrl:
-          "https://images.freejpg.com.ar/400/2606/man-sad-portrait-hood-person-depression-emotion-F100028602.jpg",
+          "../cat/triste.jpg",
       },
       {
         emotion: "Raiva",
         imgUrl:
-          "https://gooutside.com.br/wp-content/uploads/sites/3/2019/03/raiva-exercicio.jpg",
+          "../person/test.svg",
       },
       {
         emotion: "Raiva",
         imgUrl:
-          "https://cdn-images-1.medium.com/max/900/1*idU75tMkx7bqTTBF8EtGCA.jpeg",
+          "../raposa/Chateado.svg",
       },
       {
         emotion: "Raiva",
         imgUrl:
-          "https://revistaregional.com.br/site/wp-content/uploads/2018/11/raiva.jpg",
+          "../cat/raiva.jpg",
       },
       {
         emotion: "Nojo",
         imgUrl:
-          "https://img.vixdata.io/pd/jpg-large/pt/sites/default/files/n/nojo-repulsa-rejeicao-0618-1400x800.jpg",
-      },
-      {
-        emotion: "Nojo",
-        imgUrl:
-          "https://conteudo.imguol.com.br/c/entretenimento/f4/2018/11/29/ranco-nojo-1543515979792_v2_4x3.jpg",
-      },
-      {
-        emotion: "Nojo",
-        imgUrl:
-          "https://pm1.narvii.com/6719/af1f22c3239d5418e573878363e588b30af833bb_hq.jpg",
+          "https://static.vecteezy.com/system/resources/previews/002/890/858/original/young-fat-man-refuse-eating-broccoli-and-throws-it-in-trash-can-guy-with-refusing-gesture-facial-expression-of-disgust-picky-food-eater-unhealthy-lifestyle-concept-vector.jpg",
       },
       {
         emotion: "Nervosismo",
         imgUrl:
-          "https://melhorcomsaude.com.br/wp-content/uploads/2014/10/nervos1.jpg",
+          "../raposa/Fugitivo.svg",
       },
       {
         emotion: "Nervosismo",
         imgUrl:
-          "https://colunaitalo.com.br/upload/artigos/1229/CAPA_SUPERA_view.jpg",
-      },
-      {
-        emotion: "Nervosismo",
-        imgUrl:
-          "https://guiadoestudante.abril.com.br/wp-content/uploads/sites/4/2016/11/ansiedade-vestibular.jpg",
+          "https://image.cachorrogato.com.br/textimages/cao-bravo.jpg",
       },
       {
         emotion: "Indiferença",
         imgUrl:
-          "https://st2.depositphotos.com/1258191/8822/i/600/depositphotos_88229574-stock-photo-confused-man-shrugging.jpg",
+          "../person/person_really-01.svg",
       },
       {
         emotion: "Indiferença",
         imgUrl:
-          "https://st2.depositphotos.com/4196725/7818/i/600/depositphotos_78188520-stock-photo-boring-businessman-yawning.jpg",
-      },
-      {
-        emotion: "Indiferença",
-        imgUrl:
-          "https://image.freepik.com/free-photo/silly-unaware-guy-shrugging-smiling-know-anything-being-clueless_176420-21743.jpg",
+          "../cat/indiferença.jpg",
       },
       {
         emotion: "Dúvida",
         imgUrl:
-          "https://i1.wp.com/cienciafe.miguelpanao.com/wp-content/uploads/2017/12/1BA89864-FB05-458C-A5CD-6304C0B8F904.jpeg?resize=426%2C282&ssl=1",
-      },
-      {
-        emotion: "Dúvida",
-        imgUrl:
-          "https://sindilegis.org.br/wp-content/uploads/2018/11/img-05-07-2016-577c1944c2c4c.jpg",
-      },
-      {
-        emotion: "Dúvida",
-        imgUrl:
-          "https://blog.meskle.com.br/wp-content/uploads/2020/09/As-principais-duvidas-sobre-celulite-homens.jpg",
-      },
-      {
-        emotion: "Espantado",
-        imgUrl:
-          "https://exame.com/wp-content/uploads/2017/09/homem-surpreso.png?w=680&h=453&crop=1",
-      },
-      {
-        emotion: "Espantado",
-        imgUrl:
-          "https://media.istockphoto.com/photos/young-handsome-man-with-beard-wearing-casual-sweater-and-glasses-over-picture-id1212960962?k=20&m=1212960962&s=612x612&w=0&h=o2PGY4yhn51XSnYi60dMCQqvXQ0d-odkaKUVocbYYLk=",
-      },
-      {
-        emotion: "Espantado",
-        imgUrl:
-          "https://st3.depositphotos.com/1857171/16235/i/600/depositphotos_162353260-stock-photo-portrait-of-surprised-bearded-man.jpg",
+          "../person/person_confused.svg",
       },
       {
         emotion: "Alegria",
         imgUrl:
-          "http://www.clubefelicidade.com.br/dashboard/uploads/a61183b4-c641-4b4d-b915-67d6697fa20d/diferenca-entre-felicidade-alegria.jpg",
+          "https://i.pinimg.com/originals/62/50/d6/6250d6a15f2e025617136ecf120b686b.png",
       },
       {
         emotion: "Alegria",
         imgUrl:
-          "https://palavradodiacoutinho.com.br/wp-content/uploads/2019/05/alegria.jpg",
+          "../person/person_happy-01.svg",
       },
       {
         emotion: "Alegria",
         imgUrl:
-          "https://jrmcoaching.com.br/wp-content/uploads/2020/08/alegria.jpg",
+          "../raposa/gato_feliz.svg",
       },
       {
         emotion: "Admiração",
-        imgUrl: "https://akimneto.files.wordpress.com/2015/03/images-41.jpg",
+        imgUrl: "../cat/espantado.jpg",
       },
       {
         emotion: "Admiração",
         imgUrl:
-          "https://nutri-coaching.com/wp-content/uploads/2016/02/Admira%C3%A7%C3%A3o.jpg",
+          "../raposa/Assustado.svg",
       },
       {
         emotion: "Admiração",
-        imgUrl: "https://mumslounge.com.au/wp-content/uploads/2016/10/baby.jpg",
+        imgUrl: "https://preview.pixlr.com/images/450nwm/100/1/1001466188.jpg",
       },
     ],
     recognizedImages: [

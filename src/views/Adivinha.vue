@@ -1,8 +1,8 @@
 <template>
-  <div class="game bgGrey d-flex flex-column justify-content-between">
+  <div class="game bgGrey d-flex flex-column">
     <Navbar />
-    <main class="my-3 d-flex flex-column align-items-center">
-      <p class="fontNunito" style="font-size: 30px">
+    <main class="my-4 d-flex flex-column align-items-center">
+      <p class="fontNunito colorBlue" style="font-size: 30px; font-weight:bold">
         Adivinha as emoções de cada imagem!
       </p>
       <div class="gameBox p-4 d-flex flex-wrap justify-content-between col-8">
@@ -20,7 +20,7 @@
           <select v-model="answers[index]" class="mt-2">
             <option value="" disabled>Emoção</option>
             <option
-              v-for="(name, index) in getEmotionsNames"
+              v-for="(name, index) in nameEmotions"
               :key="index"
               :value="name"
             >
@@ -31,11 +31,12 @@
       </div>
 
       <button
-        class="bgOrange colorWhite px-2 py-1 my-3 border-0 d-flex align-items-center"
+        class="bgOrange colorWhite px-2 py-2 my-3 border-0 d-flex align-items-center mt-4"
         @click="verify"
+        style="border-radius:8px"
       >
         <img src="../assets/verificar.png" width="40" />
-        <span class="fontNunito px-1" style="font-size: 28px"
+        <span class="fontNunito px-1" style="font-size: 28px; "
           >Vamos verificar!</span
         >
       </button>
@@ -72,7 +73,9 @@
         </div>
       </div>
     </b-modal>
-    <Footer />
+        <div class="fixed-bottom">
+      <Footer />
+    </div>
   </div>
 </template>
 
@@ -91,6 +94,7 @@ export default {
     return {
       emotions: "",
       answers: ["", "", "", "", "", "", "", ""],
+      nameEmotions: ["Admiração", "Alegria", "Espantado", "Dúvida", "Indiferença", "Nervosismo", "Nojo", "Raiva", "Tristeza", "Vergonha",],
       counter: 0,
     };
   },

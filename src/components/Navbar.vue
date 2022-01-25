@@ -5,7 +5,7 @@
     /></router-link>
 
     <div class="d-flex align-items-end colorDarkBlue" style="font-size: 20px">
-      <ul class="navbar-nav fontBarlow weightLight d-flex flex-row col-6">
+      <ul class="navbar-nav fontBarlow weightLight d-flex flex-row col-3">
         <li
           v-if="getUserType != 'child'"
           :class="{
@@ -25,7 +25,7 @@
           v-if="getUserType != 'child' && getUserType != 'admin'"
           :class="{
             'nav-item': true,
-            'mx-2': true,
+            'mx-5': true,
             selected: activeTab == 'Crianças',
           }"
           class="col-6 d-flex flex-column align-items-center"
@@ -40,7 +40,7 @@
           v-if="getUserType === 'psychologist'"
           :class="{
             'nav-item': true,
-            'mx-2': true,
+            'mx-5': true,
             selected: activeTab == 'Pedidos',
           }"
         >
@@ -52,7 +52,7 @@
           v-if="getUserType === 'psychologist'"
           :class="{
             'nav-item': true,
-            'mx-2': true,
+            'mx-5': true,
             selected: activeTab == 'Agenda',
           }"
           class="col-6 d-flex flex-column align-items-center"
@@ -95,7 +95,7 @@
         :to="{ name: 'Profile' }"
         class="mx-1 d-flex flex-column align-items-end"
       >
-        <img src="../assets/temp_profile_img.png" height="50" />
+        <img :src="profileImage" :alt="profileImage" height="50" width="50" style="border-radius:100px"/>
       </router-link>
       <button class="btn" @click="logout">
         <img src="../assets/shutdown.png" height="30" />
@@ -112,6 +112,20 @@ export default {
   props: {
     activeTab: String,
   },
+  data() {
+    return {
+      profileImage: "../temp_profile_img.png",
+    }
+  },
+  mounted() {
+    if (this.getUserType == "psychologist") {
+      this.profileImage = this.getLoggedPsychologist[0].avatar;
+    } else if (this.getUserType == "child") {
+      this.profileImage = this.getLoggedChild[0].avatar;
+    } else if (this.getUserType == "tutor") {
+      this.profileImage = this.getLoggedTutor[0].avatar;
+    }
+  },
   methods: {
     logout() {
       this.SET_LOGOUT();
@@ -120,7 +134,13 @@ export default {
     ...mapMutations(["SET_LOGOUT"]),
   },
   computed: {
-    ...mapGetters(["getUserType", "getChildAvatar"]),
+    ...mapGetters([
+      "getUserType",
+      "getChildAvatar",
+      "getLoggedChild",
+      "getLoggedTutor",
+      "getLoggedPsychologist",
+    ]),
   },
 };
 </script>

@@ -130,6 +130,10 @@ export default {
     getChildAvatar: (state) => (childUsername) =>
       state.children.find((c) => c.username === childUsername).avatar,
     getPsychologists: (state) => state.psychologists,
+    getLoggedPsychologist: (state) => state.psychologists.filter((d) => d.username === state.loggedUsername),
+    getLoggedPsychologistEmail: (state) => state.users,
+    getLoggedChild: (state) => state.children.filter((d) => d.username === state.loggedUsername),
+    getLoggedTutor: (state) => state.tutors.filter((d) => d.username === state.loggedUsername),
     getPsychologistsByUsername: (state) => (selected) =>
       state.psychologists.find((psico) => psico.username === selected),
     getSelectedChildInformations: (state) =>
@@ -188,6 +192,47 @@ export default {
       );
 
       localStorage.users = JSON.stringify(state.users);
+    },
+    SET_NEW_CONTACT(state, payload) {
+      state.psychologists = state.psychologists.map((user) =>
+        user.username === state.loggedUsername ? {
+          ...user,
+          contact: payload,
+        } :
+        user
+      );
+      localStorage.psychologists = JSON.stringify(state.psychologists);
+    },
+    SET_NEW_PROFILE_IMG(state, payload) {
+      if (payload.userType == "psychologist") {
+        state.psychologists = state.psychologists.map((user) =>
+          user.username === state.loggedUsername ? {
+            ...user,
+            avatar: payload.newImg,
+          } :
+          user
+        );
+        localStorage.psychologists = JSON.stringify(state.psychologists);
+      } else if (payload.userType == "child") {
+        state.children = state.children.map((user) =>
+          user.username === state.loggedUsername ? {
+            ...user,
+            avatar: payload.newImg,
+          } :
+          user
+        );
+        localStorage.children = JSON.stringify(state.children);
+      } else if (payload.userType == "tutor") {
+        state.tutors = state.tutors.map((user) =>
+          user.username === state.loggedUsername ? {
+            ...user,
+            avatar: payload.newImg,
+          } :
+          user
+        );
+        localStorage.tutors = JSON.stringify(state.tutors);
+      }
+
     },
     SET_NEW_DIARY(state, payload) {
       state.diary.push({

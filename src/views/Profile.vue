@@ -17,8 +17,8 @@
           <div class="profileBox2 d-flex flex-column mx-5 mb-3">
             <div class="d-flex flex-column align-items-center">
               <img
-                :src="getLoggedUserInformations.avatar"
-                :alt="getLoggedUserInformations.avatar"
+                :src="profileImage"
+                :alt="profileImage"
                 height="100"
                 class="my-3"
                 style="border-radius: 50%"
@@ -62,15 +62,18 @@
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mt-3"
-                v-if="getUserType != 'child'"
+                v-if="getUserType == 'psychologist'"
               >
                 <div class="colorBlue">Contacto:</div>
-                <div>{{ getLoggedUserInformations.contact }}</div>
+                <div>{{ getLoggedPsychologist[0].contact }}</div>
               </div>
             </div>
 
             <div class="d-flex flex-column align-items-center my-4">
-              <button class="fontNunito bgOrange btnsPlay my-2">
+              <button
+                class="fontNunito bgOrange btnsPlay my-2"
+                v-on:click="changeProfileImg()"
+              >
                 Atualizar foto de perfil
               </button>
               <button
@@ -212,10 +215,15 @@ export default {
       userGender: "",
       userType: "",
       contact: "",
+      profileImage: "",
       form: {
         currentPassword: "",
         newPassword: "",
         confirmPassword: "",
+      },
+      setImg: {
+        userType: "",
+        newImg: "",
       },
     };
   },
@@ -223,47 +231,62 @@ export default {
     Navbar,
     Footer,
   },
+  mounted() {
+      if (this.getUserType == "psychologist") {
+        this.profileImage = this.getLoggedPsychologist[0].avatar;
+      } else if (this.getUserType == "child") {
+        this.profileImage = this.getLoggedChild[0].avatar;
+      } else if (this.getUserType == "tutor") {
+        this.profileImage = this.getLoggedTutor[0].avatar;
+      }
+  },
   methods: {
     changePassword() {
       this.$store.commit("SET_NEW_PASSWORD", this.form.newPassword);
       this.$bvModal.show("modal-1");
-      /*if (
-        this.getLoggedUserInformations.password == this.form.currentPassword
-      ) {
-        console.log("muito bem");
-        this.$store.commit("SET_NEW_PASSWORD", this.form.newPassword);
-        alert("Password alterada!");
-        this.$bvModal.show("modal-1")
-      } else {
-        alert("As passwords não coicidem!");
-      }*/
     },
     closeModal() {
       this.$bvModal.hide("modal-1");
     },
 
-    changeContact () {
-      this.contact = prompt('Insira novo contacto')
-      //this.$store.commit("SET_NEW_CONTACT", this.contact);
+    changeProfileImg() {
+      this.setImg.newImg = prompt("Insira nova imagem de perfil");
+      this.setImg.userType = this.getUserType;
+      this.SET_NEW_PROFILE_IMG(this.setImg);
+      if (this.getUserType == "psychologist") {
+        this.profileImage = this.getLoggedPsychologist[0].avatar;
+      } else if (this.getUserType == "child") {
+        this.profileImage = this.getLoggedChild[0].avatar;
+      } else if (this.getUserType == "tutor") {
+        this.profileImage = this.getLoggedTutor[0].avatar;
+      }
     },
 
-    ...mapMutations(["SET_NEW_PASSWORD"]),
+    changeContact() {
+      this.contact = prompt("Insira novo contacto");
+      this.$store.commit("SET_NEW_CONTACT", this.contact);
+    },
+
+    ...mapMutations([
+      "SET_NEW_PASSWORD",
+      "SET_NEW_PASSWORD",
+      "SET_NEW_PROFILE_IMG",
+    ]),
   },
   created() {
-    if (this.getLoggedUserInformations.gender == 'M') {
-      this.userGender = 'Masculino'
+    if (this.getLoggedUserInformations.gender == "M") {
+      this.userGender = "Masculino";
     } else {
-      this.userGender = 'Feminino'
+      this.userGender = "Feminino";
     }
 
     if (this.getUserType == "child") {
-      this.userType = "Criança"
+      this.userType = "Criança";
     } else if (this.getUserType == "tutor") {
-      this.userType = "Tutor"
+      this.userType = "Tutor";
     } else if (this.getUserType == "psychologist") {
-      this.userType = "Psicólogo"
+      this.userType = "Psicólogo";
     }
-    
   },
   computed: {
     ...mapGetters([
@@ -271,6 +294,9 @@ export default {
       "getLoggedUserInformations",
       "getUserType",
       "getEmail",
+      "getLoggedPsychologist",
+      "getLoggedChild",
+      "getLoggedTutor",
     ]),
   },
 };
