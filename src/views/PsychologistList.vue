@@ -24,7 +24,10 @@
           </button>
         </section>
 
-        <section class="description col-6 d-flex flex-column" v-if="selected">
+        <section
+          class="description col-6 d-flex flex-column bgWhite"
+          v-if="selected"
+        >
           <div class="d-flex align-items-center justify-content-between mb-3">
             <img
               :src="selected.avatar"
@@ -42,16 +45,24 @@
           <div
             class="d-flex flex-column align-items-center mt-5 mb-3 fontNunito"
           >
-            <h3>Email: <span class="colorOrange" style="font-weight:bold"> {{mail}} </span></h3>
+            <h3>
+              Email:
+              <span class="colorOrange" style="font-weight: bold">
+                {{ mail }}
+              </span>
+            </h3>
             <h3>
               Contacto: <span class="colorBlue"> {{ selected.contact }}</span>
             </h3>
             <h3 class="mt-3">
-              Localização da clínica: <span class="colorOrange" style="font-weight:bold"> {{ selected.locationAdress }} </span>
+              Localização da clínica:
+              <span class="colorOrange" style="font-weight: bold">
+                {{ selected.locationAdress }}
+              </span>
             </h3>
             <h3>
               Código Postal:
-              <span class="colorBlue" > {{ selected.postalCode }}</span>
+              <span class="colorBlue"> {{ selected.postalCode }}</span>
             </h3>
           </div>
 
@@ -111,7 +122,6 @@
           </div>
         </div>
 
-
         <form
           @submit.prevent="addAppointment"
           class="d-flex flex-column align-items-center mt-3"
@@ -126,7 +136,13 @@
               {{ name.childUser }}
             </option>
           </select>
-          <input type="date" v-model="form.date" id="txtTitle" class="mt-3" required/>
+          <input
+            type="date"
+            v-model="form.date"
+            id="txtTitle"
+            class="mt-3"
+            required
+          />
 
           <div
             class="mt-5 fontNunito colorOrange"
@@ -172,7 +188,7 @@ export default {
   data() {
     return {
       selected: "",
-      mail:"",
+      mail: "",
       form: {
         username: "",
         date: "",
@@ -193,8 +209,10 @@ export default {
       ],
     };
   },
-  updated () {
-    this.mail = this.getLoggedPsychologistEmail.filter((d) => d.username === this.selected.username)[0].email
+  updated() {
+    this.mail = this.getLoggedPsychologistEmail.filter(
+      (d) => d.username === this.selected.username
+    )[0].email;
   },
   computed: {
     ...mapGetters([
@@ -206,13 +224,11 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations(["SET_NEW_APPOINTMENT"]),
+    ...mapMutations(["SET_NEW_APPOINTMENT", "CONNECT_PSYCHOLOGIST"]),
 
     setSelected(text) {
       this.selected = text;
-      alert(text)
-      
-
+      alert(text);
     },
     closeModal() {
       this.$bvModal.hide("modal-1");
@@ -227,19 +243,24 @@ export default {
       this.form.avatar = this.selected.avatar;
       this.SET_NEW_APPOINTMENT(this.form);
       this.$bvModal.hide("modal-1");
+      const item = {
+        childUser: this.form.childUsername,
+        tutorUser: this.getUsername,
+        psychologistUser: this.selected.username,
+      };
+      this.CONNECT_PSYCHOLOGIST(item);
     },
-    checkSchedule(schedule){
+    checkSchedule(schedule) {
       if (this.form.hour === schedule) {
-        return true
+        return true;
       }
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-
-button:disabled{
+button:disabled {
   background-color: var(--orange);
   color: black;
 }

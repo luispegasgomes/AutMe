@@ -11,9 +11,16 @@ function create_UUID() {
 export default {
   state: {
     isAuthenticated: false,
-    loggedUserType: "",
-    loggedUsername: "",
-    loggedUserInfo: "",
+    loggedUserType: "tutor",
+    loggedUsername: "tutor",
+    loggedUserInfo: {
+      username: "tutor",
+      name: "José António",
+      avatar: "/homem.jpg",
+      gender: "M",
+      birth: "1960-01-01",
+      contact: "912345678",
+    },
     loggedEmail: "",
     userclick: "",
 
@@ -381,6 +388,13 @@ export default {
         tutorUser: state.loggedUsername,
         psychologistUser: "",
       });
+    },
+    CONNECT_PSYCHOLOGIST(state, payload) {
+      state.connections = state.connections.map((c) =>
+        c.childUser === payload.childUser && c.tutorUser === payload.tutorUser
+          ? { ...c, psychologistUser: payload.psychologistUser }
+          : c
+      );
     },
   },
   actions: {},
