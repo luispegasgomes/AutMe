@@ -4,7 +4,9 @@
     <main class="d-flex flex-column align-items-center my-3">
       <div class="d-flex align-items-center">
         <img src="../assets/adivinha.jpg" id="adivinha" />
-        <h1 class="fontAsap weightBold px-4">Adivinha-me!</h1>
+        <h1 class="fontAsap weightBold px-4">
+          Adivinha<span class="colorOrange weightBold">Me</span>
+        </h1>
       </div>
 
       <div id="levelbox" class="my-5 p-5 d-flex flex-column w-75">

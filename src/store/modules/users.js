@@ -93,13 +93,15 @@ export default {
             city: "Maia",
           },
         ],
-    connections: [
-      {
-        childUser: "crianca",
-        tutorUser: "tutor",
-        psychologistUser: "psicologo",
-      },
-    ],
+    connections: localStorage.connections
+      ? JSON.parse(localStorage.connections)
+      : [
+          {
+            childUser: "crianca",
+            tutorUser: "tutor",
+            psychologistUser: "psicologo",
+          },
+        ],
     diary: localStorage.diary
       ? JSON.parse(localStorage.diary)
       : [
@@ -381,6 +383,7 @@ export default {
         tutorUser: state.loggedUsername,
         psychologistUser: "",
       });
+      localStorage.connections = JSON.stringify(state.connections);
     },
     CONNECT_PSYCHOLOGIST(state, payload) {
       state.connections = state.connections.map((c) =>
@@ -388,6 +391,7 @@ export default {
           ? { ...c, psychologistUser: payload.psychologistUser }
           : c
       );
+      localStorage.connections = JSON.stringify(state.connections);
     },
   },
   actions: {},
