@@ -64,7 +64,7 @@
     </main>
 
     <div
-      class="d-flex flex-column justify-content-between align-items-center mt-5"
+      class="d-flex flex-column justify-content-between align-items-center"
     >
       <div v-if="selected === ''" class="profileBox2">
         <div class="d-flex flex-column align-items-center mt-3">
@@ -228,7 +228,7 @@
       </div>
       <!--NOTAS-->
     </div>
-    <div class="fixed-bottom">
+    <div class="fixed-bottom mt-5">
       <Footer />
     </div>
     <!--ADD NEW NOTE-->
@@ -390,12 +390,14 @@ export default {
     addNewNote() {
       this.form.childUsername = this.getUserClick;
       this.SET_NEW_NOTE(this.form);
+      this.$bvModal.hide("modal-1");
     },
     addNewAppointment() {
       this.form2.username = this.getUsername;
       this.form2.childUsername = this.getUserClick;
       this.form2.avatar = this.getLoggedUserInformations.avatar;
       this.SET_NEW_APPOINTMENT(this.form2);
+      this.$bvModal.hide("modal-1");
     },
     openModalAddNewNote() {
       this.$bvModal.show("modal-1");

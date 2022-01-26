@@ -525,7 +525,6 @@ export default {
       console.log(letrasunicas);
       console.log(this.letters);
       if (letrasunicas.length === (this.letters.length)) {
-        alert('certa')
         this.countCorrectWords += 1
         console.log(this.countCorrectWords);
       }

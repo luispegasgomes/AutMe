@@ -322,7 +322,7 @@ export default {
           postalCode: payload.userPostalCode,
           city: payload.userCity,
         });
-        localStorage.tutors = JSON.stringify(state.tutors);
+        localStorage.psychologists = JSON.stringify(state.psychologists);
       }
     },
     UPDATE_ACCOUNT(state, payload) {
