@@ -30,7 +30,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "../dist/index.html",
     name: "Home",
     component: Home,
     meta: {

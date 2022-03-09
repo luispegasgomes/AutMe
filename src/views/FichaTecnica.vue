@@ -186,6 +186,7 @@
       <!--NOTAS-->
       <div v-if="selected === 'Notas'" class="notes">
         <div
+        v-if="getUserType != 'tutor'"
           class="
             d-flex
             flex-column
@@ -197,6 +198,7 @@
         >
           <div>
             <button
+            
               class="bgOrange fontAsap"
               style="
                 border: none;
