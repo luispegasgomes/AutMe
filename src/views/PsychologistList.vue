@@ -4,24 +4,41 @@
 
     <main class="mt-5">
       <div class="window row mt-5">
-        <section class="list col-2 p-5">
-          <button
-            v-for="(psychologist, index) in getPsychologists"
-            :key="index"
-            :value="psychologist"
-            v-on:click="
-              selected = getPsychologistsByUsername(psychologist.username)
-            "
-            :class="{
-              btn: true,
-              fontAsap: true,
-              'my-2': true,
-              selectedBtn:
-                selected == getPsychologistsByUsername(psychologist.username),
-            }"
-          >
-            {{ psychologist.username }}
-          </button>
+        <section class="list col-3 p-5">
+          <div>
+            <select class="mb-5 sltCities" aria-label="Default select example">
+              <option selected>Seleciona a cidade</option>
+              <option
+                v-for="(city, index) in cities"
+                :key="index"
+                :value="city"
+              >
+                {{ city }}
+              </option>
+            </select>
+            <button class="btnCities fontNunito bgOrange colorDarkBlue">
+              Filtrar
+            </button>
+          </div>
+          <div style="overflow-y: scroll" class="listpsy d-flex flex-column">
+            <button
+              v-for="(psychologist, index) in getPsychologists"
+              :key="index"
+              :value="psychologist"
+              v-on:click="
+                selected = getPsychologistsByUsername(psychologist.username)
+              "
+              :class="{
+                btn: true,
+                fontAsap: true,
+                'my-2': true,
+                selectedBtn:
+                  selected == getPsychologistsByUsername(psychologist.username),
+              }"
+            >
+              {{ psychologist.username }}
+            </button>
+          </div>
         </section>
 
         <section
@@ -187,6 +204,16 @@ export default {
   },
   data() {
     return {
+      cities: [
+        "Porto",
+        "Lisboa",
+        "Faro",
+        "Vila Real",
+        "Aveiro",
+        "Guarda",
+        "Portalegre",
+      ],
+      citySelected: "",
       selected: "",
       mail: "",
       form: {
@@ -305,6 +332,21 @@ section .selectedBtn {
   color: var(--white);
 }
 
+.btnCities {
+  border: 2px solid var(--blue);
+  border-radius: 100px;
+  font-size: 20px;
+  width: 35%;
+  text-align: center;
+  height: 40px;
+  margin-left: 30px;
+}
+
+.sltCities {
+  height: 40px;
+  border-radius: 100px;
+}
+
 .description {
   border: 6px solid var(--orange);
   border-radius: 10px;
@@ -337,5 +379,10 @@ input {
   background: white;
   margin-top: 12px;
   margin-bottom: 10px;
+}
+
+.listpsy {
+  border: 3px solid var(--orange);
+  height: 375px;
 }
 </style>

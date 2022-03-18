@@ -63,9 +63,7 @@
       </div>
     </main>
 
-    <div
-      class="d-flex flex-column justify-content-between align-items-center"
-    >
+    <div class="d-flex flex-column justify-content-between align-items-center">
       <div v-if="selected === ''" class="profileBox2">
         <div class="d-flex flex-column align-items-center mt-3">
           <p
@@ -175,18 +173,21 @@
         v-if="selected === 'Progresso'"
         class="d-flex flex-column align-items-center mt-3"
       >
-          <img src="../assets/excavator.png" width="250" />
-          <p class="mx-5 fontAsap colorBlue col-6 mt-4" style="font-size: 35px; text-align:center">
-            Esta página esta em desenvolvimento! Terás de aguardar por novas
-            versões para estar disponível.
-          </p>
+        <img src="../assets/excavator.png" width="250" />
+        <p
+          class="mx-5 fontAsap colorBlue col-6 mt-4"
+          style="font-size: 35px; text-align: center"
+        >
+          Esta página esta em desenvolvimento! Terás de aguardar por novas
+          versões para estar disponível.
+        </p>
       </div>
       <!--PROGRESSO-->
 
       <!--NOTAS-->
       <div v-if="selected === 'Notas'" class="notes">
         <div
-        v-if="getUserType != 'tutor'"
+          v-if="getUserType != 'tutor'"
           class="
             d-flex
             flex-column
@@ -198,7 +199,6 @@
         >
           <div>
             <button
-            
               class="bgOrange fontAsap"
               style="
                 border: none;
