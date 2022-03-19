@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="content px-5 py-3 d-flex flex-column justify-content-between">
-      <img src="../assets/logo.svg" alt="AutMe logo" width="25%" />
+      <img src="../assets/tester.png" alt="AutMe logo" width="17%" class="mt-2"/>
 
       <div class="d-flex flex-column align-items-end px-5">
         <p class="fontAsap colorDarkBlue weightBold py-5 w-75" id="title">

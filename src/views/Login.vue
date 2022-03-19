@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="content p-5 d-flex flex-column align-items-center">
-      <img src="../assets/logo.svg" alt="AutMe logo" width="20%" />
+      <img src="../assets/tester.png" alt="AutMe logo" width="19%" class="mb-3" />
 
       <form class="bgWhite py-3 px-5 my-4" @submit.prevent="login">
         <h1 class="fontAsap weightBold">

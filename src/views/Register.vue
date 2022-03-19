@@ -4,7 +4,7 @@
       v-if="step === 0"
       class="content p-5 d-flex flex-column align-items-center"
     >
-      <img src="../assets/logo.svg" alt="AutMe logo" width="20%" class="mb-5" />
+      <img src="../assets/tester.png" alt="AutMe logo" width="20%" class="mb-5" />
 
       <form class="bgWhite py-3 px-5 my-4">
         <h1 class="fontAsap weightBold">
