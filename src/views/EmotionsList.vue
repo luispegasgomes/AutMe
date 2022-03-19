@@ -1,9 +1,12 @@
 <template>
-  <div class="emotions bgGrey d-flex flex-column justify-content-between">
+  <div class="emotions bgGrey d-flex flex-column">
     <Navbar activeTab="Emoções" />
     <main class="d-flex flex-column mx-5">
       <h1 class="fontAsap colorDarkBlue my-3 text-center">
-        <BIconEmojiSmile /> Emoções <BIconEmojiFrown />
+        <div class="d-flex align-items-center justify-content-center">
+          <img src="../assets/emotion.png" width="100" />
+          <p class="mx-5">As minhas emoções</p>
+        </div>
       </h1>
 
       <div
@@ -24,62 +27,37 @@
           </option>
         </select>
       </div>
-
-      <section class="mt-4 px-5 py-2 bgWhite d-flex flex-wrap">
-        <article
-          class="col-4 my-3 d-flex emotion"
-          v-for="(emotion, index) in getEmotions"
-          :key="index"
-        >
-          <img :src="emotion.imgUrl" :alt="emotion.name" width="90" />
-          <div class="mx-4">
+      <div class="d-flex flex-column align-items-center mt-4">
+        <p class="fontAsap colorBlue" style="font-size:28px;">
+          Olá amiguinho! Aqui estás ver todas as emoções que já reconheceste
+          pelo jogo CompletaMe.
+        </p>
+        <section class="mt-4 bgWhite d-flex col-7">
+          <div
+            class="col-2 mt-3 mx-3 emotion"
+            v-for="(emotion, index) in getUsernameRecognizedEmotion"
+            :key="index"
+          >
+            <img
+              :src="emotion.imgUrl"
+              :alt="emotion.name"
+              width="90"
+              height="90"
+            />
             <p class="fontNunito weightBold">{{ emotion.name }}</p>
-
-            <BProgress
-              :max="getImagesFromEmotion(emotion.name).length"
-              class="mb-3 progBar"
-              v-if="getUserType === 'child' || emotionsName !== 'all'"
-            >
-              <BProgressBar
-                :style="{ background: '#143642' }"
-                :value="
-                  getRecognizedImages(
-                    getUserType === 'child' ? getUsername : emotionsName,
-                    emotion.name
-                  ).length
-                "
-                :max="getImagesFromEmotion(emotion.name).length"
-                show-value
-              />
-              <BProgressBar
-                :style="{ background: '#ec9a29' }"
-                :value="
-                  getImagesFromEmotion(emotion.name).length -
-                  getRecognizedImages(
-                    getUserType === 'child' ? getUsername : emotionsName,
-                    emotion.name
-                  ).length
-                "
-              />
-            </BProgress>
           </div>
-        </article>
-      </section>
+        </section>
+      </div>
     </main>
-    <Footer />
+    <div class="fixed-bottom">
+      <Footer />
+    </div>
   </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import {
-  BIconEmojiSmile,
-  BIconEmojiFrown,
-  BProgress,
-  BProgressBar,
-} from "bootstrap-vue";
-
 import { mapGetters } from "vuex";
 
 export default {
@@ -87,15 +65,13 @@ export default {
   components: {
     Navbar,
     Footer,
-    BIconEmojiSmile,
-    BIconEmojiFrown,
-    BProgress,
-    BProgressBar,
   },
   data() {
     return {
       emotionsName: "all",
     };
+  },
+  methods: {
   },
   computed: {
     ...mapGetters([
@@ -104,7 +80,8 @@ export default {
       "getUsername",
       "getConnections",
       "getImagesFromEmotion",
-      "getRecognizedImages",
+      "getUsernameRecognizedEmotion",
+      "getUsernameDiary",
     ]),
     showEmotions() {
       return this.emotionsName === "all" ? this.getEmotions : this.getEmotions;
@@ -134,15 +111,13 @@ section {
   border-radius: 11px;
   box-shadow: 8px 8px var(--orange);
   text-align: center;
-  height: 25rem;
+  height: 30rem;
   overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .emotion p {
   font-size: 28px;
-}
-
-.emotion .progBar {
-  width: 10rem;
 }
 </style>

@@ -157,22 +157,6 @@ export default {
               "https://preview.pixlr.com/images/450nwm/100/1/1001466188.jpg",
           },
         ],
-    recognizedImages: localStorage.recognizedImages
-      ? JSON.parse(localStorage.recognizedImages)
-      : [
-          {
-            childUsername: "crianca",
-            emotion: "Alegria",
-            imgUrl:
-              "http://www.clubefelicidade.com.br/dashboard/uploads/a61183b4-c641-4b4d-b915-67d6697fa20d/diferenca-entre-felicidade-alegria.jpg",
-          },
-          {
-            childUsername: "crianca",
-            emotion: "Alegria",
-            imgUrl:
-              "https://palavradodiacoutinho.com.br/wp-content/uploads/2019/05/alegria.jpg",
-          },
-        ],
   },
   getters: {
     /* Get 5 random emotions for the game ImitaMe */
@@ -204,10 +188,6 @@ export default {
     isEmotionUnavailable: (state) => (emotionName) =>
       !state.emotions.some(
         (emotion) => emotion.name.toLowerCase() === emotionName.toLowerCase()
-      ),
-    getRecognizedImages: (state) => (c, e) =>
-      state.recognizedImages.filter(
-        (ri) => ri.childUsername === c && ri.emotion === e
       ),
   },
   mutations: {
