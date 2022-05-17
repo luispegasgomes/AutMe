@@ -95,7 +95,7 @@
               :to="{ name: 'Diary' }"
               class="nav-link text-uppercase"
             >
-              <button class="fontNunito bgOrange colorDarkBlue btnsPlay">
+              <button class="fontNunito bgOrange colorDarkBlue btnsPlay" id="btnDiary">
                 <img src="../assets/diary.png" width="30" />
                 Ir para o diário!
               </button>

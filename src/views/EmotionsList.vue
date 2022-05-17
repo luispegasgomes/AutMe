@@ -8,34 +8,30 @@
           <p class="mx-5">As minhas emoções</p>
         </div>
       </h1>
-
-      <div
-        class="d-flex align-items-center"
-        v-if="getUserType === 'tutor' || getUserType === 'psychologist'"
-      >
-        <p class="fontAsap colorDarkBlue mr-3 my-2" style="font-size: 22px">
-          Filtro:
-        </p>
-        <select v-model="emotionsName" @change="showEmotions">
-          <option value="all">Todas as emoções</option>
-          <option
-            v-for="(connection, index) in getConnections"
-            :key="index"
-            :value="connection.childUser"
-          >
-            {{ connection.childUser }}
-          </option>
-        </select>
-      </div>
       <div class="d-flex flex-column align-items-center mt-4">
         <p class="fontAsap colorBlue" style="font-size:28px;">
           Olá amiguinho! Aqui estás ver todas as emoções que já reconheceste
           pelo jogo CompletaMe.
         </p>
-        <section class="mt-4 bgWhite d-flex col-7">
+        <section class="mt-4 bgWhite d-flex col-7" v-if="getUserType === 'child'">
           <div
             class="col-2 mt-3 mx-3 emotion"
             v-for="(emotion, index) in getUsernameRecognizedEmotion"
+            :key="index"
+          >
+            <img
+              :src="emotion.imgUrl"
+              :alt="emotion.name"
+              width="90"
+              height="90"
+            />
+            <p class="fontNunito weightBold">{{ emotion.name }}</p>
+          </div>
+        </section>
+        <section class="mt-4 bgWhite d-flex col-7" v-if="getUserType === 'tutor' || getUserType === 'psychologist'">
+          <div
+            class="col-2 mt-3 mx-3 emotion"
+            v-for="(emotion, index) in getEmotions"
             :key="index"
           >
             <img

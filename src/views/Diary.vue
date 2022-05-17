@@ -14,7 +14,7 @@
           <div class="d-flex">
             <div class="mt-1 mb-2">
               <img src="../assets/Menina_Diario.svg" height="150" />
-              <button v-b-modal.modal-1 class="btnsPlay bgOrange mx-5">
+              <button v-b-modal.modal-1 class="btnsPlay bgOrange mx-5" id="btnDiary">
                 Conta-nos o teu dia!
               </button>
               <input type="date" />

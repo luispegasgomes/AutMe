@@ -529,7 +529,6 @@ export default {
       if (this.letrasunicas.length === this.letters.length) {
         this.SET_NEW_RECOGNIZED_EMOTION(this.formEmotion);
       }
-      
 
       this.step += 1;
       this.activeTip = false;

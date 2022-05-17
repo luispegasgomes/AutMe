@@ -16,6 +16,7 @@ export default {
     loggedUserInfo: "",
     loggedEmail: "",
     userclick: "",
+    psychologistsDB:[],
 
     users: localStorage.users ?
       JSON.parse(localStorage.users) :
@@ -123,6 +124,9 @@ export default {
       ],
   },
   getters: {
+    getPsychologistsDB: (state) => state.psychologistsDB,
+    getPsychologistsByUsernameDB: (state) => (selected) =>
+    state.psychologistsDB.find((psico) => psico.username === selected),
     getIsAuthenticated: (state) => state.isAuthenticated,
     getUserType: (state) => state.loggedUserType,
     getUsername: (state) => state.loggedUsername,
@@ -409,6 +413,18 @@ export default {
       });
       localStorage.recognizedImages = JSON.stringify(state.recognizedImages);
     },
+    setPsychologists(state, psychologistsDB) {
+      state.psychologistsDB = psychologistsDB;
+    },
   },
-  actions: {},
+  actions: {
+    fetchAllPsychologists(context) {
+      return fetch("http://127.0.0.1:3000/psychologists")
+        .then((response) => response.json())
+        .then((data) => {
+          context.commit("setPsychologists", data);
+        })
+        .catch((err) => console.error(err));
+    },
+  },
 };

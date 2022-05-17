@@ -22,18 +22,18 @@
           </div>
           <div style="overflow-y: scroll" class="listpsy d-flex flex-column">
             <button
-              v-for="(psychologist, index) in getPsychologists"
+              v-for="(psychologist, index) in getPsychologistsDB"
               :key="index"
               :value="psychologist"
               v-on:click="
-                selected = getPsychologistsByUsername(psychologist.username)
+                selected = getPsychologistsByUsernameDB(psychologist.username)
               "
               :class="{
                 btn: true,
                 fontAsap: true,
                 'my-2': true,
                 selectedBtn:
-                  selected == getPsychologistsByUsername(psychologist.username),
+                  selected == getPsychologistsByUsernameDB(psychologist.username),
               }"
             >
               {{ psychologist.username }}
