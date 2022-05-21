@@ -14,7 +14,7 @@
             "
             class="fontAsap"
           >
-            Olá <span class="colorOrange">{{ getUsername }}</span> ! 
+            Olá <span class="colorOrange">{{ getUsername }}</span> !
           </p>
           <img src="../assets/balao_mensagem.svg" width="260px" />
           <img src="../assets/Menino_Landing.svg" width="180px" />
@@ -50,6 +50,7 @@
                 <router-link :to="{ name: 'AdivinhaLevel' }">
                   <button
                     class="fontNunito bgOrange colorDarkBlue btnsPlay my-2"
+                    id="guessLevel"
                   >
                     Jogar!
                   </button>
@@ -80,6 +81,7 @@
                       btnsPlay
                       my-2
                     "
+                    id="completeMe"
                   >
                     Jogar!
                   </button></router-link
@@ -88,14 +90,20 @@
             </div>
           </div>
         </section>
-        <div v-if="getUserType === 'child'" class="mx-5 col-3 d-flex flex-column align-items-center">
+        <div
+          v-if="getUserType === 'child'"
+          class="mx-5 col-3 d-flex flex-column align-items-center"
+        >
           <div class="d-flex flex-column align-items-center">
             <img src="../assets/Menina_Diario.svg" height="150" />
             <router-link
               :to="{ name: 'Diary' }"
               class="nav-link text-uppercase"
             >
-              <button class="fontNunito bgOrange colorDarkBlue btnsPlay" id="btnDiary">
+              <button
+                class="fontNunito bgOrange colorDarkBlue btnsPlay"
+                id="btnDiary"
+              >
                 <img src="../assets/diary.png" width="30" />
                 Ir para o diário!
               </button>
@@ -107,7 +115,10 @@
               :to="{ name: 'EmotionsList' }"
               class="nav-link text-uppercase"
             >
-              <button class="fontNunito bgOrange colorDarkBlue btnsPlay my-2">
+              <button
+                class="fontNunito bgOrange colorDarkBlue btnsPlay my-2"
+                id="listEmotions"
+              >
                 Ver as emoções!
               </button>
             </router-link>
