@@ -16,7 +16,7 @@ export default {
     loggedUserInfo: "",
     loggedEmail: "",
     userclick: "",
-    psychologistsDB:[],
+    psychologists:[],
 
     users: localStorage.users ?
       JSON.parse(localStorage.users) :
@@ -72,19 +72,6 @@ export default {
         birth: "1960-01-01",
         contact: "912345678",
       }, ],
-    psychologists: localStorage.psychologists ?
-      JSON.parse(localStorage.psychologists) :
-      [{
-        username: "filipacastro2",
-        name: "Filipa Castro",
-        avatar: "/Filipa-Castro.png",
-        gender: "F",
-        birth: "1996-01-01",
-        contact: "932145678",
-        locationAdress: "Moreira, Maia",
-        postalCode: "4000-123",
-        city: "Maia",
-      }, ],
     connections: localStorage.connections ?
       JSON.parse(localStorage.connections) :
       [{
@@ -124,9 +111,9 @@ export default {
       ],
   },
   getters: {
-    getPsychologistsDB: (state) => state.psychologistsDB,
-    getPsychologistsByUsernameDB: (state) => (selected) =>
-    state.psychologistsDB.find((psico) => psico.username === selected),
+    getPsychologists: (state) => state.psychologists,
+    getPsychologistsByUsername: (state) => (selected) =>
+    state.psychologists.find((psico) => psico.username === selected),
     getIsAuthenticated: (state) => state.isAuthenticated,
     getUserType: (state) => state.loggedUserType,
     getUsername: (state) => state.loggedUsername,
@@ -154,7 +141,7 @@ export default {
       ),
     getChildAvatar: (state) => (childUsername) =>
       state.children.find((c) => c.username === childUsername).avatar,
-    getPsychologists: (state) => state.psychologists,
+    
     getLoggedPsychologist: (state) =>
       state.psychologists.filter((d) => d.username === state.loggedUsername),
     getLoggedPsychologistEmail: (state) => state.users,
@@ -162,8 +149,6 @@ export default {
       state.children.filter((d) => d.username === state.loggedUsername),
     getLoggedTutor: (state) =>
       state.tutors.filter((d) => d.username === state.loggedUsername),
-    getPsychologistsByUsername: (state) => (selected) =>
-      state.psychologists.find((psico) => psico.username === selected),
     getSelectedChildInformations: (state) =>
       state.children.filter((d) => d.username === state.userclick),
     getLoggedChildCode: (state) =>
@@ -413,18 +398,19 @@ export default {
       });
       localStorage.recognizedImages = JSON.stringify(state.recognizedImages);
     },
-    setPsychologists(state, psychologistsDB) {
-      state.psychologistsDB = psychologistsDB;
+    SET_PSYCHOLOGISTS(state, payload) {
+
+      state.psychologists.push(payload);
     },
   },
   actions: {
-    fetchAllPsychologists(context) {
-      return fetch("http://127.0.0.1:3000/psychologists")
-        .then((response) => response.json())
-        .then((data) => {
-          context.commit("setPsychologists", data);
-        })
-        .catch((err) => console.error(err));
-    },
+    async loadPsychologists(context) {
+      const response = await fetch("http://127.0.0.1:3000/psychologists");
+      if (response.ok) {
+        context.commit("SET_PSYCHOLOGISTS", await response.json());
+      } else {
+        throw new Error(response.status);
+      }
+    }
   },
 };
