@@ -372,7 +372,7 @@
               </button>
               <button
                 v-on:click="finishGame()"
-                class="fontNunito bgBlue btnsPlay mx-2"
+                class="fontNunito bgBlue btnsPlay mx-2 goBack"
                 style="height: 50px"
                 v-if="step === 5"
               >
@@ -435,7 +435,7 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { mapGetters, mapMutations} from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "Imita",
   components: {
@@ -456,13 +456,13 @@ export default {
       countCorrectWords: 0,
       message: "Que pena, vais ter de estar mais atento...",
       messageImg: "../sad.png",
-      wordRecognized:"",
+      wordRecognized: "",
       formEmotion: {
         username: "",
         name: "",
         imgUrl: "",
       },
-      letrasunicas: ""
+      letrasunicas: "",
     };
   },
   computed: {
@@ -484,48 +484,58 @@ export default {
       switch (this.wordRecognized) {
         case "vergonha":
           this.wordRecognized = "Vergonha";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f633.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f633.png";
           break;
         case "alegria":
           this.wordRecognized = "Alegria";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f60a.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f60a.png";
           break;
         case "admiraçao":
           this.wordRecognized = "Admiração";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f929.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f929.png";
           break;
         case "espantado":
           this.wordRecognized = "Espantado";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f632.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f632.png";
           break;
         case "duvida":
           this.wordRecognized = "Dúvida";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f914.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f914.png";
           break;
         case "indiferença":
           this.wordRecognized = "Indiferença";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f610.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f610.png";
           break;
         case "nervosismo":
           this.wordRecognized = "Nervosismo";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f62c.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f62c.png";
           break;
         case "nojo":
           this.wordRecognized = "Nojo";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f92e.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f92e.png";
           break;
         case "raiva":
           this.wordRecognized = "Raiva";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f621.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f621.png";
           break;
         case "tristeza":
           this.wordRecognized = "Tristeza";
-          this.formEmotion.imgUrl = "https://images.emojiterra.com/google/android-11/512px/1f61e.png"
+          this.formEmotion.imgUrl =
+            "https://images.emojiterra.com/google/android-11/512px/1f61e.png";
           break;
       }
       // Data Submit
-      this.formEmotion.name = this.wordRecognized
-      this.formEmotion.username = this.getUsername
+      this.formEmotion.name = this.wordRecognized;
+      this.formEmotion.username = this.getUsername;
       if (this.letrasunicas.length === this.letters.length) {
         this.SET_NEW_RECOGNIZED_EMOTION(this.formEmotion);
       }

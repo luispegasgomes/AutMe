@@ -32,7 +32,9 @@
       <p class="align-self-end px-5 fontNunito" id="info">
         És pai e queres mais informações sobre o transtorno do <br />
         teu filho?
-        <router-link :to="{ name: 'InfoAutism' }" class="colorBlue weightBold"
+        <router-link
+          :to="{ name: 'InfoAutism' }"
+          class="colorBlue weightBold questions"
           >Tens aqui informações sobre o autismo!</router-link
         >
       </p>

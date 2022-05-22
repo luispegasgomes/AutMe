@@ -71,14 +71,14 @@
 
             <div class="d-flex flex-column align-items-center my-4">
               <button
-                class="fontNunito bgOrange btnsPlay my-2"
+                class="fontNunito bgOrange btnsPlay my-2 changeProfileImg"
                 v-on:click="changeProfileImg()"
               >
                 Atualizar foto de perfil
               </button>
               <button
                 v-if="getUserType != 'child'"
-                class="fontNunito bgBlue btnsPlay my-2"
+                class="fontNunito bgBlue btnsPlay my-2 changeContact"
                 v-on:click="changeContact()"
               >
                 Alterar contacto
@@ -103,26 +103,33 @@
                     class="d-flex flex-column align-items-center"
                   >
                     <input
-                      class="my-2 col-9"
+                      class="my-2 col-9 currentPassword"
                       type="password"
                       v-model="form.currentPassword"
                       placeholder="Atual"
                     />
                     <input
-                      class="my-2 col-9"
+                      class="my-2 col-9 newPassword"
                       v-model="form.newPassword"
                       type="password"
                       placeholder="Nova"
                     />
                     <input
-                      class="my-2 col-9"
+                      class="my-2 col-9 confirmPassword"
                       v-model="form.confirmPassword"
                       type="password"
                       placeholder="Confirmar"
                     />
                     <input
                       type="submit"
-                      class="fontNunito bgOrange btnsPlay mt-4 mb-2"
+                      class="
+                        fontNunito
+                        bgOrange
+                        btnsPlay
+                        mt-4
+                        mb-2
+                        changePassword
+                      "
                       value="Atualizar password"
                     />
                   </form>
@@ -132,7 +139,16 @@
 
             <!--LINK ACCOUNT-->
             <div
-              class="profileBox d-flex col-7 flex-column align-items-center my-3 mt-5 px-2"
+              class="
+                profileBox
+                d-flex
+                col-7
+                flex-column
+                align-items-center
+                my-3
+                mt-5
+                px-2
+              "
               v-if="getUserType === 'child'"
             >
               <h2 class="fontAsap mt-2" style="font-size: 30px">
@@ -149,7 +165,15 @@
             </div>
 
             <div
-              class="profileBox d-flex col-7 flex-column align-items-center my-3 mt-5"
+              class="
+                profileBox
+                d-flex
+                col-7
+                flex-column
+                align-items-center
+                my-3
+                mt-5
+              "
               v-if="getUserType === 'tutor'"
             >
               <h2 class="fontAsap mt-2" style="font-size: 30px">
@@ -161,14 +185,14 @@
                 @submit.prevent="vincular"
               >
                 <input
-                  class="my-2 col-9"
+                  class="my-2 col-9 txtConnect"
                   type="text"
                   placeholder="Código"
                   v-model="vincularForm.childCode"
                 />
                 <input
                   type="submit"
-                  class="fontNunito bgOrange btnsPlay mt-4 mb-2"
+                  class="fontNunito bgOrange btnsPlay mt-4 mb-2 connect"
                   value="Vincular"
                 />
               </form>

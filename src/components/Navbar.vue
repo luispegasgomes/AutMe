@@ -17,7 +17,7 @@
         >
           <router-link
             :to="{ name: 'EmotionsList' }"
-            class="nav-link text-uppercase"
+            class="nav-link text-uppercase navEmotions"
             >EMOÇÕES</router-link
           >
         </li>
@@ -32,7 +32,7 @@
         >
           <router-link
             :to="{ name: 'Children' }"
-            class="nav-link text-uppercase"
+            class="nav-link text-uppercase navChildren"
             >Crianças</router-link
           >
         </li>
@@ -44,7 +44,9 @@
             selected: activeTab == 'Pedidos',
           }"
         >
-          <router-link :to="{ name: 'Pedidos' }" class="nav-link text-uppercase"
+          <router-link
+            :to="{ name: 'Pedidos' }"
+            class="nav-link text-uppercase navRequests"
             >Pedidos</router-link
           >
         </li>
@@ -57,7 +59,9 @@
           }"
           class="d-flex flex-column align-items-center"
         >
-          <router-link :to="{ name: 'Agenda' }" class="nav-link text-uppercase"
+          <router-link
+            :to="{ name: 'Agenda' }"
+            class="nav-link text-uppercase navShedule"
             >Agenda</router-link
           >
         </li>
@@ -68,11 +72,11 @@
             'mx-5': true,
             selected: activeTab == 'Psicólogos',
           }"
-          class=" d-flex flex-column align-items-center"
+          class="d-flex flex-column align-items-center"
         >
           <router-link
             :to="{ name: 'PsychologistList' }"
-            class="nav-link text-uppercase"
+            class="nav-link text-uppercase navPsychologists"
             >Psicólogos</router-link
           >
         </li>
@@ -84,7 +88,9 @@
             selected: activeTab == 'Gestão',
           }"
         >
-          <router-link :to="{ name: 'Manage' }" class="nav-link text-uppercase"
+          <router-link
+            :to="{ name: 'Manage' }"
+            class="nav-link text-uppercase navManagement"
             >Gestão</router-link
           >
         </li>
@@ -93,9 +99,15 @@
     <div class="d-flex mx-3">
       <router-link
         :to="{ name: 'Profile' }"
-        class="mx-1 d-flex flex-column align-items-end"
+        class="mx-1 d-flex flex-column align-items-end profile"
       >
-        <img :src="profileImage" :alt="profileImage" height="50" width="50" style="border-radius:100px"/>
+        <img
+          :src="profileImage"
+          :alt="profileImage"
+          height="50"
+          width="50"
+          style="border-radius: 100px"
+        />
       </router-link>
       <button class="btn" @click="logout">
         <img src="../assets/shutdown.png" height="30" />
@@ -115,7 +127,7 @@ export default {
   data() {
     return {
       profileImage: "../temp_profile_img.png",
-    }
+    };
   },
   mounted() {
     if (this.getUserType == "psychologist") {
