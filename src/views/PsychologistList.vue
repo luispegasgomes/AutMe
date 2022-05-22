@@ -22,18 +22,18 @@
           </div>
           <div style="overflow-y: scroll" class="listpsy d-flex flex-column">
             <button
-              v-for="(psychologist, index) in getPsychologistsDB"
+              v-for="(psychologist, index) in getPsychologists"
               :key="index"
               :value="psychologist"
               v-on:click="
-                selected = getPsychologistsByUsernameDB(psychologist.username)
+                selected = getPsychologistsByUsername(psychologist.username)
               "
               :class="{
                 btn: true,
                 fontAsap: true,
                 'my-2': true,
                 selectedBtn:
-                  selected == getPsychologistsByUsernameDB(psychologist.username),
+                  selected == getPsychologistsByUsername(psychologist.username),
               }"
             >
               {{ psychologist.username }}
@@ -195,7 +195,7 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "PsychologistList",
   components: {
@@ -237,21 +237,28 @@ export default {
     };
   },
   updated() {
-    this.mail = this.getLoggedPsychologistEmail.filter(
+    this.mail = 'provisorio'/*this.getLoggedPsychologistEmail.filter(
       (d) => d.username === this.selected.username
-    )[0].email;
+    )[0].email*/;
+  },
+  created () {
+      this.loadPsychologists().catch((err) =>
+        alert(`Problem handling something: ${err}.`)
+      );
+      console.log(this.getPsychologists[0].users[0].username);
+
   },
   computed: {
     ...mapGetters([
       "getUsername",
       "getPsychologists",
       "getPsychologistsByUsername",
-      "getLoggedPsychologistEmail",
       "getConnections",
     ]),
   },
   methods: {
     ...mapMutations(["SET_NEW_APPOINTMENT", "CONNECT_PSYCHOLOGIST"]),
+    ...mapActions(["loadPsychologists"]),
 
     setSelected(text) {
       this.selected = text;
