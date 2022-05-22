@@ -372,7 +372,7 @@
               </button>
               <button
                 v-on:click="finishGame()"
-                class="fontNunito bgBlue btnsPlay mx-2 goBack"
+                class="fontNunito bgBlue btnsPlay mx-2"
                 style="height: 50px"
                 v-if="step === 5"
               >
@@ -421,7 +421,7 @@
           </div>
 
           <router-link :to="{ name: 'Landing' }"
-            ><button class="btnsPlay mt-4 mb-2 bgBlue">
+            ><button class="btnsPlay mt-4 mb-2 bgBlue goBack">
               Voltar à página inicial
             </button></router-link
           >
