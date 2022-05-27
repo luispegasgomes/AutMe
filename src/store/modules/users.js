@@ -405,7 +405,7 @@ export default {
   },
   actions: {
     async loadPsychologists(context) {
-      const response = await fetch("http://127.0.0.1:3000/psychologists");
+      const response = await fetch("http://127.0.0.1:3000/users/psychologists");
       if (response.ok) {
         context.commit("SET_PSYCHOLOGISTS", await response.json());
       } else {

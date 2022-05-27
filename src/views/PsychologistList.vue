@@ -6,21 +6,17 @@
       <div class="window row mt-5">
         <section class="list col-3 p-5">
           <div>
-            <select class="mb-5 sltCities" aria-label="Default select example">
-              <option selected>Seleciona a cidade</option>
-              <option
-                v-for="(city, index) in cities"
-                :key="index"
-                :value="city"
-              >
-                {{ city }}
-              </option>
-            </select>
-            <button class="btnCities fontNunito bgOrange colorDarkBlue">
-              Filtrar
-            </button>
+            <input
+              type="text"
+              class="sltCities col-6"
+              placeholder="Nome do psicólogo"
+            />
+            <button class="btnCities fontNunito bgOrange">Filtrar</button>
           </div>
-          <div style="overflow-y: scroll" class="listpsy d-flex flex-column">
+          <div
+            style="overflow-y: scroll"
+            class="listpsy d-flex flex-column mt-4"
+          >
             <button
               v-for="(psychologist, index) in getPsychologists"
               :key="index"
@@ -204,18 +200,10 @@ export default {
   },
   data() {
     return {
-      cities: [
-        "Porto",
-        "Lisboa",
-        "Faro",
-        "Vila Real",
-        "Aveiro",
-        "Guarda",
-        "Portalegre",
-      ],
       citySelected: "",
       selected: "",
       mail: "",
+      psychologists: [],
       form: {
         username: "",
         date: "",
@@ -237,16 +225,17 @@ export default {
     };
   },
   updated() {
-    this.mail = 'provisorio'/*this.getLoggedPsychologistEmail.filter(
+    this.mail = "provisorio" /*this.getLoggedPsychologistEmail.filter(
       (d) => d.username === this.selected.username
     )[0].email*/;
   },
-  created () {
-      this.loadPsychologists().catch((err) =>
-        alert(`Problem handling something: ${err}.`)
-      );
-      console.log(this.getPsychologists[0].users[0].username);
+  created() {
+    console.log(this.getPsychologistsByUsername);
+    this.loadPsychologists().catch((err) =>
+      alert(`Problem handling something: ${err}.`)
+    );
 
+    console.log(this.getPsychologists[0].user[0].username);
   },
   computed: {
     ...mapGetters([
@@ -341,17 +330,18 @@ section .selectedBtn {
 
 .btnCities {
   border: 2px solid var(--blue);
-  border-radius: 100px;
+  border-radius: 10px;
   font-size: 20px;
   width: 35%;
   text-align: center;
   height: 40px;
   margin-left: 30px;
+  color: white;
 }
 
 .sltCities {
   height: 40px;
-  border-radius: 100px;
+  border-radius: 10px;
 }
 
 .description {
@@ -389,7 +379,8 @@ input {
 }
 
 .listpsy {
-  border: 3px solid var(--orange);
+  border: 6px solid var(--orange);
   height: 375px;
+  border-radius: 10px;
 }
 </style>
