@@ -38,13 +38,13 @@
               class="fontAsap colorDarkBlue mt-1 mx-1"
               style="font-size: 20px"
             >
-              {{ getDiaries[0].user.diaries[index].title }}
+              {{ getDiaries[index].user.diaries[index].title }}
             </div>
             <div class="text mx-1">
-              {{ getDiaries[0].user.diaries[index].description }}
+              {{ getDiaries[index].user.diaries[index].description }}
             </div>
             <div class="d-flex flex-column align-items-end mx-2 mb-1">
-              {{ getDiaries[0].user.diaries[index].date }}
+              {{ getDiaries[index].user.diaries[index].date }}
             </div>
           </div>
           <!--DIARY INFORMATIONS-->
@@ -142,21 +142,19 @@ export default {
     Footer,
   },
   created () {
-    for (let i = 0; i < 4; i++) {
-      this.loadDiaries(this.getUsername).catch((err) =>
+      this.loadDiaries().catch((err) =>
         alert(`Problem handling something: ${err}.`)
       );
-    }
   },
   
   methods: {
     ...mapActions(["loadDiaries"]),
     addDiary() {
-      this.form.username = this.getUsername;
+      this.form.username = this.getUserType.username;
       this.SET_NEW_DIARY(this.form);
     },
     testes(){
-      alert(this.getUsername);
+      console.log('da');
     },
     closeModal() {
       this.$bvModal.hide("modal-1");
@@ -164,7 +162,7 @@ export default {
     ...mapMutations(["SET_NEW_DIARY"]),
   },
   computed: {
-    ...mapGetters(["getUsername", "getDiaries"]),
+    ...mapGetters(["getUsername", "getDiaries", "getUserType"]),
   },
 };
 </script>

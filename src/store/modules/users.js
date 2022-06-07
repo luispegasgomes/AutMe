@@ -10,10 +10,9 @@ function create_UUID() {
 
 export default {
   state: {
-    isAuthenticated: false,
     loggedUserType: localStorage.user ? JSON.parse(localStorage.user) : [],
-    //loggedUserType = JSON.parse(localStorage.user)
     loggedUsername: "",
+    loggedUser:localStorage.loggedUser ? JSON.parse(localStorage.loggedUser):{},
     loggedUserInfo: "",
     loggedEmail: "",
     userclick: "",
@@ -21,38 +20,8 @@ export default {
     psychologist: [],
     diaries: [],
     //loggedUser: "",
-
+    user:{},
     users: [],
-    admins: localStorage.admins ?
-      JSON.parse(localStorage.admins) : [{
-        username: "admin",
-        name: "Nome Admin",
-        avatar: "/temp_profile_img.png",
-      }, ],
-    children: localStorage.children ?
-      JSON.parse(localStorage.children) : [{
-        username: "crianca",
-        name: "Nome Criança",
-        avatar: "/temp_profile_img.png",
-        gender: "M",
-        birth: "2002-01-01",
-        code: create_UUID(),
-      }, ],
-    tutors: localStorage.tutors ?
-      JSON.parse(localStorage.tutors) : [{
-        username: "tutor",
-        name: "José António",
-        avatar: "/homem.jpg",
-        gender: "M",
-        birth: "1960-01-01",
-        contact: "912345678",
-      }, ],
-    connections: localStorage.connections ?
-      JSON.parse(localStorage.connections) : [{
-        childUser: "crianca",
-        tutorUser: "tutor",
-        psychologistUser: "psicologo",
-      }, ],
 
     recognizedImages: localStorage.recognizedImages ?
       JSON.parse(localStorage.recognizedImages) : [{
@@ -121,9 +90,9 @@ export default {
   },
   mutations: {
     SET_LOGOUT(state) {
-      state.isAuthenticated = false;
-      state.loggedUserType = "";
-      state.loggedUsername = "";
+      state.loggedUser = {}
+      state.user={}
+      localStorage.loggedUser=JSON.stringify(state.loggedUser);
     },
     SET_NEW_PASSWORD(state, payload) {
       state.users = state.users.map((user) =>
@@ -323,7 +292,11 @@ export default {
       state.diaries.push(payload)
     },
     SET_LOGGED_USER(state, payload) {
-      state.users.push(payload)
+      state.user={}
+      state.loggedUser.token=payload.authKey
+      state.loggedUser.type=payload.typeUser
+      state.loggedUser.username=payload.username
+      localStorage.loggedUser=JSON.stringify(state.loggedUser)
     },
 
   },
@@ -344,10 +317,17 @@ export default {
         throw new Error(response.status);
       }
     },
-    async loadDiaries(context, payload) {
-      const response = await fetch(`http://127.0.0.1:3000/users/${payload}/diaries`);
+    async loadDiaries(context) {
+      const response = await fetch(`http://127.0.0.1:3000/users/luisgomes2/diaries`);
+      const data = await response.json();
+      const totalItems = JSON.stringify(data.totalItems)
+
       if (response.ok) {
-        context.commit("SET_DIARIES", await response.json());
+        for (let i = 0; i < totalItems; i++) {
+          context.commit("SET_DIARIES", await response.json());
+        }
+        
+
       } else {
         throw new Error(response.status);
       }
@@ -373,6 +353,33 @@ export default {
       } else {
         throw new Error(response.status);
       }
+    }
+
+  },
+  async login_ap(context){
+    
+    const response = await fetch("http://127.0.0.1:3000/users/login", {
+      method: 'POST',
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify({
+        username: 'luisgomes',
+        password: 'gomes'
+      })
+    })
+    if(response.ok){
+      context.commit("SET_LOGGED_USER", await response.json());
+    }
+    else{
+      const err=await response.json()
+      throw new Error(err.error)
     }
   },
 };

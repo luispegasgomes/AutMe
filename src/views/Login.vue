@@ -63,6 +63,7 @@ export default {
   },
   data() {
     return {
+      warning:'',
       user:{
         username: "",
         password: "",
@@ -73,7 +74,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["loginAPI"]),
+    ...mapActions(["login_ap"]),
     login() {
       /*if (this.isUser(this.username, this.password)) {
         this.SET_LOGGED_USER(this.username);
@@ -81,12 +82,10 @@ export default {
       } else {
         this.error = true;
       }*/
+      this.login_ap()
+        .then(()=>this.$router.push({ name: "Landing" }))
+        .catch((err)=>this.warning=`${err}`)
 
-      this.loginAPI(this.user).catch((err) =>
-        alert(`Problem handling something: ${err}.`)
-      );
-      
-      this.$router.push({ name: "Landing" });
 
     },
   
