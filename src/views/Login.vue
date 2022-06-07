@@ -17,7 +17,7 @@
             type="text"
             id="username"
             placeholder="Nome de utilizador"
-            v-model="username"
+            v-model="user.username"
             required
           />
         </div>
@@ -29,7 +29,7 @@
             type="password"
             id="password"
             placeholder="Palavra-passe"
-            v-model="password"
+            v-model="user.password"
             required
           />
         </div>
@@ -52,7 +52,7 @@
 
 <script>
 import { BIconPersonFill, BIconLockFill, BAlert } from "bootstrap-vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Login",
@@ -63,25 +63,38 @@ export default {
   },
   data() {
     return {
-      username: "",
-      password: "",
+      user:{
+        username: "",
+        password: "",
+      },
+
       error: false,
+      
     };
   },
   methods: {
+    ...mapActions(["loginAPI"]),
     login() {
-      if (this.isUser(this.username, this.password)) {
+      /*if (this.isUser(this.username, this.password)) {
         this.SET_LOGGED_USER(this.username);
-        this.$router.push({ name: "Landing" });
+        
       } else {
         this.error = true;
-      }
+      }*/
+
+      this.loginAPI(this.user).catch((err) =>
+        alert(`Problem handling something: ${err}.`)
+      );
+      
+      this.$router.push({ name: "Landing" });
+
     },
-    ...mapMutations(["SET_LOGGED_USER"]),
+  
   },
   computed: {
-    ...mapGetters(["isUser"]),
+    ...mapGetters(["getUserType"]),
   },
+
 };
 </script>
 

@@ -31,20 +31,20 @@
               col-11
               mb-4
             "
-            v-for="(info, index) in getUsernameDiary"
+            v-for="(info, index) in getDiaries"
             :key="index"
           >
             <div
               class="fontAsap colorDarkBlue mt-1 mx-1"
               style="font-size: 20px"
             >
-              {{ info.title }}
+              {{ getDiaries[0].user.diaries[index].title }}
             </div>
             <div class="text mx-1">
-              {{ info.description }}
+              {{ getDiaries[0].user.diaries[index].description }}
             </div>
             <div class="d-flex flex-column align-items-end mx-2 mb-1">
-              {{ info.date }}
+              {{ getDiaries[0].user.diaries[index].date }}
             </div>
           </div>
           <!--DIARY INFORMATIONS-->
@@ -110,6 +110,7 @@
             </form>
           </div>
         </b-modal>
+        <button v-on:click="testes()">testes</button>
         <!--ADD NEW DIARY-->
       </div>
     </main>
@@ -122,7 +123,7 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "Diary",
@@ -140,11 +141,22 @@ export default {
     Navbar,
     Footer,
   },
+  created () {
+    for (let i = 0; i < 4; i++) {
+      this.loadDiaries(this.getUsername).catch((err) =>
+        alert(`Problem handling something: ${err}.`)
+      );
+    }
+  },
+  
   methods: {
+    ...mapActions(["loadDiaries"]),
     addDiary() {
       this.form.username = this.getUsername;
-      console.log(this.getUsernameDiary);
       this.SET_NEW_DIARY(this.form);
+    },
+    testes(){
+      alert(this.getUsername);
     },
     closeModal() {
       this.$bvModal.hide("modal-1");
@@ -152,7 +164,7 @@ export default {
     ...mapMutations(["SET_NEW_DIARY"]),
   },
   computed: {
-    ...mapGetters(["getUsername", "getUsernameDiary"]),
+    ...mapGetters(["getUsername", "getDiaries"]),
   },
 };
 </script>

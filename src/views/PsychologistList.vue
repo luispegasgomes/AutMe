@@ -22,32 +22,32 @@
               :key="index"
               :value="psychologist"
               v-on:click="
-                selected = getPsychologistsByUsername(psychologist.username)
+                selected = psychologist.user[index].username
+                testar()
               "
               :class="{
                 btn: true,
                 fontAsap: true,
-                'my-2': true,
                 selectedBtn:
-                  selected == getPsychologistsByUsername(psychologist.username),
+                  selected == psychologist.user[index].username,
               }"
+
             >
-              {{ psychologist.username }}
+              {{ psychologist.user[index].username }}
             </button>
           </div>
         </section>
-
         <section
           class="description col-6 d-flex flex-column bgWhite"
           v-if="selected"
         >
           <div class="d-flex align-items-center justify-content-between mb-3">
             <img
-              :src="selected.avatar"
-              :alt="selected.avatar"
+              :src="getPsychologistByUsername[0].user[0].child_avatar"
+              :alt="getPsychologistByUsername[0].user[0].child_avatar"
               style="width: 8%"
             />
-            <h1 class="text-center">{{ selected.name }}</h1>
+            <h1 class="text-center">{{ getPsychologistByUsername[0].user[0].username }}</h1>
             <img
               src="../assets/fivestars.png"
               alt="Avatar"
@@ -61,21 +61,21 @@
             <h3>
               Email:
               <span class="colorOrange" style="font-weight: bold">
-                {{ mail }}
+                {{ getPsychologistByUsername[0].user[0].email }}
               </span>
             </h3>
             <h3>
-              Contacto: <span class="colorBlue"> {{ selected.contact }}</span>
+              Contacto: <span class="colorBlue"> 912892893</span>
             </h3>
             <h3 class="mt-3">
               Localização da clínica:
               <span class="colorOrange" style="font-weight: bold">
-                {{ selected.locationAdress }}
+                Rio Tinto, Porto
               </span>
             </h3>
             <h3>
               Código Postal:
-              <span class="colorBlue"> {{ selected.postalCode }}</span>
+              <span class="colorBlue"> 4670-567</span>
             </h3>
           </div>
 
@@ -224,35 +224,30 @@ export default {
       ],
     };
   },
-  updated() {
-    this.mail = "provisorio" /*this.getLoggedPsychologistEmail.filter(
-      (d) => d.username === this.selected.username
-    )[0].email*/;
-  },
-  created() {
-    console.log(this.getPsychologistsByUsername);
-    this.loadPsychologists().catch((err) =>
+  
+  mounted () {
+      this.loadPsychologists().catch((err) =>
       alert(`Problem handling something: ${err}.`)
     );
 
-    console.log(this.getPsychologists[0].user[0].username);
   },
   computed: {
     ...mapGetters([
       "getUsername",
       "getPsychologists",
-      "getPsychologistsByUsername",
+      "getPsychologistByUsername",
       "getConnections",
     ]),
   },
   methods: {
     ...mapMutations(["SET_NEW_APPOINTMENT", "CONNECT_PSYCHOLOGIST"]),
-    ...mapActions(["loadPsychologists"]),
-
-    setSelected(text) {
-      this.selected = text;
-      alert(text);
+    ...mapActions(["loadPsychologists", "loadPsychologist"]),
+    testar() {
+      this.loadPsychologist(this.selected).catch((err) =>
+        alert(`Problem handling something: ${err}.`),
+      );
     },
+
     closeModal() {
       this.$bvModal.hide("modal-1");
       console.log(this.selected.username);
@@ -321,6 +316,7 @@ button:disabled {
 section button {
   font-size: 28px;
   text-align: start;
+  width: 350px;
 }
 
 section .selectedBtn {

@@ -11,50 +11,26 @@ function create_UUID() {
 export default {
   state: {
     isAuthenticated: false,
-    loggedUserType: "",
+    loggedUserType: localStorage.user ? JSON.parse(localStorage.user) : [],
+    //loggedUserType = JSON.parse(localStorage.user)
     loggedUsername: "",
     loggedUserInfo: "",
     loggedEmail: "",
     userclick: "",
-    psychologists:[],
+    psychologists: [],
+    psychologist: [],
+    diaries: [],
+    //loggedUser: "",
 
-    users: localStorage.users ?
-      JSON.parse(localStorage.users) :
-      [{
-          username: "admin",
-          email: "admin@gmail.com",
-          password: "Esmad_2122",
-          type: "admin",
-        },
-        {
-          username: "crianca",
-          email: "crianca@gmail.com",
-          password: "Esmad_2122",
-          type: "child",
-        },
-        {
-          username: "tutor",
-          email: "tutor@gmail.com",
-          password: "Esmad_2122",
-          type: "tutor",
-        },
-        {
-          username: "filipacastro2",
-          email: "psicologo@gmail.com",
-          password: "Esmad_2122",
-          type: "psychologist",
-        },
-      ],
+    users: [],
     admins: localStorage.admins ?
-      JSON.parse(localStorage.admins) :
-      [{
+      JSON.parse(localStorage.admins) : [{
         username: "admin",
         name: "Nome Admin",
         avatar: "/temp_profile_img.png",
       }, ],
     children: localStorage.children ?
-      JSON.parse(localStorage.children) :
-      [{
+      JSON.parse(localStorage.children) : [{
         username: "crianca",
         name: "Nome Criança",
         avatar: "/temp_profile_img.png",
@@ -63,8 +39,7 @@ export default {
         code: create_UUID(),
       }, ],
     tutors: localStorage.tutors ?
-      JSON.parse(localStorage.tutors) :
-      [{
+      JSON.parse(localStorage.tutors) : [{
         username: "tutor",
         name: "José António",
         avatar: "/homem.jpg",
@@ -73,32 +48,14 @@ export default {
         contact: "912345678",
       }, ],
     connections: localStorage.connections ?
-      JSON.parse(localStorage.connections) :
-      [{
+      JSON.parse(localStorage.connections) : [{
         childUser: "crianca",
         tutorUser: "tutor",
         psychologistUser: "psicologo",
       }, ],
-    diary: localStorage.diary ?
-      JSON.parse(localStorage.diary) :
-      [{
-          username: "crianca",
-          title: "Estou feliz!",
-          description: "Foi um dia em cheio :D :D",
-          date: "2021-04-22",
-        },
-        {
-          username: "crianca",
-          title: "Estou muito triste:(",
-          description: "Foi um dia que não me senti bem na escola!",
-          date: "2021-04-23",
-        },
-      ],
-      
+
     recognizedImages: localStorage.recognizedImages ?
-      JSON.parse(localStorage.recognizedImages) :
-      [
-        {
+      JSON.parse(localStorage.recognizedImages) : [{
           username: "crianca",
           name: "Alegria",
           imgUrl: "https://images.emojiterra.com/google/android-11/512px/1f60a.png",
@@ -112,8 +69,9 @@ export default {
   },
   getters: {
     getPsychologists: (state) => state.psychologists,
-    getPsychologistsByUsername: (state) => (selected) =>
-    state.psychologists.find((psico) => psico.username === selected),
+    getPsychologistByUsername: (state) => state.psychologist,
+    // This method returns the diaries corresponding to the logged user
+    getDiaries: (state) => state.diaries,
     getIsAuthenticated: (state) => state.isAuthenticated,
     getUserType: (state) => state.loggedUserType,
     getUsername: (state) => state.loggedUsername,
@@ -141,7 +99,7 @@ export default {
       ),
     getChildAvatar: (state) => (childUsername) =>
       state.children.find((c) => c.username === childUsername).avatar,
-    
+
     getLoggedPsychologist: (state) =>
       state.psychologists.filter((d) => d.username === state.loggedUsername),
     getLoggedPsychologistEmail: (state) => state.users,
@@ -162,43 +120,6 @@ export default {
       ),
   },
   mutations: {
-    SET_LOGGED_USER(state, payload) {
-      const user = state.users.find((user) => user.username === payload);
-      state.isAuthenticated = true;
-      state.loggedUserType = user.type;
-      state.loggedUsername = user.username;
-      state.loggedEmail = user.email;
-
-      state.loggedUserInfo = state.users.find(
-        (user) => user.username === payload
-      );
-
-      switch (state.loggedUserType) {
-        case "child":
-          state.loggedUserInfo = state.children.find(
-            (user) => user.username === payload
-          );
-          break;
-
-        case "psychologist":
-          state.loggedUserInfo = state.psychologists.find(
-            (user) => user.username === payload
-          );
-          break;
-
-        case "tutor":
-          state.loggedUserInfo = state.tutors.find(
-            (user) => user.username === payload
-          );
-          break;
-
-        default:
-          state.loggedUserInfo = state.admins.find(
-            (user) => user.username === payload
-          );
-      }
-      localStorage.loggedUserInfo = JSON.stringify(state.loggedUserInfo);
-    },
     SET_LOGOUT(state) {
       state.isAuthenticated = false;
       state.loggedUserType = "";
@@ -206,8 +127,7 @@ export default {
     },
     SET_NEW_PASSWORD(state, payload) {
       state.users = state.users.map((user) =>
-        user.username === state.loggedUsername ?
-        {
+        user.username === state.loggedUsername ? {
           ...user,
           password: payload,
         } :
@@ -218,8 +138,7 @@ export default {
     },
     SET_NEW_CONTACT(state, payload) {
       state.psychologists = state.psychologists.map((user) =>
-        user.username === state.loggedUsername ?
-        {
+        user.username === state.loggedUsername ? {
           ...user,
           contact: payload,
         } :
@@ -230,8 +149,7 @@ export default {
     SET_NEW_PROFILE_IMG(state, payload) {
       if (payload.userType == "psychologist") {
         state.psychologists = state.psychologists.map((user) =>
-          user.username === state.loggedUsername ?
-          {
+          user.username === state.loggedUsername ? {
             ...user,
             avatar: payload.newImg,
           } :
@@ -240,8 +158,7 @@ export default {
         localStorage.psychologists = JSON.stringify(state.psychologists);
       } else if (payload.userType == "child") {
         state.children = state.children.map((user) =>
-          user.username === state.loggedUsername ?
-          {
+          user.username === state.loggedUsername ? {
             ...user,
             avatar: payload.newImg,
           } :
@@ -250,8 +167,7 @@ export default {
         localStorage.children = JSON.stringify(state.children);
       } else if (payload.userType == "tutor") {
         state.tutors = state.tutors.map((user) =>
-          user.username === state.loggedUsername ?
-          {
+          user.username === state.loggedUsername ? {
             ...user,
             avatar: payload.newImg,
           } :
@@ -381,8 +297,7 @@ export default {
     },
     CONNECT_PSYCHOLOGIST(state, payload) {
       state.connections = state.connections.map((c) =>
-        c.childUser === payload.childUser && c.tutorUser === payload.tutorUser ?
-        {
+        c.childUser === payload.childUser && c.tutorUser === payload.tutorUser ? {
           ...c,
           psychologistUser: payload.psychologistUser
         } :
@@ -399,15 +314,62 @@ export default {
       localStorage.recognizedImages = JSON.stringify(state.recognizedImages);
     },
     SET_PSYCHOLOGISTS(state, payload) {
-
       state.psychologists.push(payload);
     },
+    SET_PSYCHOLOGIST(state, payload) {
+      state.psychologist.push(payload);
+    },
+    SET_DIARIES(state, payload) {
+      state.diaries.push(payload)
+    },
+    SET_LOGGED_USER(state, payload) {
+      state.users.push(payload)
+    },
+
   },
   actions: {
     async loadPsychologists(context) {
       const response = await fetch("http://127.0.0.1:3000/users/psychologists");
       if (response.ok) {
         context.commit("SET_PSYCHOLOGISTS", await response.json());
+      } else {
+        throw new Error(response.status);
+      }
+    },
+    async loadPsychologist(context, payload) {
+      const response = await fetch(`http://127.0.0.1:3000/users/psychologist/${payload}`);
+      if (response.ok) {
+        context.commit("SET_PSYCHOLOGIST", await response.json());
+      } else {
+        throw new Error(response.status);
+      }
+    },
+    async loadDiaries(context, payload) {
+      const response = await fetch(`http://127.0.0.1:3000/users/${payload}/diaries`);
+      if (response.ok) {
+        context.commit("SET_DIARIES", await response.json());
+      } else {
+        throw new Error(response.status);
+      }
+    },
+    async loginAPI(context, payload) {
+      const response = await fetch(`http://127.0.0.1:3000/users/login`, {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          username: payload.username,
+          password: payload.password
+        })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.accessToken) 
+          localStorage.setItem('user', JSON.stringify(data));
+          context.commit("SET_LOGGED_USER", await response.json());
+        return data;
       } else {
         throw new Error(response.status);
       }

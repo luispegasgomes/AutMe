@@ -14,7 +14,7 @@
             "
             class="fontAsap"
           >
-            Olá <span class="colorOrange">{{ getUsername }}</span> !
+            Olá <span class="colorOrange">{{ getUserType.username }}</span> !
           </p>
           <img src="../assets/balao_mensagem.svg" width="260px" />
           <img src="../assets/Menino_Landing.svg" width="180px" />
@@ -91,7 +91,7 @@
           </div>
         </section>
         <div
-          v-if="getUserType === 'child'"
+          v-if="getUserType.role === 'child'"
           class="mx-5 col-3 d-flex flex-column align-items-center"
         >
           <div class="d-flex flex-column align-items-center">

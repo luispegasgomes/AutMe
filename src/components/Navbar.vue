@@ -7,7 +7,7 @@
     <div class="d-flex align-items-end colorDarkBlue" style="font-size: 20px">
       <ul class="navbar-nav fontBarlow weightLight d-flex flex-row col-3">
         <li
-          v-if="getUserType != 'child'"
+          v-if="userType != 'child'"
           :class="{
             'nav-item': true,
             'mx-5': true,
@@ -22,7 +22,7 @@
           >
         </li>
         <li
-          v-if="getUserType != 'child' && getUserType != 'admin'"
+          v-if="userType != 'child' && userType != 'admin'"
           :class="{
             'nav-item': true,
             'mx-5': true,
@@ -37,7 +37,7 @@
           >
         </li>
         <li
-          v-if="getUserType === 'psychologist'"
+          v-if="userType === 'psychologist'"
           :class="{
             'nav-item': true,
             'mx-5': true,
@@ -51,7 +51,7 @@
           >
         </li>
         <li
-          v-if="getUserType === 'psychologist'"
+          v-if="userType === 'psychologist'"
           :class="{
             'nav-item': true,
             'mx-5': true,
@@ -66,7 +66,7 @@
           >
         </li>
         <li
-          v-if="getUserType === 'tutor'"
+          v-if="userType === 'tutor'"
           :class="{
             'nav-item': true,
             'mx-5': true,
@@ -81,7 +81,7 @@
           >
         </li>
         <li
-          v-if="getUserType === 'admin'"
+          v-if="userType === 'admin'"
           :class="{
             'nav-item': true,
             'mx-2': true,
@@ -127,14 +127,17 @@ export default {
   data() {
     return {
       profileImage: "../temp_profile_img.png",
+      userType:""
     };
   },
   mounted() {
-    if (this.getUserType == "psychologist") {
+    this.userType = this.getUserType.role
+    alert(this.userType)
+    if (this.getUserType.role == "psychologist") {
       this.profileImage = this.getLoggedPsychologist[0].avatar;
-    } else if (this.getUserType == "child") {
+    } else if (this.getUserType.role == "child") {
       this.profileImage = this.getLoggedChild[0].avatar;
-    } else if (this.getUserType == "tutor") {
+    } else if (this.getUserType.role == "tutor") {
       this.profileImage = this.getLoggedTutor[0].avatar;
     }
   },
