@@ -4,7 +4,12 @@
       v-if="step === 0"
       class="content p-5 d-flex flex-column align-items-center"
     >
-      <img src="../assets/tester.png" alt="AutMe logo" width="20%" class="mb-5" />
+      <img
+        src="../assets/tester.png"
+        alt="AutMe logo"
+        width="20%"
+        class="mb-5"
+      />
 
       <form class="bgWhite py-3 px-5 my-4">
         <h1 class="fontAsap weightBold">
@@ -17,7 +22,7 @@
           <label for="sltUserType">
             <b-icon-person-fill scale="2.2"></b-icon-person-fill
           ></label>
-          <select id="sltUserType" v-model="form.userType" required>
+          <select id="sltUserType" v-model="form.role" required>
             <option value="" disabled selected>
               Selecione um tipo de utilizador
             </option>
@@ -61,7 +66,7 @@
             type="text"
             id="txtRegisterName"
             placeholder="Nome"
-            v-model="form.userName"
+            v-model="name"
             required
           />
         </div>
@@ -72,8 +77,8 @@
           <input
             type="text"
             id="txtRegisterSurname"
-            placeholder="Apelido"
-            v-model="form.userSurname"
+            placeholder="Fotografia"
+            v-model="form.child_avatar"
             required
           />
         </div>
@@ -84,7 +89,7 @@
           <input
             type="date"
             id="txtRegisterBirthdate"
-            v-model="form.userDate"
+            v-model="form.birthDate"
             required
           />
         </div>
@@ -92,7 +97,7 @@
           <label for="sltGender">
             <b-icon-person-fill scale="2.2"></b-icon-person-fill
           ></label>
-          <select id="sltGender" v-model="form.userGender" required>
+          <select id="sltGender" v-model="form.child_gender" required>
             <option value="" selected disabled>Selecione o seu género</option>
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
@@ -145,7 +150,7 @@
             type="email"
             id="txtRegisterEmail"
             placeholder="Email"
-            v-model="form.userEmail"
+            v-model="form.email"
             required
           />
         </div>
@@ -157,7 +162,7 @@
             type="password"
             id="txtRegisterPassword"
             placeholder="Password"
-            v-model="form.userPassword"
+            v-model="form.password"
             required
           />
         </div>
@@ -169,7 +174,7 @@
             type="password"
             id="txtRegisterConfirmPassword"
             placeholder="Confirmar Password"
-            v-model="form.confirmPassword"
+            v-model="confirmPassword"
             required
           />
         </div>
@@ -216,11 +221,11 @@
             type="text"
             id="txtRegisterContact"
             placeholder="Contacto"
-            v-model="form.userPhone"
+            v-model="userPhone"
             required
           />
         </div>
-        <div v-if="form.userType === 'psychologist'">
+        <div v-if="form.role === 'psychologist'">
           <div class="m-4">
             <label for="txtRegisterLocation"
               ><b-icon-geo-alt-fill scale="2.2"></b-icon-geo-alt-fill
@@ -229,7 +234,7 @@
               type="text"
               id="txtRegisterLocation"
               placeholder="Localização"
-              v-model="form.userLocation"
+              v-model="userLocation"
               required
             />
           </div>
@@ -241,7 +246,7 @@
               type="text"
               id="txtRegisterPostalCode"
               placeholder="Código Postal"
-              v-model="form.userPostalCode"
+              v-model="userPostalCode"
               required
             />
           </div>
@@ -253,7 +258,7 @@
               type="text"
               id="txtRegisterCity"
               placeholder="Cidade"
-              v-model="form.userCity"
+              v-model="userCity"
               required
             />
           </div>
@@ -284,7 +289,7 @@ import {
   BIconGeoAltFill,
   BAlert,
 } from "bootstrap-vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Register",
@@ -298,33 +303,36 @@ export default {
   },
   data() {
     return {
+      warning: "",
       step: 0,
       whiteFieldsError: false,
       existsAuthError: false,
       differentPasswordError: false,
       form: {
-        userType: "",
-        userName: "",
-        userSurname: "",
-        userDate: "",
-        userGender: "",
         username: "",
-        userEmail: "",
-        userPassword: "",
-        confirmPassword: "",
-        userPhone: "",
-        userLocation: "",
-        userPostalCode: "",
-        userCity: "",
+        email: "",
+        password: "",
+        role: "",
+        child_gender: "",
+        child_avatar: "",
+        birthDate: "",
       },
+      name: "",
+      surname: "",
+      confirmPassword: "",
+      userPhone: "",
+      userLocation: "",
+      userPostalCode: "",
+      userCity: "",
     };
   },
   computed: {
     ...mapGetters(["isUnvailable"]),
   },
   methods: {
+    ...mapActions(["registerAPI"]),
     checkStep0() {
-      if (this.form.userType) {
+      if (this.form.role) {
         this.whiteFieldsError = false;
         this.nextStep();
       } else {
@@ -332,12 +340,7 @@ export default {
       }
     },
     checkStep1() {
-      if (
-        this.form.userName &&
-        this.form.userSurname &&
-        this.form.userDate &&
-        this.form.userGender
-      ) {
+      if (this.form.birthDate && this.form.child_gender) {
         this.whiteFieldsError = false;
         this.nextStep();
       } else {
@@ -350,19 +353,22 @@ export default {
       this.differentPasswordError = false;
       if (
         this.form.username &&
-        this.form.userEmail &&
-        this.form.userPassword &&
-        this.form.confirmPassword
+        this.form.email &&
+        this.form.password &&
+        this.confirmPassword
       ) {
         this.whiteFieldsError = false;
-        if (this.isUnvailable(this.form.username, this.form.userEmail)) {
+        if (this.isUnvailable(this.form.username, this.form.email)) {
           this.existsAuthError = true;
-        } else if (this.form.userPassword !== this.form.confirmPassword) {
+        } else if (this.form.password !== this.confirmPassword) {
           this.differentPasswordError = true;
         } else {
-          if (this.form.userType == "child") {
-            this.CREATE_ACCOUNT(this.form);
-            this.$router.push({ name: "Login" });
+          if (this.form.role == "child") {
+            
+            this.registerAPI(this.form)
+              .then(() => this.$router.push({ name: "Login" }))
+              .catch((err) => (this.warning = `${err}`));
+
           } else {
             this.nextStep();
           }
@@ -373,26 +379,29 @@ export default {
     },
     checkStep3() {
       this.whiteFieldsError = false;
-      if (!this.form.userPhone) {
+      if (!this.userPhone) {
         this.whiteFieldsError = true;
       } else if (
-        this.form.userType === "psychologist" &&
-        !(
-          this.form.userLocation ||
-          this.form.userPostalCode ||
-          this.form.userCity
-        )
+        this.form.role === "psychologist" &&
+        !(this.userLocation || this.userPostalCode || this.userCity)
       ) {
         this.whiteFieldsError = true;
       } else {
-        this.CREATE_ACCOUNT(this.form);
+        //this.CREATE_ACCOUNT(this.form);
+        if (this.form.child_gender == "Masculino") {
+          this.form.child_gender = "M";
+        } else if (this.form.child_gender == "Feminino") {
+          this.form.child_gender = "F";
+        }
+        this.registerAPI(this.form)
+          .then(() => this.$router.push({ name: "Login" }))
+          .catch((err) => (this.warning = `${err}`));
         this.$router.push({ name: "Login" });
       }
     },
     nextStep() {
       this.step += 1;
     },
-    ...mapMutations(["CREATE_ACCOUNT"]),
   },
 };
 </script>

@@ -132,7 +132,6 @@ export default {
   },
   mounted() {
     this.userType = this.getUserType.role
-    alert(this.userType)
     if (this.getUserType.role == "psychologist") {
       this.profileImage = this.getLoggedPsychologist[0].avatar;
     } else if (this.getUserType.role == "child") {

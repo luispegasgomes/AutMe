@@ -74,7 +74,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["login_ap"]),
+    ...mapActions(["loginAPI"]),
     login() {
       /*if (this.isUser(this.username, this.password)) {
         this.SET_LOGGED_USER(this.username);
@@ -82,7 +82,7 @@ export default {
       } else {
         this.error = true;
       }*/
-      this.login_ap()
+      this.loginAPI(this.user)
         .then(()=>this.$router.push({ name: "Landing" }))
         .catch((err)=>this.warning=`${err}`)
 

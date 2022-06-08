@@ -42,7 +42,7 @@ export default {
     // This method returns the diaries corresponding to the logged user
     getDiaries: (state) => state.diaries,
     getIsAuthenticated: (state) => state.isAuthenticated,
-    getUserType: (state) => state.loggedUserType,
+    getUserType: (state) => state.loggedUser,
     getUsername: (state) => state.loggedUsername,
     getEmail: (state) => state.loggedEmail,
     getLoggedUserInformations: (state) => state.loggedUserInfo,
@@ -293,8 +293,8 @@ export default {
     },
     SET_LOGGED_USER(state, payload) {
       state.user={}
-      state.loggedUser.token=payload.authKey
-      state.loggedUser.type=payload.typeUser
+      state.loggedUser.accessToken=payload.accessToken
+      state.loggedUser.role=payload.role
       state.loggedUser.username=payload.username
       localStorage.loggedUser=JSON.stringify(state.loggedUser)
     },
@@ -332,54 +332,53 @@ export default {
         throw new Error(response.status);
       }
     },
-    async loginAPI(context, payload) {
-      const response = await fetch(`http://127.0.0.1:3000/users/login`, {
-        method: 'POST',
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-          username: payload.username,
-          password: payload.password
-        })
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        if (data.accessToken) 
-          localStorage.setItem('user', JSON.stringify(data));
-          context.commit("SET_LOGGED_USER", await response.json());
-        return data;
-      } else {
-        throw new Error(response.status);
-      }
-    }
-
-  },
-  async login_ap(context){
+    async loginAPI(context, data){
     
-    const response = await fetch("http://127.0.0.1:3000/users/login", {
-      method: 'POST',
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify({
-        username: 'luisgomes',
-        password: 'gomes'
+      const response = await fetch("http://127.0.0.1:3000/users/login", {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
       })
-    })
-    if(response.ok){
-      context.commit("SET_LOGGED_USER", await response.json());
-    }
-    else{
-      const err=await response.json()
-      throw new Error(err.error)
-    }
-  },
+      if(response.status==401){
+        alert('Credenciais inválidas')
+      }
+      if(response.ok){
+        context.commit("SET_LOGGED_USER", await response.json());
+      }
+      else{
+        const err=await response.json()
+        throw new Error(err.error)
+      }
+    },
+    async registerAPI(context, data){
+      console.log(data);
+      const response = await fetch("http://127.0.0.1:3000/users", {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data)
+      })
+      if(!response.status==201){
+        const err=await response.json()
+        throw new Error(err.error)
+      }
+    },
+
+  }
+
 };
