@@ -13,23 +13,33 @@
 
       <section class="d-flex flex-wrap bgWhite listbox mx-5 mt-4">
         <article
-          class="card my-3 mx-4 col-4 d-flex flex-column align-items-center rounded"
-          v-for="(connection, index) in getConnections"
+          class="
+            card
+            my-3
+            mx-4
+            col-4
+            d-flex
+            flex-column
+            align-items-center
+            rounded
+          "
+          v-for="(connection, index) in getBindings"
           :key="index"
         >
           <img
-            class="card-img pt-4"
-            style="width: 50%"
-            :src="getChildAvatar(connection.childUser)"
-            :alt="connection.childUser"
-            v-on:click="selectedChild = connection.childUser"
+            class="mt-4"
+            height="100"
+            style="border-radius: 50%"
+            :src="connection.avatar"
+            :alt="connection.avatar"
+            v-on:click="selectedChild = connection.child"
           />
-          <h4 class="mt-4">{{ connection.childUser }}</h4>
+          <h4 class="mt-2">{{ connection.child }}</h4>
           <button
-            class="button2"
-            v-on:click="clickChild((selectedChild = connection.childUser))"
+            class="button2 mt-3 bgOrange"
+            v-on:click="clickChild((selectedChild = connection))"
           >
-            Ver mais
+            Ver Ficha Técnica
           </button>
         </article>
       </section>
@@ -44,7 +54,7 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "Children",
   components: {
@@ -56,8 +66,13 @@ export default {
       selectedChild: "",
     };
   },
+  created() {
+    this.loadBindings("");
+  },
   methods: {
     ...mapMutations(["SET_CLICKED_CHILD"]),
+    ...mapActions(["loadBindings"]),
+
     clickChild() {
       this.SET_CLICKED_CHILD(this.selectedChild);
       this.$router.push({ name: "FichaTecnica" });
@@ -66,9 +81,9 @@ export default {
   computed: {
     ...mapGetters([
       "getUsername",
-      "getConnections",
       "getChildAvatar",
       "getUserClick",
+      "getBindings",
     ]),
   },
 };
@@ -80,19 +95,18 @@ export default {
 }
 
 .button1 {
-  background: var(--white);
   border-color: var(--blue);
   border-width: 3px;
   border-radius: 6px;
   width: 200px;
 }
 .button2 {
-  background: var(--white);
-  border-color: var(--blue);
+  border: none;
   border-radius: 6px;
-  width: 130px;
+  width: 150px;
+  height: 30px;
   font-size: 15px;
-  color: var(--blue);
+  color: white;
 }
 
 .listbox {
@@ -107,10 +121,11 @@ export default {
 
 .card {
   width: 13rem;
-  height: 14rem;
+  height: 15rem;
   text-align: center;
   font-size: 50%;
   border-color: var(--blue);
-  border-width: 3px;
+  border-width: 8px;
+
 }
 </style>

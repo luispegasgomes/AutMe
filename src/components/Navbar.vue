@@ -18,7 +18,7 @@
           <router-link
             :to="{ name: 'EmotionsList' }"
             class="nav-link text-uppercase navEmotions"
-            >EMOÇÕES</router-link
+            >Conquistas</router-link
           >
         </li>
         <li
@@ -102,8 +102,8 @@
         class="mx-1 d-flex flex-column align-items-end profile"
       >
         <img
-          :src="profileImage"
-          :alt="profileImage"
+          :src="getUserInfo.child_avatar"
+          :alt="getUserInfo.child_avatar"
           height="50"
           width="50"
           style="border-radius: 100px"
@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import router from "../router";
 export default {
   name: "Navbar",
@@ -127,11 +127,16 @@ export default {
   data() {
     return {
       profileImage: "../temp_profile_img.png",
-      userType:""
+      userType: "",
     };
   },
+  created() {
+    this.getUserAPI()
+      .then(() => console.log("Deu certo!"))
+      .catch((err) => (this.warning = `${err}`));
+  },
   mounted() {
-    this.userType = this.getUserType.role
+    this.userType = this.getUserType.role;
     if (this.getUserType.role == "psychologist") {
       this.profileImage = this.getLoggedPsychologist[0].avatar;
     } else if (this.getUserType.role == "child") {
@@ -154,7 +159,9 @@ export default {
       "getLoggedChild",
       "getLoggedTutor",
       "getLoggedPsychologist",
+      "getUserInfo",
     ]),
+    ...mapActions(["getUserAPI"]),
   },
 };
 </script>

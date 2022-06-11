@@ -4,13 +4,15 @@
     <main>
       <div class="d-flex align-items-center mx-5 mt-3">
         <img
-          :src="getSelectedChildInformations[0].avatar"
-          :alt="getSelectedChildInformations[0].name"
+          :src="getUserClick.avatar"
+          :alt="getUserClick.avatar"
           width="100px"
           class="mx-4"
+          height="100"
+          style="border-radius: 50%"
         />
         <p class="mt-3 fontAsap colorDarkBlue" style="font-size: 38px">
-          {{ getSelectedChildInformations[0].name }}
+          {{ getUserClick.child }}
         </p>
       </div>
       <div class="d-flex flex-column align-items-center mt-3">
@@ -125,20 +127,20 @@
       <div v-if="selected === 'Consultas'" class="profileBox2">
         <div
           class="d-flex align-items-center justify-content-between mt-3"
-          v-for="(info, index) in getUsernameAppointments"
+          v-for="(info, index) in getAppointments"
           :key="index"
         >
           <p
             class="mx-3 fontNunito colorBlue"
             style="font-size: 30px; text-align: center"
           >
-            <img src="../assets/relogio_ico.png" width="45px" /> {{ info.hour }}
+            <img src="../assets/relogio_ico.png" width="45px" /> {{ info.time }}
           </p>
           <p class="fontAsap colorDarkBlue col-2" style="font-size: 30px">
             {{ info.date }}
           </p>
           <p class="mx-3 fontAsap colorDarkBlue" style="font-size: 30px">
-            {{ info.username }}
+            {{ info.psychologist }}
             <img
               :src="info.avatar"
               :alt="info.avatar"
@@ -150,7 +152,7 @@
         </div>
         <div
           class="d-flex flex-column align-items-center mt-4"
-          v-if="getUserType == 'psychologist'"
+          v-if="getUserType.role == 'psychologist'"
         >
           <button
             class="bgBlue"
@@ -187,7 +189,6 @@
       <!--NOTAS-->
       <div v-if="selected === 'Notas'" class="notes">
         <div
-          v-if="getUserType != 'tutor'"
           class="
             d-flex
             flex-column
@@ -216,7 +217,7 @@
         </div>
         <div
           class="d-flex flex-column justify-content-between mt-3 cardNotes"
-          v-for="(info, index) in getUsernameNotes"
+          v-for="(info, index) in getNotes"
           :key="index"
         >
           <p class="text-left mt-2 mx-2" style="font-size: 23px">
@@ -244,7 +245,7 @@
       <div class="d-flex flex-column">
         <div class="d-flex align-items-center justify-content-between">
           <div class="fontBarlow" style="font-size: 30px">
-            Conta-nos o teu dia!
+            Adicionar nova nota
           </div>
           <button v-on:click="closeModal()" class="fontNunito closebtn mt-2">
             <img src="../assets/btn_close.png" width="40" />
@@ -277,7 +278,7 @@
             id="txtDescription"
             v-model="form.description"
             class="my-3 mt-4"
-            placeholder="Descrição do teu dia"
+            placeholder="O que pretende dizer?"
             style="height: 200px; width: 440px"
           />
           <input
@@ -326,7 +327,7 @@
           </div>
           <div class="schedules mt-4">
             <button
-              class="mx-2 hour"
+              class="mx-2 time"
               v-for="(schedule, index) in schedules"
               :key="index"
               v-on:click="setNewSchedule(schedule)"
@@ -351,7 +352,7 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Imita",
   components: {
@@ -360,19 +361,20 @@ export default {
   },
   data() {
     return {
+      warning: "",
       selected: "",
       form: {
-        childUsername: "",
+        allUserUsername: "",
         date: "",
         title: "",
         description: "",
       },
       form2: {
-        childUsername: "",
-        username: "",
-        clinic: "Moreira da Maia",
+        allUserUsername: "",
+        psychologist: "",
         date: "",
-        hour: "",
+        time: "",
+        city: "",
         avatar: "",
       },
       schedules: [
@@ -388,17 +390,24 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["SET_NEW_NOTE", "SET_NEW_APPOINTMENT"]),
+    ...mapActions(["loadAppointments", "loadNotes", "addNoteAPI", "getUserAPI", "addAppointmentAPI"]),
+
     addNewNote() {
-      this.form.childUsername = this.getUserClick;
-      this.SET_NEW_NOTE(this.form);
+      this.form.allUserUsername = this.getUserClick.child;
+      this.addNoteAPI(this.form)
+        .then(() => location.reload())
+        .catch((err) => (this.warning = `${err}`));
       this.$bvModal.hide("modal-1");
     },
     addNewAppointment() {
-      this.form2.username = this.getUsername;
-      this.form2.childUsername = this.getUserClick;
-      this.form2.avatar = this.getLoggedUserInformations.avatar;
-      this.SET_NEW_APPOINTMENT(this.form2);
+      this.form2.allUserUsername = this.getUserClick.child;
+      this.form2.psychologist = this.getUserInfo.username 
+      this.form2.city = 'Rio Tinto';
+      this.form2.avatar = this.getUserInfo.child_avatar;
+      // Call the action to add appointment
+      this.addAppointmentAPI(this.form2)
+        .then(() => location.reload())
+        .catch((err) => (this.warning = `${err}`));
       this.$bvModal.hide("modal-1");
     },
     openModalAddNewNote() {
@@ -418,25 +427,30 @@ export default {
       this.$bvModal.hide("modal-2");
     },
     setNewSchedule(schedule) {
-      this.form2.hour = schedule;
+      this.form2.time = schedule;
     },
     checkSchedule(schedule) {
-      if (this.form2.hour === schedule) {
+      if (this.form2.time === schedule) {
         return true;
       }
     },
   },
   computed: {
     ...mapGetters([
-      "getEmotionsForImita",
-      "getUsernameNotes",
-      "getUsernameAppointments",
       "getUserClick",
-      "getUsername",
+      "getAppointments",
+      "getNotes",
       "getUserType",
-      "getSelectedChildInformations",
-      "getLoggedUserInformations",
+      "getUserInfo",
     ]),
+  },
+  created() {
+    this.getUserAPI()
+      .then(() => console.log("Deu certo!"))
+      .catch((err) => (this.warning = `${err}`));
+    this.loadAppointments(this.getUserClick.child);
+    this.loadNotes(this.getUserClick.child);
+
   },
 };
 </script>
@@ -549,7 +563,7 @@ form input {
   justify-content: center;
   width: 70%;
 }
-.hour {
+.time {
   border: 3px solid var(--blue);
   text-align: center;
   background: white;

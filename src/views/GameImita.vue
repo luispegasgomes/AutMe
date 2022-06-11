@@ -131,11 +131,7 @@
                 p-3
               "
             >
-              <img
-                :src="getEmotionsForImita[0].imgUrl"
-                :alt="getEmotionsForImita[0].imgUrl"
-                width="200"
-              />
+              <img :src="getNew[0].img" :alt="getNew[0].img" width="200" />
             </div>
           </div>
 
@@ -174,11 +170,7 @@
                 p-3
               "
             >
-              <img
-                :src="getEmotionsForImita[1].imgUrl"
-                :alt="getEmotionsForImita[1].imgUrl"
-                width="200"
-              />
+              <img :src="getNew[1].img" :alt="getNew[1].img" width="200" />
             </div>
           </div>
 
@@ -217,11 +209,7 @@
                 p-3
               "
             >
-              <img
-                :src="getEmotionsForImita[2].imgUrl"
-                :alt="getEmotionsForImita[2].imgUrl"
-                width="200"
-              />
+              <img :src="getNew[2].img" :alt="getNew[2].img" width="200" />
             </div>
           </div>
 
@@ -260,11 +248,7 @@
                 p-3
               "
             >
-              <img
-                :src="getEmotionsForImita[3].imgUrl"
-                :alt="getEmotionsForImita[3].imgUrl"
-                width="200"
-              />
+              <img :src="getNew[3].img" :alt="getNew[3].img" width="200" />
             </div>
           </div>
 
@@ -303,11 +287,7 @@
                 p-3
               "
             >
-              <img
-                :src="getEmotionsForImita[4].imgUrl"
-                :alt="getEmotionsForImita[4].imgUrl"
-                width="200"
-              />
+              <img :src="getNew[4].img" :alt="getNew[4].img" width="200" />
             </div>
           </div>
 
@@ -435,7 +415,7 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "Imita",
   components: {
@@ -465,11 +445,18 @@ export default {
       letrasunicas: "",
     };
   },
+
   computed: {
-    ...mapGetters(["getEmotionsForImita", "getUsername"]),
+    ...mapGetters(["getUsername", "getNew"]),
   },
   methods: {
+    ...mapActions(["getEmotionsAPI", "removeDiaryAPI", "addAchievementAPI"]),
     finishGame() {
+      this.addAchievementAPI(8)
+        .then(() => {
+          location.reload();
+        })
+        .catch((err) => alert(err));
       if (this.countCorrectWords >= 3) {
         this.message = "Muitos parabéns. Continua no bom caminho!";
         this.messageImg = "../like.svg";
@@ -533,6 +520,7 @@ export default {
             "https://images.emojiterra.com/google/android-11/512px/1f61e.png";
           break;
       }
+
       // Data Submit
       this.formEmotion.name = this.wordRecognized;
       this.formEmotion.username = this.getUsername;
@@ -545,16 +533,16 @@ export default {
       this.letters = [];
       this.counter += 1;
       this.lifes = 5;
-      this.word = this.getEmotionsForImita[+this.counter].name;
+      this.word = this.getNew[+this.counter].name;
     },
 
     showHint() {
-      this.newTip = this.getEmotionsForImita[this.step].hint;
+      this.newTip = this.getNew[this.step].hint;
       this.activeTip = true;
     },
     startGameMethod() {
       this.startGame = true;
-      this.word = this.getEmotionsForImita[0].name;
+      this.word = this.getNew[0].name;
     },
     showDoubt() {
       this.doubt = true;
@@ -583,7 +571,7 @@ export default {
           this.letters = [];
           this.lifes = 5;
           this.counter += 1;
-          this.word = this.getEmotionsForImita[+this.counter].name;
+          this.word = this.getNew[+this.counter].name;
         }
       }
 
@@ -597,7 +585,11 @@ export default {
         this.countCorrectWords += 1;
       }
     },
+
     ...mapMutations(["SET_NEW_RECOGNIZED_EMOTION"]),
+  },
+  created() {
+    this.getEmotionsAPI("");
   },
 };
 </script>

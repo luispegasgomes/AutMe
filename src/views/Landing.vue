@@ -38,16 +38,16 @@
 
             <div class="d-flex align-items-center">
               <div class="d-flex flex-column align-items-center mx-4 mt-4">
-                <img src="../assets/adivinha.jpg" class="imgs" />
+                <img src="../assets/quizme.png" class="imgs" />
               </div>
               <div class="d-flex flex-column">
                 <h2 class="fontAsap" style="font-size: 35px">
-                  Adivinha<span class="colorOrange weightBold">Me</span>
+                  Quiz<span class="colorOrange weightBold">Me</span>
                 </h2>
                 <p class="fontNunito col-9 my-1" style="font-size: 18px">
                   Será que tu sabes todas as nossas emoções?
                 </p>
-                <router-link :to="{ name: 'AdivinhaLevel' }">
+                <router-link :to="{ name: 'QuizMe' }">
                   <button
                     class="fontNunito bgOrange colorDarkBlue btnsPlay my-2"
                     id="guessLevel"
@@ -110,7 +110,7 @@
             </router-link>
           </div>
           <div class="mt-5 d-flex flex-column align-items-center">
-            <img src="../assets/espantado2.png" height="120" />
+            <img src="../assets/achievement.png" height="120" />
             <router-link
               :to="{ name: 'EmotionsList' }"
               class="nav-link text-uppercase"
@@ -119,7 +119,7 @@
                 class="fontNunito bgOrange colorDarkBlue btnsPlay my-2"
                 id="listEmotions"
               >
-                Ver as emoções!
+                Ver as conquistas!
               </button>
             </router-link>
           </div>
