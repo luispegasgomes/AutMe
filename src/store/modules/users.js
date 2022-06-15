@@ -396,7 +396,7 @@ export default {
         },
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data)
+       
       })
 
       if (!response.ok) {
@@ -467,9 +467,29 @@ export default {
       }
     },
     async addBindingAPI(context, data) {
-      
       let user = JSON.parse(localStorage.getItem('loggedUser'))
       const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/bindings/${data}`, {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + user.accessToken
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      })
+      if (!response.status == 201) {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+
+    },
+
+    async addBindingAPI2(context, data) {
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/${data.psychologist}/bindings/${data.allUserUsername}`, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

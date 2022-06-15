@@ -283,14 +283,13 @@ export default {
 
     vincular() {
       let childUsername = this.childCode;
-      alert(childUsername)
       if (confirm(`Quer vincular a conta com a criança ${childUsername}?`)) {
         if (childUsername == 'ola') {
           alert("A sua conta já está vinculada à criança desejada.");
         } else {
           this.addBindingAPI(childUsername)
             .then(() => {
-              alert('tudo ok')
+              console.log('tudo ok')
           })
           .catch((err) => (this.warning = `${err}`));
         }

@@ -244,11 +244,18 @@ export default {
       // Call the action to add appointment
       this.addAppointmentAPI(this.form);
       //Connect Psychologist
-      this.addBindingAPI(this.form.allUserUsername)
-        .then(() => {
-          console.log("Child added to psychologist.");
-        })
-        .catch((err) => (this.warning = `${err}`));
+
+      if (confirm(`Quer vincular a conta com a criança ${this.form.allUserUsername}?`)) {
+        if (this.form.allUserUsername == 'ola') {
+          alert("A sua conta já está vinculada à criança desejada.");
+        } else {
+          this.addBindingAPI2(this.form)
+            .then(() => {
+              console.log('tudo ok')
+          })
+          .catch((err) => (this.warning = `${err}`));
+        }
+      }
       this.$bvModal.hide("modal-1");
     },
     checkSchedule(schedule) {
@@ -257,7 +264,7 @@ export default {
       }
     },
     ...mapMutations(["SET_NEW_APPOINTMENT", "CONNECT_PSYCHOLOGIST"]),
-    ...mapActions(["loadPsychologists", "loadBindings", "addAppointmentAPI", "addBindingAPI"]),
+    ...mapActions(["loadPsychologists", "loadBindings", "addAppointmentAPI", "addBindingAPI", "addBindingAPI2"]),
   },
   computed: {
     ...mapGetters(["getPsychologists", "getBindings"]),
