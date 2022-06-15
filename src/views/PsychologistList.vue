@@ -21,19 +21,14 @@
               v-for="(psychologist, index) in getPsychologists"
               :key="index"
               :value="psychologist"
-              v-on:click="
-                selected = psychologist.user[index].username
-                testar()
-              "
+              v-on:click="selected = psychologist"
               :class="{
                 btn: true,
                 fontAsap: true,
-                selectedBtn:
-                  selected == psychologist.user[index].username,
+                selectedBtn: selected == psychologist,
               }"
-
             >
-              {{ psychologist.user[index].username }}
+              {{ psychologist.username }}
             </button>
           </div>
         </section>
@@ -43,11 +38,11 @@
         >
           <div class="d-flex align-items-center justify-content-between mb-3">
             <img
-              :src="getPsychologistByUsername[0].user[0].child_avatar"
-              :alt="getPsychologistByUsername[0].user[0].child_avatar"
+              :src="selected.child_avatar"
+              :alt="selected.child_avatar"
               style="width: 8%"
             />
-            <h1 class="text-center">{{ getPsychologistByUsername[0].user[0].username }}</h1>
+            <h1 class="text-center">{{ selected.name }}</h1>
             <img
               src="../assets/fivestars.png"
               alt="Avatar"
@@ -59,23 +54,23 @@
             class="d-flex flex-column align-items-center mt-5 mb-3 fontNunito"
           >
             <h3>
-              Email:
+              Username:
               <span class="colorOrange" style="font-weight: bold">
-                {{ getPsychologistByUsername[0].user[0].email }}
+                {{ selected.username }}
               </span>
             </h3>
             <h3>
-              Contacto: <span class="colorBlue"> 912892893</span>
+              Email: <span class="colorBlue"> {{ selected.email }}</span>
             </h3>
             <h3 class="mt-3">
-              Localização da clínica:
+              Data de nascimento:
               <span class="colorOrange" style="font-weight: bold">
-                Rio Tinto, Porto
+                {{ selected.birthDate }}
               </span>
             </h3>
             <h3>
-              Código Postal:
-              <span class="colorBlue"> 4670-567</span>
+              Localização da clínica:
+              <span class="colorBlue"> {{ selected.city }}</span>
             </h3>
           </div>
 
@@ -128,25 +123,27 @@
 
         <div class="d-flex flex-column align-items-center">
           <div class="mt-4" style="font-size: 20px">
-            Nome do psicólogo: {{ selected.name }}
+            Nome do psicólogo: {{ selected.username }}
           </div>
-          <div style="font-size: 20px">
-            Clínica: {{ selected.locationAdress }}
-          </div>
+          <div style="font-size: 20px">Clínica: {{ selected.city }}</div>
         </div>
 
         <form
           @submit.prevent="addAppointment"
           class="d-flex flex-column align-items-center mt-3"
         >
-          <select id="txtTitle" v-model="form.childUsername" class="col-4">
+          <select
+            id="txtTitle"
+            v-model="form.allUserUsername"
+            class="col-4 bgBlue fontAsap childSelect"
+          >
             <option value="" disabled>Selecionar criança</option>
             <option
-              v-for="(name, index) in getConnections"
+              v-for="(name, index) in getBindings"
               :key="index"
-              :value="name.childUser"
+              :value="name.child"
             >
-              {{ name.childUser }}
+              {{ name.child }}
             </option>
           </select>
           <input
@@ -200,16 +197,17 @@ export default {
   },
   data() {
     return {
+      warning: "",
       citySelected: "",
       selected: "",
       mail: "",
       psychologists: [],
       form: {
-        username: "",
+        allUserUsername: "",
+        psychologist: "",
         date: "",
-        hour: "",
-        locationAdress: "",
-        childUsername: "",
+        time: "",
+        city: "",
         avatar: "",
       },
       schedules: [
@@ -224,55 +222,52 @@ export default {
       ],
     };
   },
-  
-  mounted () {
-      this.loadPsychologists().catch((err) =>
-      alert(`Problem handling something: ${err}.`)
-    );
+  created() {
+    this.loadPsychologists("");
+    this.loadBindings("");
+  },
 
-  },
-  computed: {
-    ...mapGetters([
-      "getUsername",
-      "getPsychologists",
-      "getPsychologistByUsername",
-      "getConnections",
-    ]),
-  },
+
   methods: {
-    ...mapMutations(["SET_NEW_APPOINTMENT", "CONNECT_PSYCHOLOGIST"]),
-    ...mapActions(["loadPsychologists", "loadPsychologist"]),
-    testar() {
-      this.loadPsychologist(this.selected).catch((err) =>
-        alert(`Problem handling something: ${err}.`),
-      );
-    },
-
     closeModal() {
       this.$bvModal.hide("modal-1");
-      console.log(this.selected.username);
     },
     setNewSchedule(schedule) {
-      this.form.hour = schedule;
+      this.form.time = schedule;
     },
     addAppointment() {
-      // Submit form data
       this.form.username = this.selected.username;
-      this.form.avatar = this.selected.avatar;
-      this.SET_NEW_APPOINTMENT(this.form);
+      this.form.avatar = this.selected.child_avatar;
+      this.form.city = this.selected.city;
+      this.form.psychologist = this.selected.username;
+
+      // Call the action to add appointment
+      this.addAppointmentAPI(this.form);
+      //Connect Psychologist
+
+      if (confirm(`Quer vincular a conta com a criança ${this.form.allUserUsername}?`)) {
+        if (this.form.allUserUsername == 'ola') {
+          alert("A sua conta já está vinculada à criança desejada.");
+        } else {
+          this.addBindingAPI2(this.form)
+            .then(() => {
+              console.log('tudo ok')
+          })
+          .catch((err) => (this.warning = `${err}`));
+        }
+      }
       this.$bvModal.hide("modal-1");
-      const item = {
-        childUser: this.form.childUsername,
-        tutorUser: this.getUsername,
-        psychologistUser: this.selected.username,
-      };
-      this.CONNECT_PSYCHOLOGIST(item);
     },
     checkSchedule(schedule) {
-      if (this.form.hour === schedule) {
+      if (this.form.time === schedule) {
         return true;
       }
     },
+    ...mapMutations(["SET_NEW_APPOINTMENT", "CONNECT_PSYCHOLOGIST"]),
+    ...mapActions(["loadPsychologists", "loadBindings", "addAppointmentAPI", "addBindingAPI", "addBindingAPI2"]),
+  },
+  computed: {
+    ...mapGetters(["getPsychologists", "getBindings"]),
   },
 };
 </script>
@@ -281,6 +276,14 @@ export default {
 button:disabled {
   background-color: var(--orange);
   color: black;
+}
+
+.childSelect {
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 180px;
+  height: 30px;
 }
 .closebtn {
   border: none;

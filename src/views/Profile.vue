@@ -17,14 +17,14 @@
           <div class="profileBox2 d-flex flex-column mx-5 mb-3">
             <div class="d-flex flex-column align-items-center">
               <img
-                :src="profileImage"
-                :alt="profileImage"
+                :src="getUserInfo.child_avatar"
+                :alt="getUserInfo.child_avatar"
                 height="100"
                 class="my-3"
                 style="border-radius: 50%"
               />
               <h2 class="fontAsap" style="font-size: 35px">
-                {{ getLoggedUserInformations.name }}
+                {{ getUserInfo.name }}
               </h2>
             </div>
 
@@ -34,13 +34,13 @@
             >
               <div class="d-flex align-items-center justify-content-between">
                 <div class="colorBlue">Nome de utilizador:</div>
-                <div>{{ getLoggedUserInformations.username }}</div>
+                <div>{{ getUserInfo.username }}</div>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mt-3"
               >
                 <div class="colorBlue">E-mail:</div>
-                <div>{{ getEmail }}</div>
+                <div>{{ getUserInfo.email }}</div>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mt-3"
@@ -58,7 +58,7 @@
                 class="d-flex align-items-center justify-content-between mt-3"
               >
                 <div class="colorBlue">Data de nacimento:</div>
-                <div>{{ getLoggedUserInformations.birth }}</div>
+                <div>{{ getUserInfo.birthDate }}</div>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mt-3"
@@ -76,13 +76,7 @@
               >
                 Atualizar foto de perfil
               </button>
-              <button
-                v-if="getUserType != 'child'"
-                class="fontNunito bgBlue btnsPlay my-2 changeContact"
-                v-on:click="changeContact()"
-              >
-                Alterar contacto
-              </button>
+
             </div>
           </div>
           <!--PROFILE INFORMATIONS-->
@@ -93,7 +87,8 @@
             <div class="profileBox d-flex flex-column align-items-center mb-3">
               <div class="d-flex flex-column align-items-center">
                 <div class="d-flex flex-column align-items-center mt-2">
-                  <h2 class="fontAsap" style="font-size: 30px">
+                  <img src="../assets/password.png" width="70px" />
+                  <h2 class="fontAsap mt-2" style="font-size: 30px">
                     Atualizar password
                   </h2>
                 </div>
@@ -102,12 +97,6 @@
                     @submit.prevent="changePassword"
                     class="d-flex flex-column align-items-center"
                   >
-                    <input
-                      class="my-2 col-9 currentPassword"
-                      type="password"
-                      v-model="form.currentPassword"
-                      placeholder="Atual"
-                    />
                     <input
                       class="my-2 col-9 newPassword"
                       v-model="form.newPassword"
@@ -137,33 +126,6 @@
               </div>
             </div>
 
-            <!--LINK ACCOUNT-->
-            <div
-              class="
-                profileBox
-                d-flex
-                col-7
-                flex-column
-                align-items-center
-                my-3
-                mt-5
-                px-2
-              "
-              v-if="getUserType === 'child'"
-            >
-              <h2 class="fontAsap mt-2" style="font-size: 30px">
-                O teu código
-              </h2>
-              <p class="fontNunito">
-                Guarda como se fosse um segredo que só deves partilhar com os
-                teus pais...
-              </p>
-
-              <p class="fontNunito">
-                {{ getLoggedChildCode }}
-              </p>
-            </div>
-
             <div
               class="
                 profileBox
@@ -174,8 +136,9 @@
                 my-3
                 mt-5
               "
-              v-if="getUserType === 'tutor'"
+              v-if="getUserInfo.role != 'child'"
             >
+            <img src="../assets/link.png" width="70px"  class="mt-3"/>
               <h2 class="fontAsap mt-2" style="font-size: 30px">
                 Vincular Conta
               </h2>
@@ -185,10 +148,10 @@
                 @submit.prevent="vincular"
               >
                 <input
-                  class="my-2 col-9 txtConnect"
+                  class="my-2 col-10 txtConnect"
                   type="text"
-                  placeholder="Código"
-                  v-model="vincularForm.childCode"
+                  placeholder="Username da Criança"
+                  v-model="childCode"
                 />
                 <input
                   type="submit"
@@ -219,10 +182,28 @@
             <img src="../assets/btn_close.png" width="40" />
           </button>
         </div>
-        <div class="d-flex flex-column align-items-center mt-3">
+        <div
+          class="d-flex flex-column align-items-center mt-3"
+          v-if="errorpw === false"
+        >
           <img src="../assets/like.svg" width="100" />
           <div class="fontNunito mt-3" style="font-size: 20px">
             A tua password foi alterada com sucesso!
+          </div>
+
+          <router-link :to="{ name: 'Landing' }"
+            ><button class="btnsPlay mt-4 bgBlue">
+              Voltar à página inicial
+            </button></router-link
+          >
+        </div>
+        <div
+          class="d-flex flex-column align-items-center mt-3"
+          v-if="errorpw === true"
+        >
+          <img src="../assets/error.png" width="100" />
+          <div class="fontNunito mt-3" style="font-size: 20px">
+            As passwords não coincidem... Tenta novamente!
           </div>
 
           <router-link :to="{ name: 'Landing' }"
@@ -240,18 +221,19 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { mapGetters, mapMutations } from "vuex";
+
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "Landing",
   data() {
     return {
+      warning: "",
       name: "Profile",
       userGender: "",
       userType: "",
       contact: "",
       profileImage: "",
       form: {
-        currentPassword: "",
         newPassword: "",
         confirmPassword: "",
       },
@@ -259,28 +241,29 @@ export default {
         userType: "",
         newImg: "",
       },
-      vincularForm: {
         childCode: "",
-      },
+
+      errorpw: false,
     };
   },
   components: {
     Navbar,
     Footer,
   },
-  mounted() {
-    if (this.getUserType == "psychologist") {
-      this.profileImage = this.getLoggedPsychologist[0].avatar;
-    } else if (this.getUserType == "child") {
-      this.profileImage = this.getLoggedChild[0].avatar;
-    } else if (this.getUserType == "tutor") {
-      this.profileImage = this.getLoggedTutor[0].avatar;
-    }
-  },
+
   methods: {
     changePassword() {
-      this.$store.commit("SET_NEW_PASSWORD", this.form.newPassword);
-      this.$bvModal.show("modal-1");
+      if (this.form.newPassword != this.form.confirmPassword) {
+        this.errorpw = true;
+        this.$bvModal.show("modal-1");
+      } else {
+        this.updatePasswordAPI({ password: this.form.newPassword })
+          .then(() => {
+            this.errorpw = false;
+            this.$bvModal.show("modal-1");
+          })
+          .catch((err) => (this.warning = `${err}`));
+      }
     },
     closeModal() {
       this.$bvModal.hide("modal-1");
@@ -288,15 +271,9 @@ export default {
 
     changeProfileImg() {
       this.setImg.newImg = prompt("Insira nova imagem de perfil");
-      this.setImg.userType = this.getUserType;
-      this.SET_NEW_PROFILE_IMG(this.setImg);
-      if (this.getUserType == "psychologist") {
-        this.profileImage = this.getLoggedPsychologist[0].avatar;
-      } else if (this.getUserType == "child") {
-        this.profileImage = this.getLoggedChild[0].avatar;
-      } else if (this.getUserType == "tutor") {
-        this.profileImage = this.getLoggedTutor[0].avatar;
-      }
+      this.updateAvatarAPI({ child_avatar:this.setImg.newImg })
+      .then(() => location.reload())
+      .catch((err) => (this.warning = `${err}`));
     },
 
     changeContact() {
@@ -305,35 +282,39 @@ export default {
     },
 
     vincular() {
-      let childUsername = this.getUsernameFromCode(this.vincularForm.childCode);
+      let childUsername = this.childCode;
       if (confirm(`Quer vincular a conta com a criança ${childUsername}?`)) {
-        if (this.checkSameConnection(childUsername)) {
+        if (childUsername == 'ola') {
           alert("A sua conta já está vinculada à criança desejada.");
         } else {
-          this.SET_NEW_CONNECTION(childUsername);
+          this.addBindingAPI(childUsername)
+            .then(() => {
+              console.log('tudo ok')
+          })
+          .catch((err) => (this.warning = `${err}`));
         }
       }
     },
 
-    ...mapMutations([
-      "SET_NEW_PASSWORD",
-      "SET_NEW_PASSWORD",
-      "SET_NEW_PROFILE_IMG",
-      "SET_NEW_CONNECTION",
-    ]),
+    ...mapMutations(["SET_NEW_PROFILE_IMG", "SET_NEW_CONNECTION"]),
+    ...mapActions(["getUserAPI", "updatePasswordAPI", "updateAvatarAPI", "addBindingAPI"]),
   },
   created() {
-    if (this.getLoggedUserInformations.gender == "M") {
+    this.getUserAPI()
+      .then(() => console.log("Deu certo!"))
+      .catch((err) => (this.warning = `${err}`));
+    //console.log(this.getUserInfo);
+    if (this.getUserInfo.child_gender == "M") {
       this.userGender = "Masculino";
     } else {
       this.userGender = "Feminino";
     }
 
-    if (this.getUserType == "child") {
+    if (this.getUserInfo.role == "child") {
       this.userType = "Criança";
-    } else if (this.getUserType == "tutor") {
+    } else if (this.getUserInfo.role == "tutor") {
       this.userType = "Tutor";
-    } else if (this.getUserType == "psychologist") {
+    } else if (this.getUserInfo.role == "psychologist") {
       this.userType = "Psicólogo";
     }
   },
@@ -349,6 +330,7 @@ export default {
       "getLoggedChildCode",
       "getUsernameFromCode",
       "checkSameConnection",
+      "getUserInfo",
     ]),
   },
 };

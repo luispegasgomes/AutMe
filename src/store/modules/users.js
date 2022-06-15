@@ -1,46 +1,32 @@
-function create_UUID() {
-  let dt = new Date().getTime();
-  let uuid = "xxxxxxxx-xxxx-4xxx-yxxx".replace(/[xy]/g, function (c) {
-    let r = (dt + Math.random() * 16) % 16 | 0;
-    dt = Math.floor(dt / 16);
-    return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-  });
-  return uuid;
-}
-
 export default {
   state: {
     loggedUserType: localStorage.user ? JSON.parse(localStorage.user) : [],
     loggedUsername: "",
-    loggedUser:localStorage.loggedUser ? JSON.parse(localStorage.loggedUser):{},
+    loggedUser: localStorage.loggedUser ? JSON.parse(localStorage.loggedUser) : {},
     loggedUserInfo: "",
+    userInfo: {},
     loggedEmail: "",
-    userclick: "",
+    userclick: localStorage.userclick ? JSON.parse(localStorage.userclick) : "",
     psychologists: [],
     psychologist: [],
     diaries: [],
-    //loggedUser: "",
-    user:{},
+    user: {},
     users: [],
+    achievements:[],
+    allAchievements: [],
+    bindings: [],
 
-    recognizedImages: localStorage.recognizedImages ?
-      JSON.parse(localStorage.recognizedImages) : [{
-          username: "crianca",
-          name: "Alegria",
-          imgUrl: "https://images.emojiterra.com/google/android-11/512px/1f60a.png",
-        },
-        {
-          username: "crianca",
-          name: "Admiração",
-          imgUrl: "https://images.emojiterra.com/google/android-11/512px/1f929.png",
-        },
-      ],
+
   },
   getters: {
-    getPsychologists: (state) => state.psychologists,
+    getAchievements: (state) => state.achievements,
+    getAllAchievements: (state) => state.allAchievements,
+    getDiaries: (state) => state.diaries,
+    getBindings: (state) => state.bindings[0],
+    getUserInfo: (state) => state.userInfo,
+    getPsychologists: (state) => state.psychologists[0],
     getPsychologistByUsername: (state) => state.psychologist,
     // This method returns the diaries corresponding to the logged user
-    getDiaries: (state) => state.diaries,
     getIsAuthenticated: (state) => state.isAuthenticated,
     getUserType: (state) => state.loggedUser,
     getUsername: (state) => state.loggedUsername,
@@ -91,8 +77,8 @@ export default {
   mutations: {
     SET_LOGOUT(state) {
       state.loggedUser = {}
-      state.user={}
-      localStorage.loggedUser=JSON.stringify(state.loggedUser);
+      state.user = {}
+      localStorage.loggedUser = JSON.stringify(state.loggedUser);
     },
     SET_NEW_PASSWORD(state, payload) {
       state.users = state.users.map((user) =>
@@ -154,56 +140,6 @@ export default {
       });
       localStorage.diary = JSON.stringify(state.diary);
     },
-    CREATE_ACCOUNT(state, payload) {
-      state.users.push({
-        username: payload.username,
-        email: payload.userEmail,
-        password: payload.userPassword,
-        type: payload.userType,
-      });
-      localStorage.users = JSON.stringify(state.users);
-      if (payload.userType === "admin") {
-        state.admins.push({
-          username: payload.username,
-          name: `${payload.userName} ${payload.userSurname}`,
-          avatar: "/temp_profile_img.png",
-        });
-        localStorage.admins = JSON.stringify(state.admins);
-      } else if (payload.userType === "child") {
-        state.children.push({
-          username: payload.username,
-          name: `${payload.userName} ${payload.userSurname}`,
-          avatar: "/temp_profile_img.png",
-          gender: payload.userGender,
-          birth: payload.userDate,
-          code: create_UUID(),
-        });
-        localStorage.children = JSON.stringify(state.children);
-      } else if (payload.userType === "tutor") {
-        state.tutors.push({
-          username: payload.username,
-          name: `${payload.userName} ${payload.userSurname}`,
-          avatar: "/temp_profile_img.png",
-          gender: payload.userGender,
-          birth: payload.userDate,
-          contact: payload.userPhone,
-        });
-        localStorage.tutors = JSON.stringify(state.tutors);
-      } else {
-        state.psychologists.push({
-          username: payload.username,
-          name: `${payload.userName} ${payload.userSurname}`,
-          avatar: "/temp_profile_img.png",
-          gender: payload.userGender,
-          birth: payload.userDate,
-          contact: payload.userPhone,
-          locationAdress: payload.userLocation,
-          postalCode: payload.userPostalCode,
-          city: payload.userCity,
-        });
-        localStorage.psychologists = JSON.stringify(state.psychologists);
-      }
-    },
     UPDATE_ACCOUNT(state, payload) {
       const requestedUser = state.users.find(
         (user) => user.username === payload
@@ -254,7 +190,8 @@ export default {
       localStorage.psychologists = JSON.stringify(state.psychologists);
     },
     SET_CLICKED_CHILD(state, payload) {
-      state.userclick = payload;
+      state.userclick = payload
+      localStorage.userclick = JSON.stringify(state.userclick)
     },
     SET_NEW_CONNECTION(state, payload) {
       state.connections.push({
@@ -283,57 +220,71 @@ export default {
       localStorage.recognizedImages = JSON.stringify(state.recognizedImages);
     },
     SET_PSYCHOLOGISTS(state, payload) {
-      state.psychologists.push(payload);
+      state.psychologists.push(payload.users)
     },
     SET_PSYCHOLOGIST(state, payload) {
       state.psychologist.push(payload);
     },
     SET_DIARIES(state, payload) {
-      state.diaries.push(payload)
+      state.diaries = []
+      state.diaries.push(payload.user.diaries)
     },
     SET_LOGGED_USER(state, payload) {
-      state.user={}
-      state.loggedUser.accessToken=payload.accessToken
-      state.loggedUser.role=payload.role
-      state.loggedUser.username=payload.username
-      localStorage.loggedUser=JSON.stringify(state.loggedUser)
+      state.user = {}
+      state.loggedUser.accessToken = payload.accessToken
+      state.loggedUser.role = payload.role
+      state.loggedUser.username = payload.username
+      localStorage.loggedUser = JSON.stringify(state.loggedUser)
+    },
+    SET_USER_INFO(state, payload) {
+      state.userInfo = {}
+      state.userInfo.name = payload.user.name
+      state.userInfo.username = payload.user.username
+      state.userInfo.role = payload.user.role
+      state.userInfo.email = payload.user.email
+      state.userInfo.child_gender = payload.user.child_gender
+      state.userInfo.child_avatar = payload.user.child_avatar
+      state.userInfo.birthDate = payload.user.birthDate
+      state.achievements = payload.user.achievements
+    },
+    SET_ACHIEVEMENTS(state, payload) {
+      state.allAchievements = payload.achievements
+    },
+    SET_BINDINGS(state, payload) {
+      state.bindings = []
+      state.bindings.push(payload.user.bindings)
     },
 
   },
   actions: {
     async loadPsychologists(context) {
-      const response = await fetch("http://127.0.0.1:3000/users/psychologists");
+      const response = await fetch(`http://127.0.0.1:3000/users/psychologists`, {
+        method: 'GET',
+      })
       if (response.ok) {
         context.commit("SET_PSYCHOLOGISTS", await response.json());
       } else {
-        throw new Error(response.status);
-      }
-    },
-    async loadPsychologist(context, payload) {
-      const response = await fetch(`http://127.0.0.1:3000/users/psychologist/${payload}`);
-      if (response.ok) {
-        context.commit("SET_PSYCHOLOGIST", await response.json());
-      } else {
-        throw new Error(response.status);
+        const err = await response.json()
+        throw new Error(err.error)
       }
     },
     async loadDiaries(context) {
-      const response = await fetch(`http://127.0.0.1:3000/users/luisgomes2/diaries`);
-      const data = await response.json();
-      const totalItems = JSON.stringify(data.totalItems)
-
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/diaries`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + user.accessToken
+        },
+      })
       if (response.ok) {
-        for (let i = 0; i < totalItems; i++) {
-          context.commit("SET_DIARIES", await response.json());
-        }
-        
-
+        context.commit("SET_DIARIES", await response.json());
       } else {
-        throw new Error(response.status);
+        const err = await response.json()
+        throw new Error(err.error)
       }
     },
-    async loginAPI(context, data){
-    
+    async loginAPI(context, data) {
+
       const response = await fetch("http://127.0.0.1:3000/users/login", {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
@@ -347,19 +298,18 @@ export default {
         referrerPolicy: 'no-referrer',
         body: JSON.stringify(data)
       })
-      if(response.status==401){
+      if (response.status == 401) {
         alert('Credenciais inválidas')
       }
-      if(response.ok){
+      if (response.ok) {
         context.commit("SET_LOGGED_USER", await response.json());
-      }
-      else{
-        const err=await response.json()
+      } else {
+        const err = await response.json()
         throw new Error(err.error)
       }
     },
-    async registerAPI(context, data){
-      console.log(data);
+    async registerAPI(context, data) {
+
       const response = await fetch("http://127.0.0.1:3000/users", {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
@@ -373,11 +323,209 @@ export default {
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: JSON.stringify(data)
       })
-      if(!response.status==201){
+      if (!response.status == 201) {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+    },
+    async getUserAPI(context) {
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      
+      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + user.accessToken
+        },
+      })
+      if (response.ok) {
+        context.commit("SET_USER_INFO", await response.json());
+      } else {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+    },
+    async updatePasswordAPI(context,data){
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/password/${user.username}`, {
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin',
+        method: 'PATCH',
+        headers: {'Authorization': 'Bearer '+user.accessToken, 'Content-Type': 'application/json'},
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+      })
+      if(!response.ok){
         const err=await response.json()
         throw new Error(err.error)
       }
     },
+
+    async addDiaryAPI(context, data) {
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/diaries`, {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + user.accessToken
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data)
+      })
+      if (!response.status == 201) {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+    },
+
+    async removeDiaryAPI(context,data){
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response=await fetch(`http://127.0.0.1:3000/users/${user.username}/diaries/${data}`,{
+        method: 'DELETE',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + user.accessToken
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+       
+      })
+
+      if (!response.ok) {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+    },
+    async getAllAchievementsAPI(context) {
+      
+      const response = await fetch(`http://127.0.0.1:3000/achievements`, {
+        method: 'GET',
+      })
+      if (response.ok) {
+        context.commit("SET_ACHIEVEMENTS", await response.json());
+      } else {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+    },
+
+    async updateAvatarAPI(context,data){
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}`, {
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin',
+        method: 'PATCH',
+        headers: {'Authorization': 'Bearer '+user.accessToken, 'Content-Type': 'application/json'},
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+      })
+      if(!response.ok){
+        const err=await response.json()
+        throw new Error(err.error)
+      }
+    },
+    async addAchievementAPI(context,data){
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/achievements/${data}`, {
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin',
+        method: 'PUT',
+        headers: {'Authorization': 'Bearer '+user.accessToken, 'Content-Type': 'application/json'},
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+      })
+      if(!response.ok){
+        const err=await response.json()
+        throw new Error(err.error)
+      }
+    },
+    async loadBindings(context) {
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/bindings`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + user.accessToken
+        },
+      })
+      if (response.ok) {
+        context.commit("SET_BINDINGS", await response.json());
+      } else {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+    },
+    async addBindingAPI(context, data) {
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/bindings/${data}`, {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + user.accessToken
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      })
+      if (!response.status == 201) {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+
+    },
+
+    async addBindingAPI2(context, data) {
+      let user = JSON.parse(localStorage.getItem('loggedUser'))
+      const response = await fetch(`http://127.0.0.1:3000/users/${data.psychologist}/bindings/${data.allUserUsername}`, {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + user.accessToken
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      })
+      if (!response.status == 201) {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+
+    },
+    async addAppointmentAPI(context, data) {
+      const response = await fetch(`http://127.0.0.1:3000/users/${data.allUserUsername}/appointments`, {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data)
+      })
+      if (!response.status == 201) {
+        const err = await response.json()
+        throw new Error(err.error)
+      }
+    },
+
 
   }
 

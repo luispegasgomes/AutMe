@@ -2,7 +2,7 @@
   <div class="info bgGrey d-flex">
     <div class="col-10 p-3">
       <img
-        src="../assets/logo.svg"
+        src="../assets/tester.png"
         alt="AutMe logo"
         height="100px"
         class="mb-4"

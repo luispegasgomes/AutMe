@@ -1,56 +1,75 @@
 export default {
     state: {
-        userclick: "",
-        notes: localStorage.notes ?
-            JSON.parse(localStorage.notes) : [{
-                childUsername: 'luisgomes',
-                date: "23/03/2015",
-                description: "descrição",
-                title: "Não correu bem",
-            }, ],
-        appointments: localStorage.appointments ?
-            JSON.parse(localStorage.appointments) : [{
-                childUsername: "luisgomes",
-                username: 'filipacastro',
-                clinic: "Moreira, Maia",
-                date: "23/02/2021",
-                hour: "09:30",
-            }, ],
+        userclick: localStorage.userclick ? JSON.parse(localStorage.userclick) : "",
+        notes: [],
+        appointments: [],
     },
     getters: {
         getUserClick: (state) => state.userclick,
-        getUsernameNotes: (state) => state.notes.filter((d) => d.childUsername === state.userclick),
-        getUsernameAppointments: (state) => state.appointments.filter((d) => d.childUsername === state.userclick),
-
+        getAppointments: (state) => state.appointments[0],
+        getNotes: (state) => state.notes[0],
     },
     mutations: {
         SET_CLICKED_CHILD(state, payload) {
             state.userclick = payload
         },
-        SET_NEW_NOTE(state, payload) {
-            state.notes.push({
-                childUsername: payload.childUsername,
-                date: payload.date,
-                description: payload.description,
-                title: payload.title,
-            });
-            localStorage.notes = JSON.stringify(state.notes);
-        },
-        SET_NEW_APPOINTMENT(state, payload) {
-            state.appointments.push({
-                childUsername: payload.childUsername,
-                username: payload.username,
-                clinic: payload.clinic,
-                date: payload.date,
-                hour: payload.hour,
-                avatar: payload.avatar,
-            });
-            localStorage.appointments = JSON.stringify(state.appointments);
+
+        SET_APPOINTMENTS(state, payload) {
+            state.appointments = []
+            state.appointments.push(payload.user.appointments)
         },
 
-
-
-
+        SET_NOTES(state, payload) {
+            state.notes = []
+            state.notes.push(payload.user.notes)
+        },
     },
-    actions: {},
+    actions: {
+        async loadAppointments(context, data) {
+            const response = await fetch(`http://127.0.0.1:3000/users/${data}/appointments`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            if (response.ok) {
+                context.commit("SET_APPOINTMENTS", await response.json());
+            } else {
+                const err = await response.json()
+                throw new Error(err.error)
+            }
+        },
+        async loadNotes(context, data) {
+            const response = await fetch(`http://127.0.0.1:3000/users/${data}/notes`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            if (response.ok) {
+                context.commit("SET_NOTES", await response.json());
+            } else {
+                const err = await response.json()
+                throw new Error(err.error)
+            }
+        },
+        async addNoteAPI(context, data) {
+            const response = await fetch(`http://127.0.0.1:3000/users/${data.allUserUsername}/notes`, {
+              method: 'POST',
+              mode: 'cors', // no-cors, *cors, same-origin
+              cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+              credentials: 'same-origin', // include, *same-origin, omit
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              redirect: 'follow', // manual, *follow, error
+              referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+              body: JSON.stringify(data)
+            })
+            if (!response.status == 201) {
+              const err = await response.json()
+              throw new Error(err.error)
+            }
+          },
+    },
 };

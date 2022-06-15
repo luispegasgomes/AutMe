@@ -116,12 +116,12 @@ const routes = [
     },
   },
   {
-    path: "/emotions",
+    path: "/conquistas",
     name: "EmotionsList",
     component: EmotionsList,
     meta: {
       requiresAuth: false,
-      title: "Emoções",
+      title: "Conquistas",
       types: ["child", "tutor", "psychologist", "admin"],
     },
   },
@@ -146,12 +146,12 @@ const routes = [
     },
   },
   {
-    path: "/adivinhalevel",
-    name: "AdivinhaLevel",
+    path: "/quizme",
+    name: "QuizMe",
     component: AdivinhaLevel,
     meta: {
       requiresAuth: false,
-      title: "Adivinha - Escolhe o nível",
+      title: "QuizMe",
       types: ["child", "tutor", "psychologist", "admin"],
     },
   },
