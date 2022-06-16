@@ -452,14 +452,31 @@ export default {
   methods: {
     ...mapActions(["getEmotionsAPI", "removeDiaryAPI", "addAchievementAPI"]),
     finishGame() {
-      this.addAchievementAPI(8)
-        .then(() => {
-          location.reload();
-        })
-        .catch((err) => alert(err));
       if (this.countCorrectWords >= 3) {
         this.message = "Muitos parabéns. Continua no bom caminho!";
         this.messageImg = "../like.svg";
+      }
+      if (this.countCorrectWords == 3) {
+        this.addAchievementAPI(4)
+          .then(() => {
+            alert("Parabéns! Adquiriste mais uma conquista!");
+          })
+          .catch((err) => console.log(`Emoção já adquirida! ${err}`));
+      }
+      if (this.countCorrectWords == 5) {
+        this.addAchievementAPI(6)
+          .then(() => {
+            alert("Parabéns! Adquiriste mais uma conquista!");
+          })
+          .catch((err) => console.log(`Emoção já adquirida! ${err}`));
+      }
+
+      if (this.countCorrectWords == 5) {
+        this.addAchievementAPI(7)
+          .then(() => {
+            alert("Parabéns! Adquiriste mais uma conquista!");
+          })
+          .catch((err) => console.log(`Emoção já adquirida! ${err}`));
       }
       this.$bvModal.show("modal-1");
     },
@@ -525,7 +542,7 @@ export default {
       this.formEmotion.name = this.wordRecognized;
       this.formEmotion.username = this.getUsername;
       if (this.letrasunicas.length === this.letters.length) {
-        this.SET_NEW_RECOGNIZED_EMOTION(this.formEmotion);
+        console.log("ok");
       }
 
       this.step += 1;

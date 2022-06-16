@@ -26,25 +26,21 @@
           </div>
           <!--DIARY WITHOUT INFORMATIONS-->
           <div
-            class="
-              d-flex
-              flex-column
-              justify-content-between
-              col-11
-              mb-4
-            "
+            class="d-flex flex-column justify-content-between col-11 mb-4"
             v-if="getDiaries == 0"
           >
-          
             <div
               class="text juntify-content-center fontAsap mt-2 colorBlue"
-              style="text-align: center; font-size: 25px; font-weight: bold;"
+              style="text-align: center; font-size: 25px; font-weight: bold"
             >
-            <div class="d-flex flex-column align-items-center">
-            <img src="../assets/hello.png" width="80px" class="text-align:center">
-              <p class="mt-3 mb-3">Olá amiguinho!</p> 
-            </div>
-
+              <div class="d-flex flex-column align-items-center">
+                <img
+                  src="../assets/hello.png"
+                  width="80px"
+                  class="text-align:center"
+                />
+                <p class="mt-3 mb-3">Olá amiguinho!</p>
+              </div>
             </div>
             <div
               class="text mb-3 juntify-content-center fontAsap"
@@ -57,7 +53,8 @@
               class="text juntify-content-center fontAsap mb-2 colorOrange"
               style="text-align: center; font-size: 20px"
             >
-              Clica em "Conta-nos o teu dia" para poderes fazer o registo do teu dia!
+              Clica em "Conta-nos o teu dia" para poderes fazer o registo do teu
+              dia!
             </div>
           </div>
           <!--DIARY WITHOUT INFORMATIONS-->
@@ -75,21 +72,27 @@
             :key="index"
           >
             <div
-              class="fontAsap colorDarkBlue mt-1 mx-1 d-flex justify-content-between align-items-end"
+              class="
+                fontAsap
+                colorDarkBlue
+                mt-1
+                mx-1
+                d-flex
+                justify-content-between
+                align-items-end
+              "
               style="font-size: 20px"
             >
               {{ info.title }}
-              <button v-on:click="deleteDiary(info.id)" class="deletebtn"><img src="../assets/delete.png" width="20px"></button>
-      
+              <button v-on:click="deleteDiary(info.id)" class="deletebtn">
+                <img src="../assets/delete.png" width="20px" />
+              </button>
             </div>
             <div class="text mx-1">
               {{ info.description }}
             </div>
             <div class="d-flex flex-column align-items-end mx-2 mb-1">
-              
               {{ info.date }}
-              
-            
             </div>
           </div>
           <!--DIARY INFORMATIONS-->
@@ -173,7 +176,7 @@ export default {
   name: "Diary",
   data() {
     return {
-      warning:"",
+      warning: "",
       form: {
         title: "",
         description: "",
@@ -189,18 +192,35 @@ export default {
     ...mapGetters(["getUsername", "getDiaries", "getUserType"]),
   },
   methods: {
-    ...mapActions(["loadDiaries", "addDiaryAPI", "removeDiaryAPI"]),
+    ...mapActions([
+      "loadDiaries",
+      "addDiaryAPI",
+      "removeDiaryAPI",
+      "addAchievementAPI",
+    ]),
     addDiary() {
       this.addDiaryAPI(this.form)
-          .then(() => location.reload())
-          .catch((err) => (this.warning = `${err}`));
+        .then(() => location.reload())
+        .catch((err) => (this.warning = `${err}`));
+      this.addAchievementAPI(1)
+        .then(() => {
+          alert("Parabéns! Adquiriste mais uma conquista!");
+        })
+        .catch((err) => console.log(`Emoção já adquirida! ${err}`));
     },
-    deleteDiary(id){
+    deleteDiary(id) {
       // id: id do diário que pretendo apagar
-      alert('Diário apagado com sucesso!')
+      alert("Diário apagado com sucesso!");
       this.removeDiaryAPI(id)
-         .then(()=>{location.reload()})
-         .catch((err)=>alert(err))
+        .then(() => {
+          location.reload();
+        })
+        .catch((err) => alert(err));
+      this.addAchievementAPI(5)
+        .then(() => {
+          alert("Parabéns! Adquiriste mais uma conquista!");
+        })
+        .catch((err) => console.log(`Emoção já adquirida! ${err}`));
     },
 
     closeModal() {
@@ -294,5 +314,4 @@ input {
   -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
 }
-
 </style>

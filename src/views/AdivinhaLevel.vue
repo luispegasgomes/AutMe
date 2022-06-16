@@ -32,13 +32,14 @@
             {{ getImages[0].wrongAnswer }}
           </button>
           <button
-          id="correct"
+            id="correct"
             class="btnsPlay bgBlue mt-4"
             v-on:click="selected1 = getImages[0].correctAnswer"
           >
             {{ getImages[0].correctAnswer }}
           </button>
-          <button id="q1"
+          <button
+            id="q1"
             class="btnsPlay bgOrange mt-3"
             style="width: 120px"
             v-on:click="changeQuestion1()"
@@ -79,7 +80,7 @@
           </button>
 
           <button
-          id="q2"
+            id="q2"
             class="btnsPlay bgOrange mt-3"
             style="width: 120px"
             v-on:click="changeQuestion2()"
@@ -119,7 +120,7 @@
             {{ getImages[2].correctAnswer }}
           </button>
           <button
-          id="q3"
+            id="q3"
             class="btnsPlay bgOrange mt-3"
             style="width: 120px"
             v-on:click="changeQuestion3()"
@@ -160,7 +161,7 @@
           </button>
 
           <button
-          id="q1"
+            id="q1"
             class="btnsQuestion bgOrange mt-3"
             style="width: 120px"
             v-on:click="changeQuestion4()"
@@ -243,7 +244,7 @@ export default {
   },
   methods: {
     ...mapMutations(["SET_DIFFICULTYLEVEL"]),
-    ...mapActions(["getImagesAPI"]),
+    ...mapActions(["getImagesAPI", "addAchievementAPI"]),
     changeQuestion1() {
       if (this.getImages[0].correctAnswer == this.selected1) {
         this.count += 1;
@@ -269,6 +270,13 @@ export default {
       if (this.count >= 2) {
         this.message = "Muitos parabéns. Continua no bom caminho!";
         this.messageImg = "../like.svg";
+      }
+      if (this.count == 4) {
+        this.addAchievementAPI(8)
+          .then(() => {
+            alert("Parabéns! Adquiriste mais uma conquista!");
+          })
+          .catch((err) => console.log(`Emoção já adquirida! ${err}`));
       }
       this.$bvModal.show("modal-1");
     },

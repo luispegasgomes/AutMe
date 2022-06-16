@@ -444,7 +444,6 @@ export default {
         headers: {'Authorization': 'Bearer '+user.accessToken, 'Content-Type': 'application/json'},
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer',
-        body: JSON.stringify(data)
       })
       if(!response.ok){
         const err=await response.json()
