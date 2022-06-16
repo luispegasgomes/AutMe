@@ -36,6 +36,7 @@
           />
           <h4 class="mt-2">{{ connection.child }}</h4>
           <button
+          id="seefichatecnica"
             class="button2 mt-3 bgOrange"
             v-on:click="clickChild((selectedChild = connection))"
           >

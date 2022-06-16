@@ -32,12 +32,13 @@
             {{ getImages[0].wrongAnswer }}
           </button>
           <button
+          id="correct"
             class="btnsPlay bgBlue mt-4"
             v-on:click="selected1 = getImages[0].correctAnswer"
           >
             {{ getImages[0].correctAnswer }}
           </button>
-          <button
+          <button id="q1"
             class="btnsPlay bgOrange mt-3"
             style="width: 120px"
             v-on:click="changeQuestion1()"
@@ -78,6 +79,7 @@
           </button>
 
           <button
+          id="q2"
             class="btnsPlay bgOrange mt-3"
             style="width: 120px"
             v-on:click="changeQuestion2()"
@@ -117,6 +119,7 @@
             {{ getImages[2].correctAnswer }}
           </button>
           <button
+          id="q3"
             class="btnsPlay bgOrange mt-3"
             style="width: 120px"
             v-on:click="changeQuestion3()"
@@ -157,6 +160,7 @@
           </button>
 
           <button
+          id="q1"
             class="btnsQuestion bgOrange mt-3"
             style="width: 120px"
             v-on:click="changeQuestion4()"

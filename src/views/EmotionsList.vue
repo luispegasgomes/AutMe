@@ -11,6 +11,7 @@
       <div class="d-flex flex-column align-items-center mt-4">
         <div class="d-flex mb-3">
           <button
+          id="achievements"
             v-on:click="selected = false"
             :class="{
               btnsPlay: true,

@@ -19,6 +19,7 @@
         <div class="d-flex">
           <button
             v-on:click="selected = 'Consultas'"
+            id="consultas"
             :class="{
               btn: true,
               fontAsap: true,
@@ -49,6 +50,7 @@
           <span style="font-size: 40px">|</span>
           <button
             v-on:click="selected = 'Notas'"
+            id="notes"
             :class="{
               btn: true,
               fontAsap: true,
@@ -247,7 +249,7 @@
           <div class="fontBarlow" style="font-size: 30px">
             Adicionar nova nota
           </div>
-          <button v-on:click="closeModal()" class="fontNunito closebtn mt-2">
+          <button v-on:click="closeModal()" class="fontNunito closebtn mt-2" id="addnote">
             <img src="../assets/btn_close.png" width="40" />
           </button>
         </div>
