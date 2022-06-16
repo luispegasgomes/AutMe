@@ -79,7 +79,7 @@ export default {
   },
   actions: {
     async getEmotionsAPI(context) {
-      const response = await fetch(`http://127.0.0.1:3000/emotions`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/emotions`, {
         method: 'GET',
       })
       if (response.ok) {
@@ -90,7 +90,7 @@ export default {
       }
     },
     async getImagesAPI(context) {
-      const response = await fetch(`http://127.0.0.1:3000/images`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/images`, {
         method: 'GET',
       })
       if (response.ok) {

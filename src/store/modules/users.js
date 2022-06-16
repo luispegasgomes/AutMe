@@ -258,7 +258,7 @@ export default {
   },
   actions: {
     async loadPsychologists(context) {
-      const response = await fetch(`http://127.0.0.1:3000/users/psychologists`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/psychologists`, {
         method: 'GET',
       })
       if (response.ok) {
@@ -270,7 +270,7 @@ export default {
     },
     async loadDiaries(context) {
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/diaries`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${user.username}/diaries`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + user.accessToken
@@ -285,7 +285,7 @@ export default {
     },
     async loginAPI(context, data) {
 
-      const response = await fetch("http://127.0.0.1:3000/users/login", {
+      const response = await fetch("https://api-autme-new-nodejs.herokuapp.com/users/login", {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -310,7 +310,7 @@ export default {
     },
     async registerAPI(context, data) {
 
-      const response = await fetch("http://127.0.0.1:3000/users", {
+      const response = await fetch("https://api-autme-new-nodejs.herokuapp.com/users", {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -331,7 +331,7 @@ export default {
     async getUserAPI(context) {
       let user = JSON.parse(localStorage.getItem('loggedUser'))
       
-      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/${user.username}`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + user.accessToken
@@ -346,7 +346,7 @@ export default {
     },
     async updatePasswordAPI(context,data){
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response = await fetch(`http://127.0.0.1:3000/users/password/${user.username}`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/password/${user.username}`, {
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin',
@@ -364,7 +364,7 @@ export default {
 
     async addDiaryAPI(context, data) {
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/diaries`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${user.username}/diaries`, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -385,7 +385,7 @@ export default {
 
     async removeDiaryAPI(context,data){
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response=await fetch(`http://127.0.0.1:3000/users/${user.username}/diaries/${data}`,{
+      const response=await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${user.username}/diaries/${data}`,{
         method: 'DELETE',
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -406,7 +406,7 @@ export default {
     },
     async getAllAchievementsAPI(context) {
       
-      const response = await fetch(`http://127.0.0.1:3000/achievements`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/achievements`, {
         method: 'GET',
       })
       if (response.ok) {
@@ -419,7 +419,7 @@ export default {
 
     async updateAvatarAPI(context,data){
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${user.username}`, {
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin',
@@ -436,7 +436,7 @@ export default {
     },
     async addAchievementAPI(context,data){
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/achievements/${data}`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${user.username}/achievements/${data}`, {
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin',
@@ -453,7 +453,7 @@ export default {
     },
     async loadBindings(context) {
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/bindings`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${user.username}/bindings`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + user.accessToken
@@ -468,7 +468,7 @@ export default {
     },
     async addBindingAPI(context, data) {
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response = await fetch(`http://127.0.0.1:3000/users/${user.username}/bindings/${data}`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${user.username}/bindings/${data}`, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -489,7 +489,7 @@ export default {
 
     async addBindingAPI2(context, data) {
       let user = JSON.parse(localStorage.getItem('loggedUser'))
-      const response = await fetch(`http://127.0.0.1:3000/users/${data.psychologist}/bindings/${data.allUserUsername}`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${data.psychologist}/bindings/${data.allUserUsername}`, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -508,7 +508,7 @@ export default {
 
     },
     async addAppointmentAPI(context, data) {
-      const response = await fetch(`http://127.0.0.1:3000/users/${data.allUserUsername}/appointments`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${data.allUserUsername}/appointments`, {
         method: 'POST',
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

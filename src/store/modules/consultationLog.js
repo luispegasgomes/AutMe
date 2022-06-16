@@ -26,7 +26,7 @@ export default {
     },
     actions: {
         async loadAppointments(context, data) {
-            const response = await fetch(`http://127.0.0.1:3000/users/${data}/appointments`, {
+            const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${data}/appointments`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export default {
             }
         },
         async loadNotes(context, data) {
-            const response = await fetch(`http://127.0.0.1:3000/users/${data}/notes`, {
+            const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${data}/notes`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export default {
             }
         },
         async addNoteAPI(context, data) {
-            const response = await fetch(`http://127.0.0.1:3000/users/${data.allUserUsername}/notes`, {
+            const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${data.allUserUsername}/notes`, {
               method: 'POST',
               mode: 'cors', // no-cors, *cors, same-origin
               cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
