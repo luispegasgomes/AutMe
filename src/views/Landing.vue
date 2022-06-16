@@ -7,7 +7,7 @@
           <p
             style="
               position: relative;
-              top: 70px;
+              top: 50px;
               left: -30px;
               font-size: 25px;
               font-weight: bold;

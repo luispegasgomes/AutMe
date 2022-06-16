@@ -26,6 +26,7 @@
             O que conquistei?
           </button>
           <button
+          id="conquistas1"
             v-on:click="selected = true"
             :class="{
               btnsPlay: true,
