@@ -4,7 +4,7 @@
     <main>
       <div class="d-flex align-items-center justify-content-center">
         <section class="d-flex flex-column mx-5">
-          <p style="position: relative; top: 80px; left: 17px; font-size: 18px">
+          <p style="position: relative; top: 70px; left: 17px; font-size: 18px">
             Altera aqui as tuas informações <br />
             pessoais!
           </p>
