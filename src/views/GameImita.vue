@@ -435,7 +435,7 @@ export default {
       counter: 0,
       countCorrectWords: 0,
       message: "Que pena, vais ter de estar mais atento...",
-      messageImg: "../sad.png",
+      messageImg: "../cry.png",
       wordRecognized: "",
       formEmotion: {
         username: "",
