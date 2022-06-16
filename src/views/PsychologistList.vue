@@ -149,7 +149,7 @@
           <input
             type="date"
             v-model="form.date"
-            id="txtTitle"
+            id="txtAppointmentDate"
             class="mt-3"
             required
           />
@@ -173,7 +173,7 @@
             </button>
           </div>
           <input
-          id="marcar"
+            id="marcar"
             type="submit"
             class="fontNunito bgOrange orangebtns mt-4 col-8"
             style="width: 120px; height: 40px; font-size: 22px"
@@ -228,7 +228,6 @@ export default {
     this.loadBindings("");
   },
 
-
   methods: {
     closeModal() {
       this.$bvModal.hide("modal-1");
@@ -246,15 +245,19 @@ export default {
       this.addAppointmentAPI(this.form);
       //Connect Psychologist
 
-      if (confirm(`Quer vincular a conta com a criança ${this.form.allUserUsername}?`)) {
-        if (this.form.allUserUsername == 'ola') {
+      if (
+        confirm(
+          `Quer vincular a conta com a criança ${this.form.allUserUsername}?`
+        )
+      ) {
+        if (this.form.allUserUsername == "ola") {
           alert("A sua conta já está vinculada à criança desejada.");
         } else {
           this.addBindingAPI2(this.form)
             .then(() => {
-              console.log('tudo ok')
-          })
-          .catch((err) => (this.warning = `${err}`));
+              console.log("tudo ok");
+            })
+            .catch((err) => (this.warning = `${err}`));
         }
       }
       this.$bvModal.hide("modal-1");
@@ -265,7 +268,13 @@ export default {
       }
     },
     ...mapMutations(["SET_NEW_APPOINTMENT", "CONNECT_PSYCHOLOGIST"]),
-    ...mapActions(["loadPsychologists", "loadBindings", "addAppointmentAPI", "addBindingAPI", "addBindingAPI2"]),
+    ...mapActions([
+      "loadPsychologists",
+      "loadBindings",
+      "addAppointmentAPI",
+      "addBindingAPI",
+      "addBindingAPI2",
+    ]),
   },
   computed: {
     ...mapGetters(["getPsychologists", "getBindings"]),
