@@ -109,7 +109,7 @@
           style="border-radius: 100px"
         />
       </router-link>
-      <button class="btn" @click="logout">
+      <button id="btnLogOut" class="btn" @click="logout">
         <img src="../assets/shutdown.png" height="30" />
       </button>
     </div>
