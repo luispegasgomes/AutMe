@@ -331,7 +331,7 @@ export default {
     async getUserAPI(context) {
       let user = JSON.parse(localStorage.getItem('loggedUser'))
       
-      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/${user.username}`, {
+      const response = await fetch(`https://api-autme-new-nodejs.herokuapp.com/users/${user.username}`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + user.accessToken
